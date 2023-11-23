@@ -1,6 +1,7 @@
 {
     "version": 2,
     "builds": [
+        "npx prisma generate && next build",
         {
             "src": "src/server.ts",
             "use": "@vercel/node"
@@ -8,7 +9,7 @@
     ],
     "routes": [
         {
-            "src": "(.*)",
+            "src": "(./router/*)",
             "dest": "src/server.ts"
         }
     ]
