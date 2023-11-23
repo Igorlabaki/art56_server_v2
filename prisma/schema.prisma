@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url               = env("DATABASE_URL")
+  relationMode      = "prisma"
+}
+
+model User{
+  id        String   @id @default(uuid())
+  username  String
+  password  String
+  refresh_token         RefreshToken[]
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  expireIn  Int
+  userId    String?  @unique
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_token")
+}
+
+
+model Orcamento {
+  id              String      @id @default(cuid())
+  trafegoCanal    String
+  conheceEspaco   Boolean     @default(false)
+  dataInicio      DateTime
+  dataFim         DateTime
+  seguranca       Boolean
+  limpeza         Boolean
+  recepcionista   Boolean
+  nome            String
+  email           String
+  telefone        String
+  texto           String      @db.LongText
+  convidados      Int
+  valorBase       Float
+  qtdHorasExtras  Int
+  valorHoraExtra  Float
+  total           Float
+  aprovadoCliente Boolean     @default(false)
+  aprovadoAr756   Boolean     @default(false)
+  feedback        String?     @db.LongText
+  created_at      DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  contato         Boolean?
+  Data            DateEvent[]
+
+  @@map("orcamento")
+}
+
+model Image {
+  id         String   @id @default(cuid())
+  imageUrl   String   @db.LongText
+  area       String
+  position   Int
+  created_at DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  responsiveMode String
+  tag   String
+}
+
+
+model Text {
+  id         String   @id @default(cuid())
+  area       String
+  titulo     String?
+  position   Int      @default(0)
+  text       String   @db.LongText
+  created_at DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Values {
+  id         String   @id @default(cuid())
+  titulo     String
+  valor      Int
+  created_at DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Question {
+  id         String   @id @default(cuid())
+  question     String
+  response      String
+  created_at DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model DateEvent {
+  id          String     @id @default(cuid())
+  tipo        String
+  titulo      String
+  dataInicio  DateTime
+  dataFim     DateTime
+  orcamento   Orcamento? @relation(fields: [orcamentoId], references: [id], onDelete: Cascade)
+  created_at  DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  orcamentoId String?
+
+  @@index([orcamentoId])
+}
