@@ -2,6 +2,8 @@ export function validateInput(field: boolean[]){
     if(field.every((item) => !!item)){
         return
     }else{
-        throw new Error(`All inputs are required`)
+        const error = new Error();
+        error.message = "All inputs are required.";
+        throw error;
     }
 }
