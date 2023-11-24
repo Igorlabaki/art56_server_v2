@@ -16,14 +16,17 @@ class CreateTextController {
     const prismaTextRepository = new PrismaTextRepository(prismaClient);
     const createTextsCase = new CreateTextCase(prismaTextRepository);
 
-    const newText = await createTextsCase.execute({
-      area,
-      position,
-      text,
-      titulo,
-    });
-
-    return resp.json(newText);
+    try {
+      const newText = await createTextsCase.execute({
+        area,
+        position,
+        text,
+        titulo,
+      });
+      return resp.json(newText);
+    } catch (error) {
+      return resp.json(error);
+    }
   }
 }
 
