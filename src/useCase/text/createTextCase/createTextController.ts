@@ -17,7 +17,7 @@ class CreateTextController {
       const newText = await createTextsCase.execute(data);
       return resp.json(newText);
     } catch (error) {
-      return resp.status(500).json(error);
+      return resp.status(400).json(error);
     }
   }
 }
