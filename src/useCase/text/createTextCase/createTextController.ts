@@ -25,7 +25,7 @@ class CreateTextController {
       });
       return resp.json(newText);
     } catch (error) {
-      return resp.json(error);
+      return resp.status(500).json(error);
     }
   }
 }
