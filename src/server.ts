@@ -18,11 +18,6 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/text", textRoutes);
 
-app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
-  return resp.json({
-    status: "Error",
-    message: error.message,
-  });
-});
+
 
  export default app;
