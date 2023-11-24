@@ -4,7 +4,6 @@ import { prismaClient } from "../../../service/prisma";
 import { validateInput } from "../../../util/validateInput";
 import { ITextParams } from "../../../repository/ITextRepository";
 import { PrismaTextRepository } from "../../../repository/inPrisma/prismaTextRepository";
-
 class CreateTextController {
   constructor() {}
 

@@ -9,7 +9,7 @@ class CreateTextCase {
     if (entityExists) {
       const error = new Error();
       error.message = "Ja existe um texto com esse titulo nesta area.";
-      throw error;
+      return error;
     }
 
     const newText = await this.textRepository.create(data);
