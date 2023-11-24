@@ -8,21 +8,13 @@ class CreateTextController {
   constructor() {}
 
   async handle(req: Request, resp: Response) {
-    const { area, position, text, titulo }: ITextParams = req.body;
-
-    // Validate input
-    validateInput([!!area, !!position, !!text, !!titulo]);
+    const data : ITextParams = req.body;
 
     const prismaTextRepository = new PrismaTextRepository(prismaClient);
     const createTextsCase = new CreateTextCase(prismaTextRepository);
 
     try {
-      const newText = await createTextsCase.execute({
-        area,
-        position,
-        text,
-        titulo,
-      });
+      const newText = await createTextsCase.execute(data);
       return resp.json(newText);
     } catch (error) {
       return resp.status(500).json(error);

@@ -1,10 +1,18 @@
-import { ITextParams, ITextRepository } from "../../../repository/ITextRepository";
+import {
+  ITextParams,
+  ITextRepository,
+} from "../../../repository/ITextRepository";
+import { validateInput } from "../../../util/validateInput";
 
 class CreateTextCase {
   constructor(private textRepository: ITextRepository) {}
 
-  async execute(data: ITextParams) {
-    const entityExists = await this.textRepository.validateText({ ...data });
+  async execute({area,position,text,titulo}: ITextParams) {
+
+    // Validate input
+    validateInput([!!area, !!position, !!text, !!titulo]);
+
+    const entityExists = await this.textRepository.validateText({area,titulo});
 
     if (entityExists) {
       const error = new Error();
@@ -12,7 +20,7 @@ class CreateTextCase {
       throw error;
     }
 
-    const newText = await this.textRepository.create(data);
+    const newText = await this.textRepository.create({area,position,text,titulo});
 
     return newText;
   }
