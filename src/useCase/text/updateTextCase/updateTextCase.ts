@@ -13,7 +13,7 @@ class UpdateTextCase {
         message: 'Esta area ja possui um texto com esse titulo.',
       };
 
-      return error;
+      throw error;
     }
 
     const updateText = await this.textRepository.update({ textId, data });
