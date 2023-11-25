@@ -10,7 +10,7 @@ class CreateTextCase {
   async execute({area,position,text,titulo}: ITextParams) {
 
     // Validate input
-    validateInput([!!area, !!position, !!text, !!titulo]);
+    validateInput([!!area, !!position, !!text]);
 
     const entityExists = await this.textRepository.validateText({area,titulo});
 
