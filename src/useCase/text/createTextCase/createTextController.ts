@@ -8,7 +8,7 @@ class CreateTextController {
   constructor() {}
 
   async handle(req: Request, resp: Response) {
-    const data : ITextParams = req.body;
+    const data: ITextParams = req.body;
 
     const prismaTextRepository = new PrismaTextRepository(prismaClient);
     const createTextsCase = new CreateTextCase(prismaTextRepository);
@@ -17,7 +17,7 @@ class CreateTextController {
       const newText = await createTextsCase.execute(data);
       return resp.json(newText);
     } catch (error) {
-      return resp.status(400).json({error: error.message});
+      return resp.status(400).json({ error: error.message });
     }
   }
 }
