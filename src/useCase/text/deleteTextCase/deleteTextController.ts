@@ -7,15 +7,17 @@ class DeleteTextController {
   /*  constructor(private deleteTextCase: DeleteTextCase) {} */
 
   async handle(req: Request, resp: Response) {
-    
-    const { textId } = req.params
+    const { textId } = req.params;
 
     const prismaTextRepository = new PrismaTextRepository(prismaClient);
     const deleteTextCase = new DeleteTextCase(prismaTextRepository);
 
-    const deleteText = await deleteTextCase.execute(textId);
-
-    return resp.json(deleteText);
+    try {
+      const deleteText = await deleteTextCase.execute(textId);
+      return resp.json(deleteText);
+    } catch (error) {
+      return resp.status(400).json({ error: error.message });
+    }
   }
 }
 

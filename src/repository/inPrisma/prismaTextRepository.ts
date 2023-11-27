@@ -2,10 +2,11 @@ import {
   ITextParams,
   ITextRepository,
   IUpdateTextParams,
-  IValidateTextParams,
-} from '../ITextRepository';
+  IValidateTextAreaPositionParams,
+  IValidateTextAreaTitleParams,
+} from "../ITextRepository";
 
-import { PrismaClient, Text } from '@prisma/client';
+import { PrismaClient, Text } from "@prisma/client";
 
 export class PrismaTextRepository implements ITextRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -40,15 +41,30 @@ export class PrismaTextRepository implements ITextRepository {
         area: reference,
       },
       orderBy: {
-        position: 'asc',
+        position: "asc",
       },
     });
   }
 
-  async validateText(data: IValidateTextParams): Promise<Text | null> {
+  async validateIfExistTextAreaTitle(data: IValidateTextAreaTitleParams): Promise<Text | null> {
     return await this.prisma.text.findFirst({
       where: {
-        ...data,
+        AND: [
+          {
+            area: data.area,
+          },
+          { titulo: data.titulo },
+        ],
+      },
+    });
+  }
+  async validateIfExistTextAreaPosition(data: IValidateTextAreaPositionParams): Promise<Text | null> {
+    return await this.prisma.text.findFirst({
+      where: {
+        AND:[
+          {area: data.area},
+          {position: data.position}
+        ]
       },
     });
   }
@@ -67,7 +83,7 @@ export class PrismaTextRepository implements ITextRepository {
   async list(): Promise<Text[]> {
     return await this.prisma.text.findMany({
       orderBy: {
-        position: 'asc',
+        position: "asc",
       },
     });
   }

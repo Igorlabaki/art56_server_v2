@@ -17,9 +17,13 @@ export interface IUpdateTextParams {
   };
 }
 
-export interface IValidateTextParams {
+export interface IValidateTextAreaTitleParams {
   area: string;
-  titulo?: string | null;
+  titulo?: string | null | undefined;
+}
+export interface IValidateTextAreaPositionParams {
+  area: string;
+  position: number;
 }
 
 export interface ITextRepository {
@@ -27,7 +31,8 @@ export interface ITextRepository {
   delete: (reference: string) => Promise<Text | null>;
   getById: (reference: string) => Promise<Text | null>;
   getByArea: (reference: string) => Promise<Text[] | null>;
-  validateText: (reference: IValidateTextParams) => Promise<Text | null>;
   create: (reference: ITextParams) => Promise<Text | null>;
   update: (reference: IUpdateTextParams) => Promise<Text | null>;
+  validateIfExistTextAreaTitle: (reference: IValidateTextAreaTitleParams) => Promise<Text | null>;
+  validateIfExistTextAreaPosition: (reference: IValidateTextAreaPositionParams) => Promise<Text | null>;
 }

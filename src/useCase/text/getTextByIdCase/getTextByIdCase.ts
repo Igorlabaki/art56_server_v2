@@ -4,9 +4,18 @@ class GetTextByIdCase {
   constructor(private textRepository: ITextRepository) {}
 
   async execute(textId: string) {
-    const textById = await this.textRepository.getById(textId);
+    const validateIfExistTextExist = await this.textRepository.getById(textId);
 
-    return textById;
+    if (validateIfExistTextExist) {
+      const error: Error = {
+        name:"Error",
+        message: 'This text dont exist.',
+      };
+
+      throw error;
+    }
+
+    return validateIfExistTextExist;
   }
 }
 

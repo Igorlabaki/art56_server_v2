@@ -13,9 +13,12 @@ class GetTextByIdController {
     const prismaTextRepository = new PrismaTextRepository(prismaClient);
     const getTextByIdCase = new GetTextByIdCase(prismaTextRepository);
 
-    const textById = await getTextByIdCase.execute(textId);
-
-    return resp.json(textById);
+    try {
+      const textById = await getTextByIdCase.execute(textId);
+      return resp.json(textById);
+    } catch (error) {
+      return resp.status(400).json({ error: error.message });
+    }
   }
 }
 

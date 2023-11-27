@@ -12,11 +12,24 @@ class CreateTextCase {
     // Validate input
     validateInput([!!area, !!position, !!text]);
 
-    const entityExists = await this.textRepository.validateText({area,titulo});
+    const validateIfExistTextAreaPosition = await this.textRepository.validateIfExistTextAreaPosition({area, position});
+    const validateIfExistTextAreaTitle = await this.textRepository.validateIfExistTextAreaTitle({area, titulo});
 
-    if (entityExists) {
-      const error = new Error();
-      error.message = "Ja existe um texto com esse titulo nesta area.";
+    if (validateIfExistTextAreaPosition) {
+      const error: Error = {
+        name:"Error",
+        message: 'This area already has a text in this position.',
+      };
+
+      throw error;
+    }
+
+    if (validateIfExistTextAreaTitle) {
+      const error: Error = {
+        name:"Error",
+        message: 'This area already has a text with this title.',
+      };
+
       throw error;
     }
 

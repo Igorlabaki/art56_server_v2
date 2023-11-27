@@ -5,12 +5,22 @@ class UpdateTextCase {
   constructor(private textRepository: ITextRepository) {}
 
   async execute({ data, textId }: IUpdateTextParams) {
-    const entityExists = await this.textRepository.validateText({ ...data });
+    const validateIfExistTextAreaPosition = await this.textRepository.validateIfExistTextAreaPosition({area: data.area, position: data.position});
+    const validateIfExistTextAreaTitle = await this.textRepository.validateIfExistTextAreaTitle({area: data.area, titulo: data.titulo});
 
-    if (entityExists) {
+    if (validateIfExistTextAreaPosition) {
       const error: Error = {
         name:"Error",
-        message: 'Esta area ja possui um texto com esse titulo.',
+        message: 'This area already has a text in this position.',
+      };
+
+      throw error;
+    }
+
+    if (validateIfExistTextAreaTitle) {
+      const error: Error = {
+        name:"Error",
+        message: 'This area already has a text with this title.',
       };
 
       throw error;
