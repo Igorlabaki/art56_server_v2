@@ -55,6 +55,9 @@ export class PrismaTextRepository implements ITextRepository {
           },
           { titulo: data.titulo },
         ],
+        NOT: [
+          {id: data.textId}
+        ]
       },
     });
   }
@@ -64,6 +67,9 @@ export class PrismaTextRepository implements ITextRepository {
         AND:[
           {area: data.area},
           {position: data.position}
+        ],
+        NOT: [
+          {id: data.textId}
         ]
       },
     });

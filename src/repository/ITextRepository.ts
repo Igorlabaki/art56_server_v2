@@ -18,11 +18,13 @@ export interface IUpdateTextParams {
 }
 
 export interface IValidateTextAreaTitleParams {
+  textId: string;
   area: string;
   titulo?: string | null | undefined;
 }
 export interface IValidateTextAreaPositionParams {
   area: string;
+  textId: string;
   position: number;
 }
 
