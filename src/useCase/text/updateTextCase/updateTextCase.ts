@@ -5,8 +5,8 @@ class UpdateTextCase {
   constructor(private textRepository: ITextRepository) {}
 
   async execute({ data, textId }: IUpdateTextParams) {
-    const validateIfExistTextAreaPosition = await this.textRepository.validateIfExistTextAreaPosition({area: data.area, position: data.position});
-    const validateIfExistTextAreaTitle = await this.textRepository.validateIfExistTextAreaTitle({area: data.area, titulo: data.titulo});
+    const validateIfExistTextAreaPosition = await this.textRepository.validateIfExistTextAreaPosition({textId, area: data.area, position: data.position});
+    const validateIfExistTextAreaTitle = await this.textRepository.validateIfExistTextAreaTitle({textId, area: data.area, titulo: data.titulo});
 
     if (validateIfExistTextAreaPosition) {
       const error: Error = {
