@@ -6,7 +6,7 @@ class GetTextByIdCase {
   async execute(textId: string) {
     const validateIfExistTextExist = await this.textRepository.getById(textId);
 
-    if (validateIfExistTextExist) {
+    if (!validateIfExistTextExist) {
       const error: Error = {
         name:"Error",
         message: 'This text dont exist.',

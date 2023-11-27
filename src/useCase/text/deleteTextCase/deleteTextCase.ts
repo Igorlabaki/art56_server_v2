@@ -7,7 +7,7 @@ class DeleteTextCase {
 
     const validateIfExistTextExist = await this.textRepository.getById(reference);
 
-    if (validateIfExistTextExist) {
+    if (!validateIfExistTextExist) {
       const error: Error = {
         name:"Error",
         message: 'This text dont exist.',
