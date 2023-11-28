@@ -13,7 +13,7 @@ textRoutes.post("/create", createTextFactory().handle);
 //
 
 // List
-textRoutes.get("/list/:query", listTextFactory().handle);
+textRoutes.get("/list/:query?", listTextFactory().handle);
 //
 
 // Update
