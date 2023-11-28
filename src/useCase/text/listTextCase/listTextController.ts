@@ -6,6 +6,7 @@ import { PrismaTextRepository } from "../../../repository/inPrisma/prismaTextRep
 class ListTextController {
   async handle(req: Request , response: Response) {
     const {query} = req.params
+    
     const prismaTextRepository = new PrismaTextRepository(prismaClient);
     const listTextCase = new ListTextsCase(prismaTextRepository);
 
