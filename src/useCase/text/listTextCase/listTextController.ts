@@ -5,11 +5,11 @@ import { PrismaTextRepository } from "../../../repository/inPrisma/prismaTextRep
 
 class ListTextController {
   async handle(req: Request , response: Response) {
-
+    const {query} = req.body
     const prismaTextRepository = new PrismaTextRepository(prismaClient);
     const listTextCase = new ListTextsCase(prismaTextRepository);
 
-    const textList = await listTextCase.execute();
+    const textList = await listTextCase.execute(query);
 
     return response.json(textList);
   }

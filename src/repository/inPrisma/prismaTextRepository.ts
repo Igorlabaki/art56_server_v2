@@ -86,11 +86,24 @@ export class PrismaTextRepository implements ITextRepository {
     });
   }
 
-  async list(): Promise<Text[]> {
-    return await this.prisma.text.findMany({
-      orderBy: {
-        position: "asc",
-      },
-    });
+  async list(reference:string | undefined): Promise<Text[]> {
+    if(reference){
+      return await this.prisma.text.findMany({
+        where:{
+          area:{
+            contains:reference
+          }
+        },
+        orderBy: {
+          position: "asc",
+        },
+      });
+    }else{
+      return await this.prisma.text.findMany({
+        orderBy: {
+          position: "asc",
+        },
+      });
+    }
   }
 }

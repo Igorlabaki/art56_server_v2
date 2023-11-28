@@ -29,7 +29,7 @@ export interface IValidateTextAreaPositionParams {
 }
 
 export interface ITextRepository {
-  list: () => Promise<Text[] | null>;
+  list: (reference: string | undefined) => Promise<Text[] | null>;
   delete: (reference: string) => Promise<Text | null>;
   getById: (reference: string) => Promise<Text | null>;
   getByArea: (reference: string) => Promise<Text[] | null>;
