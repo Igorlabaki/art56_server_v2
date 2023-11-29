@@ -3,6 +3,7 @@ import "express-async-errors";
 import { authRoutes } from "./router/auth";
 import express, { NextFunction, Request, Response } from "express";
 import { textRoutes } from "./router/text";
+import { questionRoutes } from "./router/question";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/text", textRoutes);
+app.use("/question", questionRoutes);
 
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
   return resp.json({
