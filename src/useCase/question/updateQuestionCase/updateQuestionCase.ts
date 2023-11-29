@@ -5,7 +5,7 @@ class UpdateQuestionCase {
   constructor(private questionRepository: IQuestionRepository) {}
 
   async execute({ data, questionId }: IUpdateQuestionParams) {
-    const validateIfExistQuestionAreaPosition = await this.questionRepository.getByQuestion(data.question);
+    const validateIfExistQuestionAreaPosition = await this.questionRepository.validateQuestion({question: data.question, questionId});
 
     if (validateIfExistQuestionAreaPosition) {
       const error: Error = {

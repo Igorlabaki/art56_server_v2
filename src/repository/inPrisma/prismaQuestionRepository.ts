@@ -2,6 +2,7 @@ import {
   IQuestionParams,
   IQuestionRepository,
   IUpdateQuestionParams,
+  IValidateQuestionParams,
 } from '../IQuestionRepository';
 
 import { PrismaClient, Question } from '@prisma/client';
@@ -41,10 +42,17 @@ export class PrismaQuestionRepository implements IQuestionRepository {
     });
   }
 
-  async validateQuestion(data: IQuestionParams): Promise<Question | null> {
+  async validateQuestion(data: IValidateQuestionParams): Promise<Question | null> {
     return await this.prisma.question.findFirst({
       where: {
-        ...data,
+        AND: [
+          {
+            question: data.question,
+          },
+        ],
+        NOT: [
+          {id: data.questionId}
+        ]
       },
     });
   }

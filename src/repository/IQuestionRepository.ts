@@ -5,6 +5,11 @@ export interface IQuestionParams {
   response: string;
 }
 
+export interface IValidateQuestionParams {
+  question: string;
+  questionId: string;
+}
+
 export interface IUpdateQuestionParams {
   questionId: string;
   data: {
@@ -17,7 +22,7 @@ export interface IQuestionRepository {
   delete: (reference: string) => Promise<Question | null>;
   getById: (reference: string) => Promise<Question | null>;
   getByQuestion: (reference: string) => Promise<Question | null>;
-  validateQuestion: (reference: IQuestionParams) => Promise<Question | null>;
+  validateQuestion: (reference: IValidateQuestionParams) => Promise<Question | null>;
   create: (reference: IQuestionParams) => Promise<Question | null>;
   update: (reference: IUpdateQuestionParams) => Promise<Question | null>;
 }
