@@ -5,20 +5,32 @@ class UpdateQuestionCase {
   constructor(private questionRepository: IQuestionRepository) {}
 
   async execute({ data, questionId }: IUpdateQuestionParams) {
-    const validateIfExistQuestionAreaPosition = await this.questionRepository.validateQuestion({question: data.question, questionId});
+    const questionById = await this.questionRepository.getById(questionId);
 
-    if (validateIfExistQuestionAreaPosition) {
+    if (!questionById) {
       const error: Error = {
         name:"Error",
-        message: 'This question already exists.',
+        message: 'This question dont exists.',
       };
 
       throw error;
+    }else{
+      const validateIfExistQuestionAreaPosition = await this.questionRepository.validateQuestion({question: data.question, questionId: questionById.id});
+  
+      if (validateIfExistQuestionAreaPosition) {
+        const error: Error = {
+          name:"Error",
+          message: 'This question already exists.',
+        };
+  
+        throw error;
+      }
+  
+      const updateQuestion = await this.questionRepository.update({ questionId, data });
+  
+      return updateQuestion;
     }
 
-    const updateQuestion = await this.questionRepository.update({ questionId, data });
-
-    return updateQuestion;
   }
 }
 
