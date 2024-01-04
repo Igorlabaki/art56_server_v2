@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { createValueFactory } from "../useCase/value/createvalueCase/createvalueFactory";
+
 import { listValueFactory } from "../useCase/value/listValueCase/listValueFactory";
+import { createValueFactory } from "../useCase/value/createValueCase/createValueFactory";
 
 const valueRoutes = Router();
 
