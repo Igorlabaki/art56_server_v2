@@ -61,6 +61,7 @@ export class PrismaTextRepository implements ITextRepository {
       },
     });
   }
+  
   async validateIfExistTextAreaPosition(data: IValidateTextAreaPositionParams): Promise<Text | null> {
     return await this.prisma.text.findFirst({
       where: {

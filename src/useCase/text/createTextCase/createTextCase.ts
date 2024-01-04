@@ -11,6 +11,7 @@ class CreateTextCase {
 
     // Validate input
     validateInput([!!area, !!position, !!text]);
+    
 
     const validateIfExistTextAreaPosition = await this.textRepository.validateIfExistTextAreaPosition({area, position});
     const validateIfExistTextAreaTitle = await this.textRepository.validateIfExistTextAreaTitle({area, titulo});
