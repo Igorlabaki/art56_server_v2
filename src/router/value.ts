@@ -1,22 +1,18 @@
 import { Router } from "express";
-import { listvalueFactory } from "../useCase/value/listvalueCase/listvalueFactory";
-import { createvalueFactory } from "../useCase/value/createvalueCase/createvalueFactory";
-import { deletevalueFactory } from "../useCase/value/deletevalueCase/deletevalueFactory";
-import { updateTextFactory } from "../useCase/text/updateTextCase/updateTextFactory";
-import { getTextByIdFactory } from "../useCase/text/getTextByIdCase/getTextByIdFactory";
-import { getTextByAreaFactory } from "../useCase/text/getTextByAreaCase/getTextByAreaFactory";
+import { listValueFactory } from "../useCase/value/listvalueCase/listvalueFactory";
+import { createValueFactory } from "../useCase/value/createvalueCase/createvalueFactory";
 
 const valueRoutes = Router();
 
 // Create
-valueRoutes.post("/create", createvalueFactory().handle);
+valueRoutes.post("/create", createValueFactory().handle);
 //
 
 // List
 valueRoutes.get("/list/:query?", listValueFactory().handle);
 //
 
-// Update
+/* // Update
 valueRoutes.put("/update/:valueId", updateValueFactory().handle);
 //
 
@@ -30,6 +26,6 @@ valueRoutes.get("/getByArea/:area", getvalueByTituloFactory().handle);
 
 // Delete
 valueRoutes.delete("/delete/:valueId", deleteValueFactory().handle);
-//
+// */
 
 export { valueRoutes };
