@@ -5,6 +5,7 @@ import { createValueFactory } from "../useCase/value/createValueCase/createValue
 import { getValueByIdFactory } from "../useCase/value/getValueByIdCase/getValueByIdFactory";
 import { getValueByTituloFactory } from "../useCase/value/getValueByTituloCase/getValueByTituloFactory";
 import { deleteValueFactory } from "../useCase/value/deleteValueCase/deleteValueFactory";
+import { updateValueFactory } from "../useCase/value/updateValueCase/updateValueFactory";
 
 const valueRoutes = Router();
 
@@ -28,8 +29,8 @@ valueRoutes.delete("/delete/:valueId", deleteValueFactory().handle);
 valueRoutes.get("/getById/:valueId", getValueByIdFactory().handle);
 //
 
-/*  // Update
+// Update
 valueRoutes.put("/update/:valueId", updateValueFactory().handle);
-// */
+// 
 
 export { valueRoutes };
