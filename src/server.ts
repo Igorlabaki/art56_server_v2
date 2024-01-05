@@ -5,6 +5,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { textRoutes } from "./router/text";
 import { valueRoutes } from "./router/value";
 import { questionRoutes } from "./router/question";
+import { imageRoutes } from "./router/image";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/text", textRoutes);
 app.use("/value", valueRoutes);
+app.use("/image", imageRoutes);
 app.use("/question", questionRoutes);
 
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
