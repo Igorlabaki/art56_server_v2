@@ -7,7 +7,7 @@ import { prismaClient } from '../../../service/prisma';
 class CreateImageController {
   constructor() {}
 
-  async handle(resp: Response, req: Request) {
+  async handle(req: Request, resp: Response) {
     const data: IImageParams = req.body;
 
     const prismaImageRepository = new PrismaImageRepository(prismaClient);
