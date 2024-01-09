@@ -6,6 +6,7 @@ import { textRoutes } from "./router/text";
 import { valueRoutes } from "./router/value";
 import { questionRoutes } from "./router/question";
 import { imageRoutes } from "./router/image";
+import { orcamentoRoutes } from "./router/orcamento";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/text", textRoutes);
 app.use("/value", valueRoutes);
 app.use("/image", imageRoutes);
 app.use("/question", questionRoutes);
+app.use("/orcamento", orcamentoRoutes);
 
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
   return resp.json({
