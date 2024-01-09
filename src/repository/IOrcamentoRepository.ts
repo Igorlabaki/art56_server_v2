@@ -50,7 +50,7 @@ export interface UpdateOrcamentoParams {
 
 export interface ListOrcamentoParams {
   field?: string;
-  orderBy?: 'asc' | 'desc';
+  query?: string;
 }
 
 export interface IOrcamentoRepository {
