@@ -45,16 +45,17 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     });
   }
 
-  async list({ field = 'created_at', orderBy = 'asc' }: ListOrcamentoParams): Promise<Orcamento[]> {
+  async list({ field = "aprovadoCliente", orderBy = 'asc' }: ListOrcamentoParams): Promise<Orcamento[]> {
     return await this.prisma.orcamento.findMany({
       where: {
         dataInicio: {
           gte: new Date(),
         },
+        [field]: true
       },
-      orderBy: {
-        [field]: orderBy,
-      },
+      orderBy:{
+        dataInicio: "asc"
+      }
     });
   }
 }
