@@ -45,17 +45,16 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     });
   }
 
-  async list({ field = "aprovadoCliente", query }: ListOrcamentoParams): Promise<Orcamento[]> {
+  async list(query: string | undefined): Promise<Orcamento[]> {
     if(query){
       return await this.prisma.orcamento.findMany({
         where:{
           nome:{
-            contains:query
+            contains:query || ""
           }, 
           dataInicio: {
             gte: new Date(),
           },
-          [field]: true
         },
         orderBy:{
           dataInicio: "asc"
@@ -67,7 +66,6 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           dataInicio: {
             gte: new Date(),
           },
-          [field]: true
         },
         orderBy:{
           dataInicio: "asc"

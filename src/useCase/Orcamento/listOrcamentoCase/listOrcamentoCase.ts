@@ -3,8 +3,8 @@ import { IOrcamentoRepository, ListOrcamentoParams } from "../../../repository/I
 class ListOrcamentoCase {
   constructor(private orcamentoRepository: IOrcamentoRepository) {}
 
-  async execute(data: ListOrcamentoParams) {
-    const orcamentoList = await this.orcamentoRepository.list(data);
+  async execute(query: string | undefined) {
+    const orcamentoList = await this.orcamentoRepository.list(query);
 
     return orcamentoList;
   }

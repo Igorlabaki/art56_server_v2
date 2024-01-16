@@ -10,13 +10,13 @@ class ListOrcamentoController {
 
   async handle(req: Request, resp: Response) {
 
-    const data : ListOrcamentoParams = req.body;
+    const {query} = req.params;
 
     const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
     const listOrcamentoCase = new ListOrcamentoCase(prismaOrcamentoRepository);
 
     try {
-      const orcamentoList = await listOrcamentoCase.execute(data);
+      const orcamentoList = await listOrcamentoCase.execute(query);
       return resp.json(orcamentoList);
     } catch (error) {
       return resp.status(400).json({ error: error.message });
