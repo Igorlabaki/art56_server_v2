@@ -8,13 +8,14 @@ class UpdateOrcamentoController {
   constructor() {}
 
   async handle(req: Request, resp: Response) {
-    const data : UpdateOrcamentoParams = req.body;
+    const {orcamentoId} = req.params
+    const data  = req.body;
 
     const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
     const updateOrcamentoCase = new UpdateOrcamentoCase(prismaOrcamentoRepository);
 
     try {
-      const newOrcamneto = await updateOrcamentoCase.execute(data);
+      const newOrcamneto = await updateOrcamentoCase.execute({orcamentoId, data});
       return resp.json(newOrcamneto);
     } catch (error) {
       return resp.status(400).json({ error: error.message });
