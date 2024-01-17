@@ -25,7 +25,7 @@ app.use("/text", textRoutes);
 app.use("/value", valueRoutes);
 app.use("/image", imageRoutes);
 app.use("/question", questionRoutes);
-app.use("/dateEevnt", dateEventRoutes);
+app.use("/dateEvent", dateEventRoutes);
 app.use("/orcamento", orcamentoRoutes);
 
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
