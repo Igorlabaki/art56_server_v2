@@ -5,6 +5,7 @@ import { IDateEventParams, IDateEventRepository } from "../../../repository/IDat
 class CreateDateEventCase {
   constructor(private dateRepository: IDateEventRepository) {}
   async execute(data: IDateEventParams) {
+    
     const isNotAvailable = await this.dateRepository.checkAvailability({
       dataFim: data.dataFim,
       dataInicio: data.dataInicio,

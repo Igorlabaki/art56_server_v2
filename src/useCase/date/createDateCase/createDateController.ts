@@ -16,12 +16,12 @@ class CreateDateController {
     const createDateEventCase = new CreateDateEventCase(
       prismaDateEventRepository
     );
-
+      
     try {
       const newDateEvent = await createDateEventCase.execute(data);
       return resp.json(newDateEvent);
     } catch (error) {
-      return resp.status(400).json({ error: "Porra" });
+      return resp.status(400).json({ error: error.message });
     }
   }
 }
