@@ -1,13 +1,14 @@
+import { Request, Response } from "express";
 import { IDateEventParams } from "../../../repository/IDateEventRepository";
 import { PrismaDateEventRepository } from "../../../repository/inPrisma/prismaDateEventRepository";
 import { prismaClient } from "../../../service/prisma";
 import { CreateDateEventCase } from "./createDateCase";
-import { Request, Response } from 'express';
+
 
 class CreateDateController {
   constructor() {}
 
-  async handle(resp: Response, req: Request) {
+  async handle(req: Request, resp: Response ) {
     const data: IDateEventParams = req.body;
 
     const prismaDateEventRepository = new PrismaDateEventRepository(
@@ -21,7 +22,7 @@ class CreateDateController {
       const newDateEvent = await createDateEventCase.execute(data);
       return resp.json(newDateEvent);
     } catch (error) {
-      return resp.json({ "ALO": "EHIUAHEIUHIUEUA"});
+      return resp.status(400).json({ error: error.message });
     }
   }
 }
