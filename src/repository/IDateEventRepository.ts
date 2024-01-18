@@ -4,7 +4,7 @@ export interface IDateEventParams {
   titulo: string;
   dataInicio: string | Date;
   dataFim: string | Date;
-  orcamentoId: string;
+  orcamentoId?: string;
 }
 
 export interface UpdateDateEventParams {
