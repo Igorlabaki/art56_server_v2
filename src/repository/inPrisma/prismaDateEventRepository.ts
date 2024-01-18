@@ -11,13 +11,21 @@ import { PrismaClient, DateEvent } from '@prisma/client';
 export class PrismaDateEventRepository implements IDateEventRepository {
   constructor(private readonly prisma: PrismaClient) {}
   async create(dateParams: IDateEventParams): Promise<DateEvent | null> {
-    const dateEvent = await this.prisma.dateEvent.create({
-      data: {
-        ...dateParams,
-      },
-    });
+    if(dateParams.orcamentoId){
+      const dateEvent = await this.prisma.dateEvent.create({
+        data: {
+          dataFim: dateParams.dataFim,
+          dataInicio: dateParams.dataInicio,
+          tipo: dateParams.tipo,
+          titulo: dateParams.titulo,
+          orcamento: {
+            connect: {
+              id: dateParams.orcamentoId
+            }
+          }
+        },
+      });
 
-    if (dateParams.orcamentoId) {
       await this.prisma.orcamento.update({
         where: {
           id: dateParams.orcamentoId,
@@ -27,8 +35,18 @@ export class PrismaDateEventRepository implements IDateEventRepository {
           aprovadoAr756: true,
         },
       });
+
+      return dateEvent;
     }
 
+    const dateEvent = await this.prisma.dateEvent.create({
+      data: {
+        dataFim: dateParams.dataFim,
+        dataInicio: dateParams.dataInicio,
+        tipo: dateParams.tipo,
+        titulo: dateParams.titulo,
+      },
+    });
     return dateEvent;
   }
 
