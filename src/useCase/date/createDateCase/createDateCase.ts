@@ -12,11 +12,12 @@ class CreateDateEventCase {
     });
 
     if (isNotAvailable) {
-      const error = new Error();
-      error.message = 'Data nao disponivel.';
+      const error: Error = {
+        name:"Error",
+        message: 'Data nao disponivel.',
+      };
       throw error;
     }
-
 
     if(data.orcamentoId){   
       const checkEventDate = await this.dateRepository.checkIfHasEventDate({
@@ -26,18 +27,22 @@ class CreateDateEventCase {
   
       const checkVisitDate = await this.dateRepository.checkIfHasVisitDate({
         orcamentoId: data.orcamentoId,
-       tipo: data?.tipo
+        tipo: data?.tipo
       });
   
       if (checkEventDate && data?.tipo.includes('Evento')) {
-        const error = new Error();
-        error.message = `Este orcamento ja tem data de evento agendada para ${format( data?.dataInicio , "dd/MM/yyyy")}. `;
+        const error: Error = {
+          name:"Error",
+          message: `Este orcamento ja tem data de evento agendada para ${format( data?.dataInicio , "dd/MM/yyyy")}. `,
+        };
         throw error;
       }
   
       if (checkVisitDate && data?.tipo.includes('Visita')) {
-        const error = new Error();
-        error.message = `Este orcamento ja tem data de visita agendada para ${format(data?.dataInicio , "dd/MM/yyyy")}.`;
+        const error: Error = {
+          name:"Error",
+          message: `Este orcamento ja tem data de visita agendada para ${format(data?.dataInicio , "dd/MM/yyyy")}.`,
+        };
         throw error;
       }
     }
