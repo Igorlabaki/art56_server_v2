@@ -21,7 +21,7 @@ class CreateDateController {
       const newDateEvent = await createDateEventCase.execute(data);
       return resp.json(newDateEvent);
     } catch (error) {
-      return resp.status(400).json({ error: error.message });
+      return resp.json({ "ALO": "EHIUAHEIUHIUEUA"});
     }
   }
 }
