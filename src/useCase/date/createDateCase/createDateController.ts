@@ -2,7 +2,7 @@ import { IDateEventParams } from "../../../repository/IDateEventRepository";
 import { PrismaDateEventRepository } from "../../../repository/inPrisma/prismaDateEventRepository";
 import { prismaClient } from "../../../service/prisma";
 import { CreateDateEventCase } from "./createDateCase";
-import { Response, Request } from "express";
+import { Request, Response } from 'express';
 
 class CreateDateController {
   constructor() {}
