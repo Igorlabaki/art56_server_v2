@@ -1,7 +1,8 @@
+import { Request, Response } from "express";
 import { PrismaDateEventRepository } from "../../../repository/inPrisma/prismaDateEventRepository";
 import { prismaClient } from "../../../service/prisma";
 import { DeleteDateEventCase } from "./deleteDataCase";
-import { Response, Request } from "express";
+
 class DeleteDataController {
   constructor() {}
 
