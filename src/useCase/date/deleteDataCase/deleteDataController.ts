@@ -1,5 +1,6 @@
 
 
+import { Request, Response } from "express";
 import { PrismaDateEventRepository } from "../../../repository/inPrisma/prismaDateEventRepository";
 import { prismaClient } from "../../../service/prisma";
 import { DeleteDateEventCase } from "./deleteDataCase";
@@ -7,7 +8,7 @@ import { DeleteDateEventCase } from "./deleteDataCase";
 class DeleteDataController {
   constructor() {}
 
-  async handle() {
+  async handle(req: Request, resp: Response) {
     const { dateEventId } = req.params;
 
     const prismaDateEventRepository = new PrismaDateEventRepository(prismaClient);
