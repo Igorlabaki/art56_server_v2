@@ -31,7 +31,7 @@ dateEventRoutes.get("/getById/:dateEventId", getDateEventByIdFactory().handle);
 //
 
 // Get By date
-dateEventRoutes.get("/getById/:date", getDateEventByDateFactory().handle);
+dateEventRoutes.get("/getByDate/:date", getDateEventByDateFactory().handle);
 //
 
 // Delete
