@@ -1,4 +1,5 @@
 import {
+  GetByDateParams,
   IDateEventParams,
   IDateEventRepository,
   UpdateDateEventParams,
@@ -76,6 +77,19 @@ export class PrismaDateEventRepository implements IDateEventRepository {
     return await this.prisma.dateEvent.findFirst({
       where: {
         id: reference,
+      },
+      include: {
+        orcamento: true,
+      },
+    });
+  }
+
+  async getByDate(reference: GetByDateParams): Promise<DateEvent | null> {
+    return await this.prisma.dateEvent.findFirst({
+      where: {
+        dataInicio: {
+          in: [new Date(`${reference}T00:00:00.000Z`), new Date(`${reference}T23:59:59.999Z`)],
+        },
       },
       include: {
         orcamento: true,

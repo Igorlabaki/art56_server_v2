@@ -10,6 +10,7 @@ import { deleteDateEventFactory } from "../useCase/date/deleteDataCase/deleteDat
 import { listDateEventFactory } from "../useCase/date/listDateCase/listDateFactory";
 import { updateDateEventFactory } from "../useCase/date/updateDateCase/updateDateFactory";
 import { getDateEventByIdFactory } from "../useCase/date/getDataByIdCase/getDataByIdFactory";
+import { getDateEventByDateFactory } from "../useCase/date/getDataByDateCase/getDataByIdFactory";
 
 const dateEventRoutes = Router();
 
@@ -27,6 +28,10 @@ dateEventRoutes.put("/update/:dateEventId", updateDateEventFactory().handle);
 
 // Get By Id
 dateEventRoutes.get("/getById/:dateEventId", getDateEventByIdFactory().handle);
+//
+
+// Get By date
+dateEventRoutes.get("/getById/:date", getDateEventByDateFactory().handle);
 //
 
 // Delete

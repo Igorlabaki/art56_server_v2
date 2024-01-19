@@ -28,10 +28,15 @@ export interface ValidateIfHasDateDateParam {
   orcamentoId: string | null;
 }
 
+export interface GetByDateParams{
+  date: string
+}
+
 export interface IDateEventRepository {
   list: (reference: string | undefined) =>Promise<DateEvent[] | null>;
   delete: (reference: string) => Promise<DateEvent | null>;
   getById: (reference: string) => Promise<DateEvent | null>;
+  getByDate: (reference: GetByDateParams) => Promise<DateEvent | null>;
   create: (reference: IDateEventParams) => Promise<DateEvent | null>;
   update: (reference: UpdateDateEventParams) => Promise<DateEvent | null>;
   checkAvailability: (reference: ValidateDateParam) => Promise<DateEvent | null>;
