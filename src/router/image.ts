@@ -4,6 +4,7 @@ import { listImagesFactory } from "../useCase/image/listImages/listImagesFactory
 import { deleteImageFactory } from "../useCase/image/deleteImageCase/deleteImageFactory";
 import { getImageByIdFactory } from "../useCase/image/getImageByIdCase/getImageByIdFactory";
 import { updateImageFactory } from "../useCase/image/updateImageCase/updateImageFactory";
+import { getImageByTagFactory } from "../useCase/image/getImageByTagCase/getImageByTagFactory";
 
 
 const imageRoutes = Router();
@@ -25,7 +26,7 @@ imageRoutes.get("/getById/:imageId", getImageByIdFactory().handle);
 //
 
 //Get By Id
-imageRoutes.get("/getByTag/:tag/:responsiveMode", getImageByIdFactory().handle);
+imageRoutes.get("/getByTag/:tag/:responsiveMode", getImageByTagFactory().handle);
 //
 
 // Update
