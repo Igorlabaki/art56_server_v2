@@ -24,6 +24,10 @@ imageRoutes.delete("/delete/:imageId", deleteImageFactory().handle);
 imageRoutes.get("/getById/:imageId", getImageByIdFactory().handle);
 //
 
+//Get By Id
+imageRoutes.get("/getByTag/:tag/:responsiveMode", getImageByIdFactory().handle);
+//
+
 // Update
 imageRoutes.put("/update/:imageId", updateImageFactory().handle);
 // 
