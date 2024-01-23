@@ -13,8 +13,8 @@ class GetImageByTagController {
     const getImageByTagCase = new GetImageByTagCase(prismaImageRepository);
 
     try {
-      const imageByTag = await getImageByTagCase.execute({tag, responsiveMode});
-      return resp.json(imageByTag);
+      const imageById = await getImageByTagCase.execute({tag, responsiveMode});
+      return resp.json(imageById);
     } catch (error) {
       return resp.status(400).json({ error: error.message });
     }
