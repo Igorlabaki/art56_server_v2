@@ -72,7 +72,7 @@ model Image {
 model Text {
   id         String   @id @default(cuid())
   area       String
-  titulo     String?
+  titulo     String? 
   position   Int      @default(0)
   text       String   @db.LongText
   created_at DateTime @default(now())
@@ -89,8 +89,8 @@ model Values {
 
 model Question {
   id         String   @id @default(cuid())
-  question     String
-  response      String @db.Text
+  question     String @db.LongText
+  response      String @db.LongText
   created_at DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
