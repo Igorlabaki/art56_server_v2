@@ -90,7 +90,7 @@ model Values {
 model Question {
   id         String   @id @default(cuid())
   question     String
-  response      String
+  response      String @db.Text
   created_at DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
