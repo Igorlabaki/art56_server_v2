@@ -25,7 +25,7 @@ class CreateTextCase {
       throw error;
     }
 
-    if (validateIfExistTextAreaTitle) {
+    if (validateIfExistTextAreaTitle && titulo != undefined) {
       const error: Error = {
         name:"Error",
         message: 'This area already has a text with this title.',
