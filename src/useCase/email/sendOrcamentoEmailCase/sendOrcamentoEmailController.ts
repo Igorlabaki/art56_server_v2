@@ -14,7 +14,7 @@ class SendOrcamentoEmailController {
     const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
 
     const sendOrcamentoEmailCase = new SendOrcamentoEmailCase();
-    
+
     try {
       const newOrcamento = await prismaOrcamentoRepository.create(data);
       const orcamentoEmail = await sendOrcamentoEmailCase.execute({email: data.email, nome: data.nome,orcamentoId:newOrcamento?.id});
