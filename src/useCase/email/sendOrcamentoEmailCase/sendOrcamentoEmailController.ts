@@ -17,9 +17,9 @@ class SendOrcamentoEmailController {
     try {
       const newOrcamento = await prismaOrcamentoRepository.create(data);
       const orcamentoEmail = await sendOrcamentoEmailCase.execute({email: data.email, nome: data.nome,orcamentoId:newOrcamento?.id});
-      return 
+      return resp.json(orcamentoEmail) 
     } catch (error) {
-      return 
+      return resp.status(400).json({error: error.message})
     }
   }
 }
