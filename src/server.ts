@@ -8,6 +8,7 @@ import { questionRoutes } from "./router/question";
 import { imageRoutes } from "./router/image";
 import { orcamentoRoutes } from "./router/orcamento";
 import { dateEventRoutes } from "./router/dateEvent";
+import { emailRoutes } from "./router/email";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use("/auth", authRoutes);
 app.use("/text", textRoutes);
 app.use("/value", valueRoutes);
 app.use("/image", imageRoutes);
+app.use("/email", emailRoutes);
 app.use("/question", questionRoutes);
 app.use("/dateEvent", dateEventRoutes);
 app.use("/orcamento", orcamentoRoutes);
