@@ -3,6 +3,7 @@ import { SendOrcamentoEmailCase } from './sendOrcamentoEmailCase';
 import { PrismaOrcamentoRepository } from '../../../repository/inPrisma/prismaOrcamentoRepository';
 import { prismaClient } from '../../../service/prisma';
 import { IOrcamentoParams } from '../../../repository/IOrcamentoRepository';
+import { Request, Response } from 'express';
 
 class SendOrcamentoEmailController {
   constructor() {}
