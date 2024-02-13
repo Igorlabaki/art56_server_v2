@@ -7,13 +7,13 @@ class GetOrcamentoByIdController {
   constructor() {}
 
   async handle(req: Request, resp: Response) {
-    const { orcaementoId } = req.params;
+    const { orcamentoId } = req.params;
 
     const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
     const getOrcamentoByIdCase = new GetOrcamentoByIdCase(prismaOrcamentoRepository);
 
     try {
-      const orcamentoById = await getOrcamentoByIdCase.execute(orcaementoId);
+      const orcamentoById = await getOrcamentoByIdCase.execute(orcamentoId);
       return resp.json(orcamentoById);
     } catch (error) {
       return resp.status(400).json({ error: error.message });
