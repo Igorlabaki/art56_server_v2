@@ -20,6 +20,7 @@ CREATE TABLE `refresh_token` (
 -- CreateTable
 CREATE TABLE `orcamento` (
     `id` VARCHAR(191) NOT NULL,
+    `tipo`  VARCHAR(191) NOT NULL,
     `trafegoCanal` VARCHAR(191) NOT NULL,
     `conheceEspaco` BOOLEAN NOT NULL DEFAULT false,
     `dataInicio` DATETIME(3) NOT NULL,
@@ -88,7 +89,7 @@ CREATE TABLE `Values` (
 CREATE TABLE `Question` (
     `id` VARCHAR(191) NOT NULL,
     `question` VARCHAR(191) NOT NULL,
-    `response` VARCHAR(191) NOT NULL,
+    `response` LONGTEXT NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

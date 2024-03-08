@@ -11,7 +11,6 @@ class SendOrcamentoEmailController {
 
   async handle(resp: Response, req: Request) {
     const data : IOrcamentoParams = req.body;
-
     const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
     const createOrcamentoCase = new CreateOrcamentoCase(prismaOrcamentoRepository)
     const sendOrcamentoEmailCase = new SendOrcamentoEmailCase();

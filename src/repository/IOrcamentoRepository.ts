@@ -1,7 +1,8 @@
-import { Orcamento } from '@prisma/client';
+import { Orcamento } from "@prisma/client";
 
 export interface IOrcamentoParams {
   nome: string;
+  tipo: string;
   email: string;
   texto: string;
   dataFim: string | Date;
@@ -26,6 +27,7 @@ export interface UpdateOrcamentoParams {
   orcamentoId: string | undefined;
   data: {
     aprovadoAr756?: boolean;
+    tipo: string | undefined;
     nome?: string | undefined;
     aprovadoCliente?: boolean;
     email?: string | undefined;
