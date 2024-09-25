@@ -51,14 +51,14 @@ export interface UpdateOrcamentoParams {
 }
 
 export interface ListOrcamentoParams {
-  field: string;
-  query?: string;
+  query?: string ,
+  month?: number
 }
 
 export interface IOrcamentoRepository {
   delete: (reference: string) => Promise<Orcamento | null>;
   getById: (reference: string) => Promise<Orcamento | null>;
   update: (reference: UpdateOrcamentoParams) => Promise<Orcamento | null>;
-  list: (query: string | undefined) => Promise<Orcamento[] | null>;
+  list: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
   create: (reference: IOrcamentoParams) => Promise<Orcamento | null>;
 }

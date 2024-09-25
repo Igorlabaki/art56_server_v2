@@ -45,21 +45,29 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     });
   }
 
-  async list(query: string | undefined): Promise<Orcamento[]> {
+  async list({query, month}:ListOrcamentoParams): Promise<Orcamento[]> {
       return await this.prisma.orcamento.findMany({
         where:{
           ...(query && {
             nome: {
               contains: query
             }
-          }), 
-          dataInicio: {
-            gte: new Date(),
+          }),
+          ...(month ? {
+              dataInicio: {
+                gte: new Date(new Date().getFullYear(), month - 1, 1), // Início do mês
+                lt: new Date(new Date().getFullYear(), month, 1),
+              }
+              } : {
+                dataInicio: {
+                  gte: new Date() 
+                }
+              }
+            ),
           },
-        },
-        orderBy:{
-          dataInicio: "asc"
-        }
+          orderBy:{
+            dataInicio: "asc"
+          }
       });
   }
 }

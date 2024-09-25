@@ -10,7 +10,7 @@ class ListOrcamentoController {
 
   async handle(req: Request, resp: Response) {
 
-    const {query} = req.params;
+    const query : ListOrcamentoParams = req.params;
 
     const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
     const listOrcamentoCase = new ListOrcamentoCase(prismaOrcamentoRepository);
