@@ -30,6 +30,7 @@ model RefreshToken {
 
 model Orcamento {
   id              String      @id @default(cuid())
+  tipo            String
   trafegoCanal    String
   conheceEspaco   Boolean     @default(false)
   dataInicio      DateTime
