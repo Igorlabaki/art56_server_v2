@@ -73,6 +73,8 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     }
 
     async trafegoCount(): Promise<any>{
+      const orcamentoCount = await this.prisma.orcamento.count()
+
       const googleCount = await this.prisma.orcamento.count({
         where: {
           trafegoCanal: 'Google'
@@ -109,6 +111,6 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         }
       });
 
-      return {google: googleCount,instagram: instagramCount,tikTok: tikTokCount, facebook: facebookCount,amigos: amigosCount, outrosCount: outrosCount}
+      return {todos: orcamentoCount,google: googleCount,instagram: instagramCount,tikTok: tikTokCount, facebook: facebookCount,amigos: amigosCount, outros: outrosCount}
     }
   }
