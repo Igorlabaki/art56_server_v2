@@ -4,6 +4,7 @@ import { listOrcamentoFactory } from "../useCase/Orcamento/listOrcamentoCase/lis
 import { deleteOrcamentoFactory } from "../useCase/Orcamento/deleteOrcamentoCase/deleteOrcamentoFactory";
 import { getOrcamentoByIdFactory } from "../useCase/Orcamento/getOcamentoByIdCase/getOrcamentoByIdFactory";
 import { updateOrcamentoFactory } from "../useCase/Orcamento/updateOrcamentoCase/updateOrcamentoFactory";
+import { getTrafegoCountFactory } from "../useCase/Orcamento/getTrafegoCount/getTrafegoCountFactory";
 
 
 const orcamentoRoutes = Router();
@@ -26,6 +27,9 @@ orcamentoRoutes.get("/getById/:orcamentoId", getOrcamentoByIdFactory().handle);
 
 // Update
 orcamentoRoutes.put("/update/:orcamentoId", updateOrcamentoFactory().handle);
+// 
+// Update
+orcamentoRoutes.get("/getTrafegoCount", getTrafegoCountFactory().handle);
 // 
 
 export { orcamentoRoutes };

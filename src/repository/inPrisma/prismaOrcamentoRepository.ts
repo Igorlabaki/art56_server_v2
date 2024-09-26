@@ -70,5 +70,45 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
             dataInicio: "asc"
           }
       });
+    }
+
+    async trafegoCount(): Promise<any>{
+      const googleCount = await this.prisma.orcamento.count({
+        where: {
+          trafegoCanal: 'Google'
+        }
+      });
+
+      const instagramCount = await this.prisma.orcamento.count({
+        where: {
+          trafegoCanal: 'Instagram'
+        }
+      });
+
+      const tikTokCount = await this.prisma.orcamento.count({
+        where: {
+          trafegoCanal: 'TiTok'
+        }
+      });
+
+      const facebookCount = await this.prisma.orcamento.count({
+        where: {
+          trafegoCanal: 'Facebook'
+        }
+      });
+
+      const amigosCount = await this.prisma.orcamento.count({
+        where: {
+          trafegoCanal: 'Amigos'
+        }
+      });
+
+      const outrosCount = await this.prisma.orcamento.count({
+        where: {
+          trafegoCanal: 'Outros'
+        }
+      });
+
+      return {google: googleCount,instagram: instagramCount,tikTok: tikTokCount, facebook: facebookCount,amigos: amigosCount, outrosCount: outrosCount}
+    }
   }
-}
