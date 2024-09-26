@@ -45,7 +45,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     });
   }
 
-  async list({query, month}:ListOrcamentoParams): Promise<Orcamento[]> {
+  async list({query, month, year}:ListOrcamentoParams): Promise<Orcamento[]> {
       return await this.prisma.orcamento.findMany({
         where:{
           ...(query && {
@@ -55,12 +55,12 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           }),
           ...(month ? {
               dataInicio: {
-                gte: new Date(new Date().getFullYear(), month - 1, 1), // Início do mês
-                lt: new Date(new Date().getFullYear(), month, 1),
+                gte: new Date(year ? year : new Date().getFullYear(), month - 1, 1), // Início do mês
+                lt: new Date(year ? year : new Date().getFullYear(), month, 1),
               }
               } : {
                 dataInicio: {
-                  gte: new Date() 
+                  gte: new Date(year ? year : new Date().getFullYear()) 
                 }
               }
             ),
