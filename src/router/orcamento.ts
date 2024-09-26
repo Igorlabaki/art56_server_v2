@@ -13,7 +13,7 @@ orcamentoRoutes.post("/create", createOrcamentoFactory().handle);
 //
 
 // List
-orcamentoRoutes.get("/list/:query?/:month?", listOrcamentoFactory().handle);
+orcamentoRoutes.get("/list/:query?/:year?/:month?", listOrcamentoFactory().handle);
 //
 
 // Delete
