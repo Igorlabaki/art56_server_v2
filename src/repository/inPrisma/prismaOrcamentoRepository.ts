@@ -60,7 +60,8 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
               }
               } : {
                 dataInicio: {
-                  gte: new Date(year ? year : new Date().getFullYear()) 
+                  gte: new Date(year ? year : new Date().getFullYear()),
+                  lt: new Date(year ? year : new Date().getFullYear(), 12, 31),
                 }
               }
             ),
