@@ -5,6 +5,7 @@ import { deleteOrcamentoFactory } from "../useCase/Orcamento/deleteOrcamentoCase
 import { getOrcamentoByIdFactory } from "../useCase/Orcamento/getOcamentoByIdCase/getOrcamentoByIdFactory";
 import { updateOrcamentoFactory } from "../useCase/Orcamento/updateOrcamentoCase/updateOrcamentoFactory";
 import { getTrafegoCountFactory } from "../useCase/Orcamento/getTrafegoCount/getTrafegoCountFactory";
+import { listOrcamentoAprovadoFactory } from "../useCase/Orcamento/listOrcamentoAprovadoCase/listOrcamentoAprovadoFactory";
 
 
 const orcamentoRoutes = Router();
@@ -18,7 +19,7 @@ orcamentoRoutes.get("/list/:query?/:year?/:month?", listOrcamentoFactory().handl
 //
 
 // List Aprovado
-orcamentoRoutes.get("/listAprovado/:query?/:year?/:month?", listOrcamentoFactory().handle);
+orcamentoRoutes.get("/listAprovado/:query?/:year?/:month?", listOrcamentoAprovadoFactory().handle);
 //
 
 // Delete

@@ -1,9 +1,9 @@
 import { ListOrcamentoAprovadoController } from './listOrcamentoAprovadoController';
 
-export const listOrcamentoFactory = () => {
-/*   const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
-  const listOrcamentoCase = new ListOrcamentoCase(prismaOrcamentoRepository); */
-  const listOrcamentoController = new ListOrcamentoAprovadoController();
+export const listOrcamentoAprovadoFactory = () => {
+/*   const prismaOrcamentoAprovadoRepository = new PrismaOrcamentoAprovadoRepository(prismaClient);
+  const listOrcamentoAprovadoCase = new ListOrcamentoAprovadoCase(prismaOrcamentoAprovadoRepository); */
+  const listOrcamentoAprovadoController = new ListOrcamentoAprovadoController();
 
-  return listOrcamentoController;
+  return listOrcamentoAprovadoController;
 };
