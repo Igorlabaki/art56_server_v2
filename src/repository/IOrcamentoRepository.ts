@@ -61,6 +61,7 @@ export interface IOrcamentoRepository {
   getById: (reference: string) => Promise<Orcamento | null>;
   update: (reference: UpdateOrcamentoParams) => Promise<Orcamento | null>;
   list: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
+  listAprovado: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
   create: (reference: IOrcamentoParams) => Promise<Orcamento | null>;
   trafegoCount: () => Promise<any | null>;
 }

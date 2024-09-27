@@ -17,6 +17,10 @@ orcamentoRoutes.post("/create", createOrcamentoFactory().handle);
 orcamentoRoutes.get("/list/:query?/:year?/:month?", listOrcamentoFactory().handle);
 //
 
+// List Aprovado
+orcamentoRoutes.get("/listAprovado/:query?/:year?/:month?", listOrcamentoFactory().handle);
+//
+
 // Delete
 orcamentoRoutes.delete("/delete/:orcamentoId", deleteOrcamentoFactory().handle);
 // 

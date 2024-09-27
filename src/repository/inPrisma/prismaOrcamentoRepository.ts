@@ -65,6 +65,37 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
                 }
               }
             ),
+          aprovadoAr756: false,
+          aprovadoCliente: false
+          },
+          orderBy:{
+            dataInicio: "asc"
+          }
+      });
+    }
+
+  async listAprovado({query, month, year}:ListOrcamentoParams): Promise<Orcamento[]> {
+      return await this.prisma.orcamento.findMany({
+        where:{
+          ...(query && {
+            nome: {
+              contains: query
+            }
+          }),
+          ...(month ? {
+              dataInicio: {
+                gte: new Date(year ? year : new Date().getFullYear(), month - 1, 1), // Início do mês
+                lt: new Date(year ? year : new Date().getFullYear(), month, 1),
+              }
+              } : {
+                dataInicio: {
+                  gte: new Date(year ? year : new Date().getFullYear()),
+                  lt: new Date(year ? year : new Date().getFullYear(), 12, 31),
+                }
+              }
+            ),
+          aprovadoAr756: true,
+          aprovadoCliente: true
           },
           orderBy:{
             dataInicio: "asc"
