@@ -45,7 +45,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     });
   }
 
-  async list({query, month, year}:ListOrcamentoParams): Promise<Orcamento[]> {
+  async list({query, month, year,take}:ListOrcamentoParams): Promise<Orcamento[]> {
       return await this.prisma.orcamento.findMany({
         where:{
           ...(query && {
@@ -68,6 +68,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           aprovadoAr756: false,
           aprovadoCliente: false
           },
+          take: take && take,
           orderBy:{
             dataInicio: "asc"
           }

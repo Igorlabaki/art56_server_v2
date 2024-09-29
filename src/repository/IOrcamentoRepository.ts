@@ -54,6 +54,7 @@ export interface ListOrcamentoParams {
   query?: string ,
   month?: number,
   year?: number,
+  take?: number
 }
 
 export interface IOrcamentoRepository {
