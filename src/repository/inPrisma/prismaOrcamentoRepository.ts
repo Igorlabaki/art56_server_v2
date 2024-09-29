@@ -68,7 +68,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           aprovadoAr756: false,
           aprovadoCliente: false
           },
-          ...(take && { take }),
+          ...(take && { take : Number(take) }),
           orderBy:{
             dataInicio: "asc"
           }
