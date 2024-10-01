@@ -141,9 +141,6 @@ export class PrismaDateEventRepository implements IDateEventRepository {
     if(reference){
       return await this.prisma.dateEvent.findMany({
         where: {
-          dataInicio: {
-            gte: new Date(),
-          },
           titulo:{
             contains:reference
           }
