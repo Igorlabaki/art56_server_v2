@@ -131,11 +131,12 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       const orcamentosPorMes = await this.prisma.orcamento.groupBy({
         by: ['dataInicio'],
         _count: {
-          id: true,
+          total: true,
         },
         where: {
           dataInicio: {
-            gte: new Date(new Date().getFullYear(), 0, 1), // Início do ano atual
+            gte: new Date(new Date().getFullYear(), 10, 1), // Início do ano atual
+            lte: new Date(new Date().getFullYear(), 10, 31), // Início do ano atual
           },
         },
         orderBy: {
@@ -143,13 +144,8 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         },
       });
       
-      const orcamentosPorMesFormatado = orcamentosPorMes.map((orcamento) => {
-        return {
-          mes: orcamento.dataInicio.getMonth() + 1, // Adiciona 1 para transformar 0 (Janeiro) em 1
-          quantidade: orcamento._count.id,
-        };
-      });
-      return {orcamentosPorMesFormatado, orcamentosPorMes}
+
+      return {orcamentosPorMes}
       /* const orcamentos = await this.prisma.orcamento.findMany({
         where:{
           aprovadoAr756: true,
