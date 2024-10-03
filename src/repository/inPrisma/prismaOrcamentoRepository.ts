@@ -128,26 +128,32 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     }
 
     async monthCount(): Promise<any> {
-      const orcamentosGroupedByMonth = await this.prisma.orcamento.groupBy({
-        by: ['dataInicio'],
-        _count: {
-          id: true, // conta o número de orçamentos por mês
-        },
-        _sum: {
-          total: true, // soma os valores totais dos orçamentos por mês
-        },
-        orderBy: {
-          dataInicio: 'asc', // ordena os meses em ordem ascendente
+      const orcamentos = await this.prisma.orcamento.findMany({
+        select: {
+          dataInicio: true,
+          total: true,
         },
       });
     
-      return orcamentosGroupedByMonth.map((orcamento) => ({
-        month: new Date(orcamento.dataInicio).toLocaleString('pt-BR', {
-          year: 'numeric',
+      const result = orcamentos.reduce((acc, orcamento) => {
+        const month = new Date(orcamento.dataInicio).toLocaleString('pt-BR', {
           month: 'long',
-        }),
-        count: orcamento._count.id,
-        total: orcamento._sum.total,
-      }));
+          year: 'numeric',
+        });
+        
+        // Verifica se o mês já existe no acumulador
+        if (!acc[month]) {
+          acc[month] = { month: month, count: 0, total: 0 };
+        }
+        
+        // Atualiza os valores acumulados
+        acc[month].count += 1; // conta os orçamentos
+        acc[month].total += orcamento.total; // soma os totais
+    
+        return acc;
+      }, {} as Record<string, { month: string; count: number; total: number }>);
+    
+      // Converte o objeto acumulado em um array
+      return Object.values(result);
     }
   }
