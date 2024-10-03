@@ -126,4 +126,23 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     
       return trafegoData;
     }
+
+    async monthCount(): Promise<any> {
+      const trafegoCountsByMonth = await this.prisma.$queryRaw`
+      SELECT EXTRACT(MONTH FROM "createdAt") AS month, COUNT(*) AS count
+      FROM "Orcamento"
+      GROUP BY month
+      ORDER BY month ASC;
+    `;
+    
+      const months = Array(12).fill(0); 
+      
+      /* @ts-ignore */
+      trafegoCountsByMonth.forEach((item: { month: number; count: number }) => {
+        const monthIndex = item.month - 1;
+        months[monthIndex] = item.count;
+      });
+    
+      return months;
+    }
   }

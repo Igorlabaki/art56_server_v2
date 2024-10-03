@@ -58,11 +58,12 @@ export interface ListOrcamentoParams {
 }
 
 export interface IOrcamentoRepository {
+  monthCount: () => Promise<any | null>;
+  trafegoCount: () => Promise<any | null>;
   delete: (reference: string) => Promise<Orcamento | null>;
   getById: (reference: string) => Promise<Orcamento | null>;
-  update: (reference: UpdateOrcamentoParams) => Promise<Orcamento | null>;
-  list: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
-  listAprovado: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
   create: (reference: IOrcamentoParams) => Promise<Orcamento | null>;
-  trafegoCount: () => Promise<any | null>;
+  list: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
+  update: (reference: UpdateOrcamentoParams) => Promise<Orcamento | null>;
+  listAprovado: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
 }
