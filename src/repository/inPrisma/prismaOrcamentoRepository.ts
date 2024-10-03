@@ -130,7 +130,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     async monthCount(): Promise<any> {
       const orcamentosPorMes = await this.prisma.$queryRaw`
       SELECT 
-        DATE_FORMAT(created_at, '%M') AS mes,
+        MONTH(created_at) AS month_number,
         COUNT(*) AS orcamentos_count
       FROM 
         orcamento
@@ -138,9 +138,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         created_at >= ${new Date(new Date().getFullYear(), 0, 1)} 
         AND created_at < ${new Date(new Date().getFullYear() + 1, 0, 1)}
       GROUP BY 
-        mes
+        month_number
       ORDER BY 
-        MONTH(created_at);
+        month_number;  -- Mantenha a ordenação pelo número do mês
     `;
 
     return {orcamentosPorMes}
