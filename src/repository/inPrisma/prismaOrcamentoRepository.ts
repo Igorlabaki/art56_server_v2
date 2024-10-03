@@ -149,7 +149,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           quantidade: orcamento._count.id,
         };
       });
-      return {orcamentosPorMesFormatado}
+      return {orcamentosPorMesFormatado, orcamentosPorMes}
       /* const orcamentos = await this.prisma.orcamento.findMany({
         where:{
           aprovadoAr756: true,
