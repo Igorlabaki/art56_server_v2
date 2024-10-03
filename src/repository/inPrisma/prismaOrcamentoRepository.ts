@@ -128,41 +128,23 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     }
 
     async monthCount(): Promise<any> {
-      const orcamentosPorMes = await this.prisma.orcamento.groupBy({
-        by: ['created_at'],
-        _count: {
-          id: true,
-        },
-        where: {
-          created_at: {
-            gte: new Date(new Date().getFullYear(), 0, 1), // Início do ano atual
-            lt: new Date(new Date().getFullYear() + 1, 0, 1), // Fim do ano atual
-          },
-        },
-        orderBy: {
-          created_at: 'asc',
-        },
-      });
-      
-      // Mapeia os resultados para o formato desejado
-      const meses = [
-        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-      ];
-      
-      const orcamentosCountPorMes = meses.map((mes, index) => {
-        const mesOrcamentos = orcamentosPorMes.find(orcamento => {
-          const createdAtMonth = new Date(orcamento.created_at).getMonth();
-          return createdAtMonth === index;
-        });
-      
-        return {
-          mes: mes,
-          orcamentos_count: mesOrcamentos ? mesOrcamentos._count.id : 0,
-        };
-      });
+      const orcamentosPorMes = await this.prisma.$queryRaw`
+      SELECT 
+        DATE_FORMAT(created_at, '%M') AS mes,
+        COUNT(*) AS orcamentos_count
+      FROM 
+        orcamento
+      WHERE 
+        created_at >= ${new Date(new Date().getFullYear(), 0, 1)} 
+        AND created_at < ${new Date(new Date().getFullYear() + 1, 0, 1)}
+      GROUP BY 
+        mes
+      ORDER BY 
+        MONTH(created_at);
+    `;
 
-      return {orcamentosCountPorMes}
+    return {orcamentosPorMes}
+    
       /* const orcamentos = await this.prisma.orcamento.findMany({
         where:{
           aprovadoAr756: true,
