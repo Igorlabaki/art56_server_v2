@@ -129,23 +129,38 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
 
     async monthCount(): Promise<any> {
       const orcamentosPorMes = await this.prisma.orcamento.groupBy({
-        by: ['dataInicio'],
+        by: ['created_at'],
         _count: {
-          total: true,
+          id: true,
         },
         where: {
-          dataInicio: {
-            gte: new Date(new Date().getFullYear(), 10, 1), // Início do ano atual
-            lte: new Date(new Date().getFullYear(), 10, 31), // Início do ano atual
+          created_at: {
+            gte: new Date(new Date().getFullYear(), 0, 1), // Início do ano atual
+            lt: new Date(new Date().getFullYear() + 1, 0, 1), // Fim do ano atual
           },
         },
         orderBy: {
-          dataInicio: 'asc',
+          created_at: 'asc',
         },
       });
       
-
-      return {orcamentosPorMes}
+      // Mapeia os resultados para o formato desejado
+      const meses = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+      ];
+      
+      const orcamentosCountPorMes = meses.map((mes, index) => {
+        const mesOrcamentos = orcamentosPorMes.find(orcamento => {
+          const createdAtMonth = new Date(orcamento.created_at).getMonth();
+          return createdAtMonth === index;
+        });
+      
+        return {
+          mes: mes,
+          orcamentos_count: mesOrcamentos ? mesOrcamentos._count.id : 0,
+        };
+      });
       /* const orcamentos = await this.prisma.orcamento.findMany({
         where:{
           aprovadoAr756: true,
