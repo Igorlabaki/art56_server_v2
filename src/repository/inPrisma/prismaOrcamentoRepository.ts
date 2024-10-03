@@ -124,6 +124,6 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         outros: trafegoCounts.find(item => item.trafegoCanal === 'Outros')?._count.trafegoCanal || 0,
       };
     
-      return trafegoCounts;
+      return trafegoData;
     }
   }
