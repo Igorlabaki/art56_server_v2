@@ -131,8 +131,6 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       const trafegoCountsByMonth = await this.prisma.$queryRaw`
       SELECT EXTRACT(MONTH FROM "dataInicio") AS month, COUNT(*) AS count
       FROM "Orcamento"
-      GROUP BY month
-      ORDER BY month ASC;
     `;
     
       const months = Array(12).fill(0); 
