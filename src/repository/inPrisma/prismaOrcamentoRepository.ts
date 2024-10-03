@@ -129,21 +129,12 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
 
     async monthCount(): Promise<any> {
       const orcamentosPorMes = await this.prisma.orcamento.groupBy({
-        by: ['dataInicio'],
+        by: ["dataInicio"],
         _count: {
           dataInicio: true,
         },
-        orderBy: {
-          dataInicio: 'asc',
-        },
       });
     
-      // Formatando os dados para melhor visualização (opcional)
-      const resultadosFormatados = orcamentosPorMes.map(orcamento => ({
-        mes: new Date(orcamento.dataInicio).getMonth() + 1, // Meses começam em 0
-        quantidade: orcamento._count.dataInicio,
-      }));
-    
-      return resultadosFormatados
+      return orcamentosPorMes
     }
   }
