@@ -129,6 +129,10 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
 
     async monthCount(): Promise<any> {
       const orcamentos = await this.prisma.orcamento.findMany({
+        where:{
+          aprovadoAr756: true,
+          aprovadoCliente: true,
+        },
         select: {
           dataInicio: true,
           total: true,
