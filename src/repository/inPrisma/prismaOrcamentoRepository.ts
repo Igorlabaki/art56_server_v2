@@ -128,13 +128,26 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     }
 
     async monthCount(): Promise<any> {
-      const orcamentosPorMes = await this.prisma.orcamento.groupBy({
-        by: ["dataInicio"],
+      const orcamentosGroupedByMonth = await this.prisma.orcamento.groupBy({
+        by: ['dataInicio'],
         _count: {
-          dataInicio: true,
+          id: true, // conta o número de orçamentos por mês
+        },
+        _sum: {
+          total: true, // soma os valores totais dos orçamentos por mês
+        },
+        orderBy: {
+          dataInicio: 'asc', // ordena os meses em ordem ascendente
         },
       });
     
-      return orcamentosPorMes
+      return orcamentosGroupedByMonth.map((orcamento) => ({
+        month: new Date(orcamento.dataInicio).toLocaleString('pt-BR', {
+          year: 'numeric',
+          month: 'long',
+        }),
+        count: orcamento._count.id,
+        total: orcamento._sum.total,
+      }));
     }
   }
