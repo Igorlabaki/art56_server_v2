@@ -118,7 +118,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         todos: orcamentoCount,
         google: trafegoCounts.find(item => item.trafegoCanal === 'Google')?._count.trafegoCanal || 0,
         instagram: trafegoCounts.find(item => item.trafegoCanal === 'Instagram')?._count.trafegoCanal || 0,
-        tikTok: trafegoCounts.find(item => item.trafegoCanal === 'TikTok')?._count.trafegoCanal || 0,
+        tikTok: trafegoCounts.find(item => item.trafegoCanal === 'tikTok')?._count.trafegoCanal || 0,
         facebook: trafegoCounts.find(item => item.trafegoCanal === 'Facebook')?._count.trafegoCanal || 0,
         amigos: trafegoCounts.find(item => item.trafegoCanal === 'Amigos')?._count.trafegoCanal || 0,
         outros: trafegoCounts.find(item => item.trafegoCanal === 'Outros')?._count.trafegoCanal || 0,
