@@ -104,45 +104,26 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       });
     }
 
-    async trafegoCount(): Promise<any>{
-      const orcamentoCount = await this.prisma.orcamento.count()
-
-      const googleCount = await this.prisma.orcamento.count({
-        where: {
-          trafegoCanal: 'Google'
-        }
+    async trafegoCount(): Promise<any> {
+      const trafegoCounts = await this.prisma.orcamento.groupBy({
+        by: ['trafegoCanal'],
+        _count: {
+          trafegoCanal: true,
+        },
       });
-
-      const instagramCount = await this.prisma.orcamento.count({
-        where: {
-          trafegoCanal: 'Instagram'
-        }
-      });
-
-      const tikTokCount = await this.prisma.orcamento.count({
-        where: {
-          trafegoCanal: 'TiTok'
-        }
-      });
-
-      const facebookCount = await this.prisma.orcamento.count({
-        where: {
-          trafegoCanal: 'Facebook'
-        }
-      });
-
-      const amigosCount = await this.prisma.orcamento.count({
-        where: {
-          trafegoCanal: 'Amigos'
-        }
-      });
-
-      const outrosCount = await this.prisma.orcamento.count({
-        where: {
-          trafegoCanal: 'Outros'
-        }
-      });
-
-      return {todos: orcamentoCount,google: googleCount,instagram: instagramCount,tikTok: tikTokCount, facebook: facebookCount,amigos: amigosCount, outros: outrosCount}
+    
+      const orcamentoCount = trafegoCounts.reduce((acc, curr) => acc + curr._count.trafegoCanal, 0);
+    
+      const trafegoData = {
+        todos: orcamentoCount,
+        google: trafegoCounts.find(item => item.trafegoCanal === 'Google')?._count.trafegoCanal || 0,
+        instagram: trafegoCounts.find(item => item.trafegoCanal === 'Instagram')?._count.trafegoCanal || 0,
+        tikTok: trafegoCounts.find(item => item.trafegoCanal === 'TikTok')?._count.trafegoCanal || 0,
+        facebook: trafegoCounts.find(item => item.trafegoCanal === 'Facebook')?._count.trafegoCanal || 0,
+        amigos: trafegoCounts.find(item => item.trafegoCanal === 'Amigos')?._count.trafegoCanal || 0,
+        outros: trafegoCounts.find(item => item.trafegoCanal === 'Outros')?._count.trafegoCanal || 0,
+      };
+    
+      return trafegoCounts;
     }
   }
