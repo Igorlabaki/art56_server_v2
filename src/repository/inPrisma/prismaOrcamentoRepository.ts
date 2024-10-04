@@ -180,65 +180,66 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       }
     });
   
-    const result = orcamentos.reduce((acc, orcamento) => {
-      const month = new Date(orcamento.dataInicio).toLocaleString("pt-BR", {
-        month: "short",
-      });
+    // Lista de todos os meses do ano
+    const meses = [
+      "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+      "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+    ];
   
-      // Inicializa o mês no acumulador, se ainda não existir
-      if (!acc[month]) {
-        acc[month] = { 
-          month: month, 
-          count: 0, 
-          total: 0, 
-          trafego: {
-            google: 0,
-            tiktok: 0,
-            facebook: 0,
-            instagram: 0,
-            outros: 0,
-            amigos: 0
-          }
-        };
-      }
-  
-      // Atualiza a contagem total e o valor total
-      acc[month].count += 1;
-      acc[month].total += orcamento.total;
-  
-      // Atualiza a contagem de tráfego com base no canal
-      switch (orcamento.trafegoCanal.toLowerCase()) {
-        case 'google':
-          acc[month].trafego.google += 1;
-          break;
-        case 'tiktok':
-          acc[month].trafego.tiktok += 1;
-          break;
-        case 'facebook':
-          acc[month].trafego.facebook += 1;
-          break;
-        case 'instagram':
-          acc[month].trafego.instagram += 1;
-          break;
-        case 'amigos':
-          acc[month].trafego.instagram += 1;
-          break;
-        default:
-          acc[month].trafego.outros += 1;
-          break;
-      }
-  
+    const result = meses.reduce((acc, mes, index) => {
+      // Inicializa cada mês com valores zerados
+      acc[mes] = { 
+        month: `${mes} ${new Date().getFullYear()}`,
+        count: 0,
+        total: 0,
+        trafego: {
+          google: 0,
+          tiktok: 0,
+          facebook: 0,
+          instagram: 0,
+          outros: 0
+        }
+      };
       return acc;
     }, {} as Record<string, { month: string; count: number; total: number, trafego: {
       google: number,
       tiktok: number,
       facebook: number,
-      amigos: number,
       instagram: number,
       outros: number
     } }>);
   
+    // Percorre os orçamentos e acumula os valores
+    orcamentos.forEach(orcamento => {
+      const month = new Date(orcamento.dataInicio).toLocaleString("pt-BR", {
+        month: "long",
+      }).toLowerCase();  // Nome do mês em minúsculas para coincidir com a lista
+  
+      // Atualiza os valores acumulados para o mês correspondente
+      result[month].count += 1;
+      result[month].total += orcamento.total;
+  
+      // Atualiza a contagem de tráfego com base no canal
+      switch (orcamento.trafegoCanal.toLowerCase()) {
+        case 'google':
+          result[month].trafego.google += 1;
+          break;
+        case 'tiktok':
+          result[month].trafego.tiktok += 1;
+          break;
+        case 'facebook':
+          result[month].trafego.facebook += 1;
+          break;
+        case 'instagram':
+          result[month].trafego.instagram += 1;
+          break;
+        default:
+          result[month].trafego.outros += 1;
+          break;
+      }
+    });
+  
     // Converte o objeto acumulado em um array
     return Object.values(result);
-  }
+  }  
 }
