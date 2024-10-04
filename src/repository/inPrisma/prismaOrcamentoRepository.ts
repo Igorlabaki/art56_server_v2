@@ -212,7 +212,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     // Percorre os orçamentos e acumula os valores
     orcamentos.forEach(orcamento => {
       const month = new Date(orcamento.dataInicio).toLocaleString("pt-BR", {
-        month: "long",
+        month: "short",
       }).toLowerCase();  // Nome do mês em minúsculas para coincidir com a lista
   
       // Atualiza os valores acumulados para o mês correspondente
