@@ -254,7 +254,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           result[month].trafego.google += 1;
           totalAbsoluto.trafego.google += 1;
           break;
-        case 'tiktok':
+        case 'titok':
           result[month].trafego.tiktok += 1;
           totalAbsoluto.trafego.tiktok += 1;
           break;
