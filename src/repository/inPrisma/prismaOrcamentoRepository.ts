@@ -171,8 +171,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         aprovadoCliente: true,
       },
       select: {
-        dataInicio: true,
         total: true,
+        dataInicio: true,
+        trafegoCanal:  true,
       },
     });
 
@@ -184,7 +185,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
 
       // Verifica se o mês já existe no acumulador
       if (!acc[month]) {
-        acc[month] = { month: month, count: 0, total: 0 };
+        acc[month] = { month: month, count: 0, total: 0, trafego: orcamento?.trafegoCanal };
       }
 
       // Atualiza os valores acumulados
@@ -192,7 +193,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       acc[month].total += orcamento.total; // soma os totais
 
       return acc;
-    }, {} as Record<string, { month: string; count: number; total: number }>);
+    }, {} as Record<string, { month: string; count: number; total: number, trafego: string }>);
 
     // Converte o objeto acumulado em um array
     return Object.values(result);
