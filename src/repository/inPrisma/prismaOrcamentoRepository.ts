@@ -189,7 +189,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     const result = meses.reduce((acc, mes, index) => {
       // Inicializa cada mês com valores zerados
       acc[mes] = { 
-        month: `${mes} ${new Date().getFullYear()}`,
+        month: `${mes}`,
         count: 0,
         total: 0,
         trafego: {
