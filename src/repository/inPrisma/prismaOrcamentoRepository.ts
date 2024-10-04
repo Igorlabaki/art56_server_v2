@@ -185,6 +185,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         total: true,
         dataInicio: true,
         trafegoCanal: true,
+        convidados: true
       },
       orderBy: {
         dataInicio: "asc",
@@ -214,6 +215,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           month: `${mes}`,
           count: 0,
           total: 0,
+          convidados: 0,
           trafego: {
             google: 0,
             tiktok: 0,
@@ -230,6 +232,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           month: string;
           count: number;
           total: number;
+          convidados: number;
           trafego: {
             google: number;
             tiktok: number;
@@ -246,6 +249,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       month: "Total Absoluto",
       count: 0,
       total: 0,
+      convidados: 0,
       trafego: {
         google: 0,
         tiktok: 0,
@@ -265,11 +269,13 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
 
       // Atualiza os valores acumulados para o mês correspondente
       result[month].count += 1;
+      result[month].convidados += orcamento.convidados;
       result[month].total += orcamento.total;
 
       // Atualiza os totais absolutos
       totalAbsoluto.count += 1;
       totalAbsoluto.total += orcamento.total;
+      totalAbsoluto.convidados += orcamento.convidados;
 
       // Atualiza a contagem de tráfego com base no canal
       switch (orcamento.trafegoCanal.toLowerCase()) {
