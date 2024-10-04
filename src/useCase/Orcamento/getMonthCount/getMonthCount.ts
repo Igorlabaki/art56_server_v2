@@ -3,9 +3,9 @@ import { IOrcamentoRepository, ListOrcamentoParams, MonthCountParams } from "../
 class GetMonthCountCase {
   constructor(private orcamentoRepository: IOrcamentoRepository) {}
   
-  async execute(data: MonthCountParams) {
+  async execute(year: MonthCountParams) {
 
-    const monthCount = await this.orcamentoRepository.monthCount(data);
+    const monthCount = await this.orcamentoRepository.monthCount(year);
 
     return monthCount;
   }
