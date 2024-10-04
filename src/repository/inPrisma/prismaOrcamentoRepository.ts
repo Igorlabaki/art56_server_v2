@@ -175,6 +175,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         dataInicio: true,
         trafegoCanal: true,
       },
+      orderBy:{
+        dataInicio: "asc"
+      }
     });
   
     const result = orcamentos.reduce((acc, orcamento) => {
