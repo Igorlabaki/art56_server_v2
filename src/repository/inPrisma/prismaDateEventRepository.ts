@@ -27,7 +27,7 @@ export class PrismaDateEventRepository implements IDateEventRepository {
         },
       });
 
-      if(dateParams.tipo === "Festa"){
+      if(dateParams.tipo === "Evento"){
         await this.prisma.orcamento.update({
           where: {
             id: dateParams.orcamentoId,
