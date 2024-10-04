@@ -190,13 +190,23 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         dataInicio: "asc",
       },
     });
-  
+
     // Lista de todos os meses do ano
     const meses = [
-      "jan.", "fev.", "mar.", "abr.", "mai.", "jun.", 
-      "jul.", "ago.", "set.", "out.", "nov.", "dez."
+      "jan.",
+      "fev.",
+      "mar.",
+      "abr.",
+      "mai.",
+      "jun.",
+      "jul.",
+      "ago.",
+      "set.",
+      "out.",
+      "nov.",
+      "dez.",
     ];
-  
+
     // Inicializa o acumulador para todos os meses
     const result = meses.reduce(
       (acc, mes) => {
@@ -211,13 +221,6 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
             instagram: 0,
             outros: 0,
           },
-          porcentagemTrafego: {
-            google: 0,
-            tiktok: 0,
-            facebook: 0,
-            instagram: 0,
-            outros: 0,
-          }
         };
         return acc;
       },
@@ -234,18 +237,11 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
             instagram: number;
             outros: number;
           };
-          porcentagemTrafego: {
-            google: number;
-            tiktok: number;
-            facebook: number;
-            instagram: number;
-            outros: number;
-          };
         }
       >
     );
-  
-    // Inicializa o total absoluto com o mesmo formato do result
+
+    // Inicializa o total absoluto
     const totalAbsoluto = {
       month: "Total Absoluto",
       count: 0,
@@ -257,15 +253,8 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         instagram: 0,
         outros: 0,
       },
-      porcentagemTrafego: {
-        google: 0,
-        tiktok: 0,
-        facebook: 0,
-        instagram: 0,
-        outros: 0,
-      },
     };
-  
+
     // Percorre os orçamentos e acumula os valores
     orcamentos.forEach((orcamento) => {
       const month = new Date(orcamento.dataInicio)
@@ -273,22 +262,22 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           month: "short",
         })
         .toLowerCase(); // Nome do mês em minúsculas para coincidir com a lista
-  
+
       // Atualiza os valores acumulados para o mês correspondente
       result[month].count += 1;
       result[month].total += orcamento.total;
-  
+
       // Atualiza os totais absolutos
       totalAbsoluto.count += 1;
       totalAbsoluto.total += orcamento.total;
-  
+
       // Atualiza a contagem de tráfego com base no canal
       switch (orcamento.trafegoCanal.toLowerCase()) {
         case "google":
           result[month].trafego.google += 1;
           totalAbsoluto.trafego.google += 1;
           break;
-        case "titok":  // Possível typo? Talvez seja 'tiktok'
+        case "titok":
           result[month].trafego.tiktok += 1;
           totalAbsoluto.trafego.tiktok += 1;
           break;
@@ -306,27 +295,13 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           break;
       }
     });
-  
-    // Calcula a porcentagem para cada mês com base nos totais absolutos
-    Object.keys(result).forEach(month => {
-      const trafegoTotalMes = result[month].trafego;
-      const trafegoTotalGeral = totalAbsoluto.trafego;
-  
-      result[month].porcentagemTrafego = {
-        google: (trafegoTotalMes.google / trafegoTotalGeral.google) * 100 || 0,
-        tiktok: (trafegoTotalMes.tiktok / trafegoTotalGeral.tiktok) * 100 || 0,
-        facebook: (trafegoTotalMes.facebook / trafegoTotalGeral.facebook) * 100 || 0,
-        instagram: (trafegoTotalMes.instagram / trafegoTotalGeral.instagram) * 100 || 0,
-        outros: (trafegoTotalMes.outros / trafegoTotalGeral.outros) * 100 || 0
-      };
-    });
-  
+
     // Converte o objeto acumulado em um array
     const resultArray = Object.values(result);
-  
+
     // Adiciona o total absoluto ao final do array
     resultArray.push(totalAbsoluto);
-  
+
     return resultArray;
   }
 }
