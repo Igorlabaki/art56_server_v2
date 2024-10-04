@@ -182,8 +182,8 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
   
     // Lista de todos os meses do ano
     const meses = [
-      "janeiro", "fevereiro", "março", "abril", "maio", "junho",
-      "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+      "jan.", "fev.", "mar.", "abr.", "mai.", "jun.",
+      "jul.", "agos.", "set.", "out.", "nov.", "dez."
     ];
   
     const result = meses.reduce((acc, mes, index) => {
