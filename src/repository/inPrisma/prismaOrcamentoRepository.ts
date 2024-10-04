@@ -175,9 +175,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         dataInicio: true,
         trafegoCanal: true,
       },
-      orderBy:{
-        dataInicio: "asc"
-      }
+      orderBy: {
+        dataInicio: "asc",
+      },
     });
   
     // Lista de todos os meses do ano
@@ -186,9 +186,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       "jul.", "agos.", "set.", "out.", "nov.", "dez."
     ];
   
-    const result = meses.reduce((acc, mes, index) => {
-      // Inicializa cada mês com valores zerados
-      acc[mes] = { 
+    // Inicializa o acumulador para todos os meses
+    const result = meses.reduce((acc, mes) => {
+      acc[mes] = {
         month: `${mes}`,
         count: 0,
         total: 0,
@@ -209,6 +209,20 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       outros: number
     } }>);
   
+    // Inicializa o total absoluto
+    const totalAbsoluto = {
+      month: 'Total Absoluto',
+      count: 0,
+      total: 0,
+      trafego: {
+        google: 0,
+        tiktok: 0,
+        facebook: 0,
+        instagram: 0,
+        outros: 0
+      }
+    };
+  
     // Percorre os orçamentos e acumula os valores
     orcamentos.forEach(orcamento => {
       const month = new Date(orcamento.dataInicio).toLocaleString("pt-BR", {
@@ -219,27 +233,41 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       result[month].count += 1;
       result[month].total += orcamento.total;
   
+      // Atualiza os totais absolutos
+      totalAbsoluto.count += 1;
+      totalAbsoluto.total += orcamento.total;
+  
       // Atualiza a contagem de tráfego com base no canal
       switch (orcamento.trafegoCanal.toLowerCase()) {
         case 'google':
           result[month].trafego.google += 1;
+          totalAbsoluto.trafego.google += 1;
           break;
         case 'tiktok':
           result[month].trafego.tiktok += 1;
+          totalAbsoluto.trafego.tiktok += 1;
           break;
         case 'facebook':
           result[month].trafego.facebook += 1;
+          totalAbsoluto.trafego.facebook += 1;
           break;
         case 'instagram':
           result[month].trafego.instagram += 1;
+          totalAbsoluto.trafego.instagram += 1;
           break;
         default:
           result[month].trafego.outros += 1;
+          totalAbsoluto.trafego.outros += 1;
           break;
       }
     });
   
     // Converte o objeto acumulado em um array
-    return Object.values(result);
-  }  
+    const resultArray = Object.values(result);
+  
+    // Adiciona o total absoluto ao final do array
+    resultArray.push(totalAbsoluto);
+  
+    return resultArray;
+  } 
 }
