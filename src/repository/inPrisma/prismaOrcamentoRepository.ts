@@ -194,7 +194,8 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
             tiktok: 0,
             facebook: 0,
             instagram: 0,
-            outros: 0
+            outros: 0,
+            amigos: 0
           }
         };
       }
@@ -217,6 +218,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         case 'instagram':
           acc[month].trafego.instagram += 1;
           break;
+        case 'amigos':
+          acc[month].trafego.instagram += 1;
+          break;
         default:
           acc[month].trafego.outros += 1;
           break;
@@ -227,6 +231,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       google: number,
       tiktok: number,
       facebook: number,
+      amigos: number,
       instagram: number,
       outros: number
     } }>);
