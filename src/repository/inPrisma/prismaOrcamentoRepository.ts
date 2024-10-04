@@ -2,6 +2,7 @@ import {
   IOrcamentoParams,
   IOrcamentoRepository,
   ListOrcamentoParams,
+  MonthCountParams,
   UpdateOrcamentoParams,
 } from "../IOrcamentoRepository";
 
@@ -126,12 +127,18 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     });
   }
 
-  async trafegoCount(): Promise<any> {
+  async trafegoCount({year}: MonthCountParams): Promise<any> {
     const trafegoCounts = await this.prisma.orcamento.groupBy({
       by: ["trafegoCanal"],
       _count: {
         trafegoCanal: true,
       },
+      where:{
+        dataInicio:{
+          gte: new Date(year ? year : new Date().getFullYear()),
+          lt: new Date(year ? year : new Date().getFullYear(), 12, 31),
+        }
+      }
     });
 
     const orcamentoCount = trafegoCounts.reduce(
@@ -164,11 +171,15 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     return trafegoData;
   }
 
-  async monthCount(): Promise<any> {
+  async monthCount({year}: MonthCountParams): Promise<any> {
     const orcamentos = await this.prisma.orcamento.findMany({
       where: {
         aprovadoAr756: true,
         aprovadoCliente: true,
+        dataInicio:{
+          gte: new Date(year ? year : new Date().getFullYear()),
+          lt: new Date(year ? year : new Date().getFullYear(), 12, 31),
+        }
       },
       select: {
         total: true,

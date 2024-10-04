@@ -1,10 +1,10 @@
-import { IOrcamentoRepository, ListOrcamentoParams } from "../../../repository/IOrcamentoRepository";
+import { IOrcamentoRepository, ListOrcamentoParams, MonthCountParams } from "../../../repository/IOrcamentoRepository";
 
 class GetTrafegoCountCase {
   constructor(private orcamentoRepository: IOrcamentoRepository) {}
 
-  async execute() {
-    const trafegoCount = await this.orcamentoRepository.trafegoCount();
+  async execute(data: MonthCountParams) {
+    const trafegoCount = await this.orcamentoRepository.trafegoCount(data);
 
     return trafegoCount;
   }

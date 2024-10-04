@@ -56,13 +56,16 @@ export interface ListOrcamentoParams {
   year?: number,
   take?: number
 }
+export interface MonthCountParams {
+  year?: number,
+}
 
 export interface IOrcamentoRepository {
-  monthCount: () => Promise<any | null>;
-  trafegoCount: () => Promise<any | null>;
   delete: (reference: string) => Promise<Orcamento | null>;
   getById: (reference: string) => Promise<Orcamento | null>;
+  monthCount: (reference : MonthCountParams) => Promise<any | null>;
   create: (reference: IOrcamentoParams) => Promise<Orcamento | null>;
+  trafegoCount: (reference : MonthCountParams) => Promise<any | null>;
   list: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
   update: (reference: UpdateOrcamentoParams) => Promise<Orcamento | null>;
   listAprovado: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
