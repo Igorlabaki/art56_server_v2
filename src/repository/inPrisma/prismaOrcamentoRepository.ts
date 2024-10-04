@@ -180,7 +180,6 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     const result = orcamentos.reduce((acc, orcamento) => {
       const month = new Date(orcamento.dataInicio).toLocaleString("pt-BR", {
         month: "short",
-        year: "numeric",
       });
   
       // Inicializa o mês no acumulador, se ainda não existir
