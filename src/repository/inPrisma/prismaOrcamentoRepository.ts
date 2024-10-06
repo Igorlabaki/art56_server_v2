@@ -298,6 +298,21 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       },
     };
 
+    const totalAprovado = {
+      month: "Total Aprovado",
+      count: 0,
+      total: 0,
+      convidados: 0,
+      aprovados:0,
+      trafego: {
+        google: 0,
+        tiktok: 0,
+        facebook: 0,
+        instagram: 0,
+        outros: 0,
+      },
+    };
+
     // Percorre os orçamentos e acumula os valores
     orcamentos.forEach((orcamento) => {
       const month = new Date(orcamento.dataInicio)
@@ -350,19 +365,23 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         switch (orcamento.trafegoCanal.toLowerCase()) {
           case "google":
             resultAprovados[month].trafego.google += 1;
+            totalAprovado.trafego.google += 1;
             break;
           case "titok":
             resultAprovados[month].trafego.tiktok += 1;
-            totalAbsoluto.trafego.tiktok += 1;
+            totalAprovado.trafego.tiktok += 1;
             break;
           case "facebook":
             resultAprovados[month].trafego.facebook += 1;
+            totalAprovado[month].trafego.facebook += 1;
             break;
           case "instagram":
             resultAprovados[month].trafego.instagram += 1;
+            totalAprovado[month].trafego.instagram += 1;
             break;
           default:
             resultAprovados[month].trafego.outros += 1;
+            totalAprovado[month].trafego.outros += 1;
             break;
         }
       }
@@ -373,8 +392,11 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     const resultAprovadosArray = Object.values(resultAprovados);
 
     // Adiciona o total absoluto ao final do array
+
+    const total = resultArray.push(totalAbsoluto)
+    const aprovados = resultAprovadosArray.push(totalAprovado)
   
 
-    return {resultAprovadosArray, resultArray, totalAbsoluto};
+    return {total, aprovados};
   }
 }
