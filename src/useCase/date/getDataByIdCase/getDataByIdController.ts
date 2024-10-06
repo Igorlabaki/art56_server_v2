@@ -8,7 +8,7 @@ import { GetDateEventByIdCase } from "./getDataByIdCase";
 class GetDataByIdController {
   constructor() {}
 
-  async handle(resp: Response, req: Request) {
+  async handle(req: Request, resp: Response) {
 
     const {dateEventId}  = req.params
 
