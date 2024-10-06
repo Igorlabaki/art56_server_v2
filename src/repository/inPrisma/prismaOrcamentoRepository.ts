@@ -341,23 +341,23 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       switch (orcamento.trafegoCanal.toLowerCase()) {
         case "google":
           resultTodos[month].trafego.google += 1;
-          totalAbsoluto.trafego.google += 1;
+          totalAbsoluto[month].trafego.google += 1;
           break;
         case "titok":
           resultTodos[month].trafego.tiktok += 1;
-          totalAbsoluto.trafego.tiktok += 1;
+          totalAbsoluto[month].trafego.tiktok += 1;
           break;
         case "facebook":
           resultTodos[month].trafego.facebook += 1;
-          totalAbsoluto.trafego.facebook += 1;
+          totalAbsoluto[month].trafego.facebook += 1;
           break;
         case "instagram":
           resultTodos[month].trafego.instagram += 1;
-          totalAbsoluto.trafego.instagram += 1;
+          totalAbsoluto[month].trafego.instagram += 1;
           break;
         default:
           resultTodos[month].trafego.outros += 1;
-          totalAbsoluto.trafego.outros += 1;
+          totalAbsoluto[month].trafego.outros += 1;
           break;
       }
       
@@ -365,11 +365,11 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         switch (orcamento.trafegoCanal.toLowerCase()) {
           case "google":
             resultAprovados[month].trafego.google += 1;
-            totalAprovado.trafego.google += 1;
+            totalAprovado[month].trafego.google += 1;
             break;
           case "titok":
             resultAprovados[month].trafego.tiktok += 1;
-            totalAprovado.trafego.tiktok += 1;
+            totalAprovado[month].trafego.tiktok += 1;
             break;
           case "facebook":
             resultAprovados[month].trafego.facebook += 1;
