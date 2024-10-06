@@ -397,6 +397,6 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     const aprovados = resultAprovadosArray.push(totalAprovado)
   
 
-    return {total, aprovados};
+    return {total: total, aprovados: aprovados};
   }
 }
