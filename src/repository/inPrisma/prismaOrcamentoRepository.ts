@@ -248,6 +248,10 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       resultTodos[month].count += 1;
       resultTodos[month].convidados += orcamento.convidados;
       resultTodos[month].total += orcamento.total;
+      
+      resultAprovados[month].count += 1;
+      resultAprovados[month].convidados += orcamento.convidados;
+      resultAprovados[month].total += orcamento.total;
   
       totalAbsoluto.count += 1;
       totalAbsoluto.total += orcamento.total;
