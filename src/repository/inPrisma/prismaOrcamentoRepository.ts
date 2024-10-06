@@ -370,11 +370,11 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
 
     // Converte o objeto acumulado em um array
     const resultArray = Object.values(resultTodos);
+    const resultAprovadosArray = Object.values(resultAprovados);
 
     // Adiciona o total absoluto ao final do array
-    resultArray.push(totalAbsoluto);
-    resultArray.push(totalAbsoluto);
+  
 
-    return resultArray;
+    return {resultAprovadosArray, resultArray, totalAbsoluto};
   }
 }
