@@ -256,27 +256,22 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       switch (orcamento.trafegoCanal.toLowerCase()) {
         case "google":
           resultTodos[month].trafego.google += 1;
-          resultAprovados[month].trafego.google += 1;
           totalAbsoluto.trafego.google += 1;
           break;
         case "tiktok":
           resultTodos[month].trafego.tiktok += 1;
-          resultAprovados[month].trafego.tiktok += 1;
           totalAbsoluto.trafego.tiktok += 1;
           break;
         case "facebook":
           resultTodos[month].trafego.facebook += 1;
-          resultAprovados[month].trafego.facebook += 1;
           totalAbsoluto.trafego.facebook += 1;
           break;
         case "instagram":
           resultTodos[month].trafego.instagram += 1;
-          resultAprovados[month].trafego.instagram += 1;
           totalAbsoluto.trafego.instagram += 1;
           break;
         default:
           resultTodos[month].trafego.outros += 1;
-          resultAprovados[month].trafego.outros += 1;
           totalAbsoluto.trafego.outros += 1;
           break;
       }
