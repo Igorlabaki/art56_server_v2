@@ -184,111 +184,57 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         dataInicio: true,
         trafegoCanal: true,
         convidados: true,
-        aprovadoAr756: true
+        aprovadoAr756: true,
       },
       orderBy: {
         dataInicio: "asc",
       },
     });
-
-    // Lista de todos os meses do ano
-    const meses = [
-      "jan.",
-      "fev.",
-      "mar.",
-      "abr.",
-      "mai.",
-      "jun.",
-      "jul.",
-      "ago.",
-      "set.",
-      "out.",
-      "nov.",
-      "dez.",
-    ];
-
-    // Inicializa o acumulador para todos os meses
-    const resultAprovados = meses.reduce(
-      (acc, mes) => {
-        acc[mes] = {
-          month: `${mes}`,
-          count: 0,
-          total: 0,
-          convidados: 0,
-          aprovados: 0,
-          trafego: {
-            google: 0,
-            tiktok: 0,
-            facebook: 0,
-            instagram: 0,
-            outros: 0,
-          },
-        };
-        return acc;
-      },
-      {} as Record<
-        string,
-        {
-          month: string;
-          count: number;
-          total: number;
-          convidados: number;
-          aprovados: number;
-          trafego: {
-            google: number;
-            tiktok: number;
-            facebook: number;
-            instagram: number;
-            outros: number;
-          };
-        }
-      >
-    );
-
-    const resultTodos = meses.reduce(
-      (acc, mes) => {
-        acc[mes] = {
-          month: `${mes}`,
-          count: 0,
-          total: 0,
-          convidados: 0,
-          aprovados: 0,
-          trafego: {
-            google: 0,
-            tiktok: 0,
-            facebook: 0,
-            instagram: 0,
-            outros: 0,
-          },
-        };
-        return acc;
-      },
-      {} as Record<
-        string,
-        {
-          month: string;
-          count: number;
-          total: number;
-          convidados: number;
-          aprovados: number;
-          trafego: {
-            google: number;
-            tiktok: number;
-            facebook: number;
-            instagram: number;
-            outros: number;
-          };
-        }
-      >
-    );
-
-    // Inicializa o total absoluto
+  
+    const meses = ["jan.", "fev.", "mar.", "abr.", "mai.", "jun.", "jul.", "ago.", "set.", "out.", "nov.", "dez."];
+  
+    const resultAprovados = meses.reduce((acc, mes) => {
+      acc[mes] = {
+        month: `${mes}`,
+        count: 0,
+        total: 0,
+        convidados: 0,
+        aprovados: 0,
+        trafego: {
+          google: 0,
+          tiktok: 0,
+          facebook: 0,
+          instagram: 0,
+          outros: 0,
+        },
+      };
+      return acc;
+    }, {} as Record<string, typeof totalAbsoluto>);
+  
+    const resultTodos = meses.reduce((acc, mes) => {
+      acc[mes] = {
+        month: `${mes}`,
+        count: 0,
+        total: 0,
+        convidados: 0,
+        aprovados: 0,
+        trafego: {
+          google: 0,
+          tiktok: 0,
+          facebook: 0,
+          instagram: 0,
+          outros: 0,
+        },
+      };
+      return acc;
+    }, {} as Record<string, typeof totalAbsoluto>);
+  
     const totalAbsoluto = {
       month: "Total Absoluto",
       count: 0,
       total: 0,
       convidados: 0,
-      aprovados:0,
+      aprovados: 0,
       trafego: {
         google: 0,
         tiktok: 0,
@@ -297,13 +243,13 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         outros: 0,
       },
     };
-
+  
     const totalAprovado = {
       month: "Total Aprovado",
       count: 0,
       total: 0,
       convidados: 0,
-      aprovados:0,
+      aprovados: 0,
       trafego: {
         google: 0,
         tiktok: 0,
@@ -312,91 +258,83 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         outros: 0,
       },
     };
-
-    // Percorre os orçamentos e acumula os valores
+  
     orcamentos.forEach((orcamento) => {
-      const month = new Date(orcamento.dataInicio)
-        .toLocaleString("pt-BR", {
-          month: "short",
-        })
-        .toLowerCase(); // Nome do mês em minúsculas para coincidir com a lista
-
-      if(orcamento?.aprovadoAr756){
+      const month = new Date(orcamento.dataInicio).toLocaleString("pt-BR", { month: "short" }).toLowerCase();
+  
+      if (orcamento?.aprovadoAr756) {
         resultAprovados[month].count += 1;
         resultAprovados[month].convidados += orcamento.convidados;
         resultAprovados[month].total += orcamento.total;
       }
-
-      // Atualiza os valores acumulados para o mês correspondente
+  
       resultTodos[month].count += 1;
       resultTodos[month].convidados += orcamento.convidados;
       resultTodos[month].total += orcamento.total;
-
-      // Atualiza os totais absolutos
-      totalAbsoluto[month].count += 1;
-      totalAbsoluto[month].total += orcamento.total;
-      totalAbsoluto[month].convidados += orcamento.convidados;
-
-      // Atualiza a contagem de tráfego com base no canal
+  
+      // Atualiza os totais absolutos corretamente (sem usar [month])
+      totalAbsoluto.count += 1;
+      totalAbsoluto.total += orcamento.total;
+      totalAbsoluto.convidados += orcamento.convidados;
+  
+      // Trafego para todos os orçamentos
       switch (orcamento.trafegoCanal.toLowerCase()) {
         case "google":
           resultTodos[month].trafego.google += 1;
-          totalAbsoluto[month].trafego.google += 1;
+          totalAbsoluto.trafego.google += 1;
           break;
-        case "titok":
+        case "tiktok":
           resultTodos[month].trafego.tiktok += 1;
-          totalAbsoluto[month].trafego.tiktok += 1;
+          totalAbsoluto.trafego.tiktok += 1;
           break;
         case "facebook":
           resultTodos[month].trafego.facebook += 1;
-          totalAbsoluto[month].trafego.facebook += 1;
+          totalAbsoluto.trafego.facebook += 1;
           break;
         case "instagram":
           resultTodos[month].trafego.instagram += 1;
-          totalAbsoluto[month].trafego.instagram += 1;
+          totalAbsoluto.trafego.instagram += 1;
           break;
         default:
           resultTodos[month].trafego.outros += 1;
-          totalAbsoluto[month].trafego.outros += 1;
+          totalAbsoluto.trafego.outros += 1;
           break;
       }
-      
-      if(orcamento.aprovadoAr756){
+  
+      // Trafego para orçamentos aprovados
+      if (orcamento.aprovadoAr756) {
         switch (orcamento.trafegoCanal.toLowerCase()) {
           case "google":
             resultAprovados[month].trafego.google += 1;
-            totalAprovado[month].trafego.google += 1;
+            totalAprovado.trafego.google += 1;
             break;
-          case "titok":
+          case "tiktok":
             resultAprovados[month].trafego.tiktok += 1;
-            totalAprovado[month].trafego.tiktok += 1;
+            totalAprovado.trafego.tiktok += 1;
             break;
           case "facebook":
             resultAprovados[month].trafego.facebook += 1;
-            totalAprovado[month].trafego.facebook += 1;
+            totalAprovado.trafego.facebook += 1;
             break;
           case "instagram":
             resultAprovados[month].trafego.instagram += 1;
-            totalAprovado[month].trafego.instagram += 1;
+            totalAprovado.trafego.instagram += 1;
             break;
           default:
             resultAprovados[month].trafego.outros += 1;
-            totalAprovado[month].trafego.outros += 1;
+            totalAprovado.trafego.outros += 1;
             break;
         }
       }
     });
-
-    // Converte o objeto acumulado em um array
+  
     const resultArray = Object.values(resultTodos);
     const resultAprovadosArray = Object.values(resultAprovados);
-
-    // Adiciona o total absoluto ao final do array
-
-    const total = resultArray.push(totalAbsoluto)
-    const aprovados = resultAprovadosArray.push(totalAprovado)
   
-
-    return {total: total, aprovados: aprovados};
+    // Adiciona os totais no final dos arrays (sem usar push() para retorno de valor)
+    resultArray.push(totalAbsoluto);
+    resultAprovadosArray.push(totalAprovado);
+  
+    return { total: resultArray, aprovados: resultAprovadosArray };
   }
 }
