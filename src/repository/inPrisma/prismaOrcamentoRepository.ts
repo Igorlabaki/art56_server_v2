@@ -333,9 +333,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       resultTodos[month].total += orcamento.total;
 
       // Atualiza os totais absolutos
-      totalAbsoluto.count += 1;
-      totalAbsoluto.total += orcamento.total;
-      totalAbsoluto.convidados += orcamento.convidados;
+      totalAbsoluto[month].count += 1;
+      totalAbsoluto[month].total += orcamento.total;
+      totalAbsoluto[month].convidados += orcamento.convidados;
 
       // Atualiza a contagem de tráfego com base no canal
       switch (orcamento.trafegoCanal.toLowerCase()) {
