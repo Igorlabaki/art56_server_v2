@@ -33,11 +33,11 @@ export interface GetByDateParams{
 }
 
 export interface IDateEventRepository {
-  list: (reference: string | undefined) =>Promise<DateEvent[] | null>;
   delete: (reference: string) => Promise<DateEvent | null>;
   getById: (reference: string) => Promise<DateEvent | null>;
-  getByDate: (reference: GetByDateParams) => Promise<DateEvent | null>;
   create: (reference: IDateEventParams) => Promise<DateEvent | null>;
+  list: (reference: string | undefined) =>Promise<DateEvent[] | null>;
+  getByDate: (reference: GetByDateParams) => Promise<DateEvent | null>;
   update: (reference: UpdateDateEventParams) => Promise<DateEvent | null>;
   checkAvailability: (reference: ValidateDateParam) => Promise<DateEvent | null>;
   checkIfHasEventDate: (reference: ValidateIfHasDateDateParam) => Promise<DateEvent | null>;

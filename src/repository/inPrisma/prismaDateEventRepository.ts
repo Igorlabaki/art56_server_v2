@@ -143,7 +143,7 @@ export class PrismaDateEventRepository implements IDateEventRepository {
         where: {
           titulo:{
             contains:reference
-          }
+          },
         },
         include: {
           orcamento: true,
