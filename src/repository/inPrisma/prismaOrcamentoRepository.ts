@@ -266,6 +266,10 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         resultAprovados[month].count += 1;
         resultAprovados[month].convidados += orcamento.convidados;
         resultAprovados[month].total += orcamento.total;
+
+        totalAprovado.count += 1;
+        totalAprovado.total += orcamento.total;
+        totalAprovado.convidados += orcamento.convidados;
       }
   
       resultTodos[month].count += 1;
@@ -276,6 +280,8 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       totalAbsoluto.count += 1;
       totalAbsoluto.total += orcamento.total;
       totalAbsoluto.convidados += orcamento.convidados;
+
+     
   
       // Trafego para todos os orçamentos
       switch (orcamento.trafegoCanal.toLowerCase()) {
