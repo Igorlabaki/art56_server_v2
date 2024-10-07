@@ -26,6 +26,7 @@ app.use("/text", textRoutes);
 app.use("/value", valueRoutes);
 app.use("/image", imageRoutes);
 app.use("/email", emailRoutes);
+app.use("/despesa", emailRoutes);
 app.use("/question", questionRoutes);
 app.use("/dateEvent", dateEventRoutes);
 app.use("/orcamento", orcamentoRoutes);

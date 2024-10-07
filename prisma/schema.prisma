@@ -2,31 +2,30 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url               = env("DATABASE_URL")
-  relationMode      = "prisma"
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
-model User{
-  id        String   @id @default(uuid())
-  username  String
-  password  String
-  refresh_token         RefreshToken[]
+model User {
+  id            String         @id @default(uuid())
+  username      String
+  password      String
+  refresh_token RefreshToken[]
 }
 
 model RefreshToken {
-  id        String   @id @default(uuid())
-  expireIn  Int
-  userId    String?  @unique
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id       String  @id @default(uuid())
+  expireIn Int
+  userId   String? @unique
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("refresh_token")
 }
-
 
 model Orcamento {
   id              String      @id @default(cuid())
@@ -54,26 +53,43 @@ model Orcamento {
   updatedAt       DateTime    @updatedAt
   contato         Boolean?
   Data            DateEvent[]
+  Despesa         Despesa[]
 
   @@map("orcamento")
 }
 
-model Image {
-  id         String   @id @default(cuid())
-  imageUrl   String   @db.LongText
-  area       String
-  position   Int
-  created_at DateTime? @default(now())
-  updatedAt  DateTime? @updatedAt
-  responsiveMode String
-  tag   String
+model Despesa {
+  id            String     @id @default(cuid())
+  descricao     String // Descrição da despesa
+  valor         Float // Valor da despesa
+  dataPagamento DateTime // Data do pagamento da despesa
+  tipo          String // Tipo de despesa (Fixa, Variável)
+  categoria     String // Categoria da despesa (Manutenção, Serviços, Materiais, etc.)
+  recorrente    Boolean // Indica se é uma despesa recorrente ou única
+  created_at    DateTime   @default(now()) // Data de criação do registro
+  updatedAt     DateTime   @updatedAt
+  orcamento     Orcamento? @relation(fields: [orcamentoId], references: [id], onDelete: SetNull) // Permite deletar sem perder o orçamento
+  orcamentoId   String? // Pode ser nulo para despesas não vinculadas a eventos específicos
+
+  @@index([orcamentoId])
+  @@map("despesa")
 }
 
+model Image {
+  id             String    @id @default(cuid())
+  imageUrl       String    @db.LongText
+  area           String
+  position       Int
+  created_at     DateTime? @default(now())
+  updatedAt      DateTime? @updatedAt
+  responsiveMode String
+  tag            String
+}
 
 model Text {
   id         String   @id @default(cuid())
   area       String
-  titulo     String? 
+  titulo     String?
   position   Int      @default(0)
   text       String   @db.LongText
   created_at DateTime @default(now())
@@ -90,8 +106,8 @@ model Values {
 
 model Question {
   id         String   @id @default(cuid())
-  question     String @db.LongText
-  response      String @db.LongText
+  question   String   @db.LongText
+  response   String   @db.LongText
   created_at DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
