@@ -1,5 +1,5 @@
 import { PrismaClient, Despesa } from '@prisma/client';
-import { IDespesaParams, IDespesaRepository, IListByRecorrenteDespesasParams, IUpdateDespesaParams } from '../IDespesaRepository';
+import { AnaliseDespesa, DespesaEsporadica, DespesaRecorrente, IDespesaParams, IDespesaRepository, IListByRecorrenteDespesasParams, IUpdateDespesaParams } from '../IDespesaRepository';
 
 export class PrismaDespesaRepository implements IDespesaRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -51,28 +51,29 @@ export class PrismaDespesaRepository implements IDespesaRepository {
     }
   }
 
-  async getAnalize(): Promise<any> {
+  async getAnalize(): Promise<AnaliseDespesa> {
     const list = await this.prisma.despesa.findMany();
   
-    const analysis = {
+    const analysis: AnaliseDespesa = {
       total: {
         mensal: 0,
         anual: 0,
         esporadico: 0
       },
-      recorrentes: {},
-      esporadicos: {}
+      recorrentes: [],
+      esporadicos: []
     };
   
-    // Percorre a lista de despesas
+    const recorrentesMap: { [descricao: string]: DespesaRecorrente } = {};
+    const esporadicosMap: { [descricao: string]: DespesaEsporadica } = {};
+  
     list.forEach((item: Despesa) => {
       let mensalValue = 0;
       let anualValue = 0;
   
       if (item.recorrente) {
-        // Define o tipo de recorrência
-        if (!analysis.recorrentes[item.descricao]) {
-          analysis.recorrentes[item.descricao] = { mensal: 0, anual: 0 };
+        if (!recorrentesMap[item.descricao]) {
+          recorrentesMap[item.descricao] = { descricao: item.descricao, mensal: 0, anual: 0 };
         }
   
         if (item.tipo === "Mensal") {
@@ -83,24 +84,26 @@ export class PrismaDespesaRepository implements IDespesaRepository {
           anualValue = item.valor * 24;
         }
   
-        // Atualiza os valores recorrentes
-        analysis.recorrentes[item.descricao].mensal += mensalValue;
-        analysis.recorrentes[item.descricao].anual += anualValue;
+        recorrentesMap[item.descricao].mensal += mensalValue;
+        recorrentesMap[item.descricao].anual += anualValue;
   
         analysis.total.mensal += mensalValue;
         analysis.total.anual += anualValue;
   
       } else {
-        // Despesa esporádica (não recorrente)
-        if (!analysis.esporadicos[item.descricao]) {
-          analysis.esporadicos[item.descricao] = { total: 0 };
+        if (!esporadicosMap[item.descricao]) {
+          esporadicosMap[item.descricao] = { descricao: item.descricao, total: 0 };
         }
   
-        analysis.esporadicos[item.descricao].total += item.valor;
+        esporadicosMap[item.descricao].total += item.valor;
         analysis.total.esporadico += item.valor;
       }
     });
   
+    analysis.recorrentes = Object.values(recorrentesMap);
+    analysis.esporadicos = Object.values(esporadicosMap);
+  
     return analysis;
   }
+  
 }

@@ -21,6 +21,27 @@ export interface IUpdateDespesaParams {
   };
 }
 
+export interface DespesaRecorrente  {
+  descricao: string;
+  mensal: number;
+  anual: number;
+};
+
+export interface DespesaEsporadica  {
+  descricao: string;
+  total: number;
+};
+
+export interface AnaliseDespesa  {
+  recorrentes: DespesaRecorrente[];
+  esporadicos: DespesaEsporadica[];
+  total: {
+    mensal: number;
+    anual: number;
+    esporadico: number;
+  };
+};
+
 export interface IListByCategoriaDespesasParams {
   categoria: string;
 }
@@ -30,7 +51,7 @@ export interface IListByRecorrenteDespesasParams {
 }
 
 export interface IDespesaRepository {
-  getAnalize: () => Promise<Despesa | null>;
+  getAnalize: () => Promise<AnaliseDespesa | null>;
   delete: (reference: string) => Promise<Despesa | null>;
   getById: (reference: string) => Promise<Despesa | null>;
   create: (reference: IDespesaParams) => Promise<Despesa | null>;
