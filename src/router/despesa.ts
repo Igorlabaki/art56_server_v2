@@ -4,6 +4,7 @@ import { listDespesaFactory } from "../useCase/despesa/listDespesa/listDespesaFa
 import { deleteDespesaFactory } from "../useCase/despesa/deleteDespesaCase/deleteDespesaFactory";
 import { updateDespesaFactory } from "../useCase/despesa/updateDespesaCase/updateImageFactory";
 import { getDespesaByIdFactory } from "../useCase/despesa/getDespesaByIdCase/getDespesaByIdFactory";
+import { getDespesaAnalizeFactory } from "../useCase/despesa/getDespesaAnalizeCase/getDespesaAnalizeFactory";
 
 const despesaRoutes = Router();
 
@@ -21,6 +22,10 @@ despesaRoutes.delete("/delete/:despesaId", deleteDespesaFactory().handle);
 
 //Get By Id
 despesaRoutes.get("/getById/:despesaId", getDespesaByIdFactory().handle);
+//
+
+//Get analize
+despesaRoutes.get("/getAnalize", getDespesaAnalizeFactory().handle);
 //
 
 // Update

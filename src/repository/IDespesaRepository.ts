@@ -30,6 +30,7 @@ export interface IListByRecorrenteDespesasParams {
 }
 
 export interface IDespesaRepository {
+  getAnalize: () => Promise<Despesa | null>;
   delete: (reference: string) => Promise<Despesa | null>;
   getById: (reference: string) => Promise<Despesa | null>;
   create: (reference: IDespesaParams) => Promise<Despesa | null>;
