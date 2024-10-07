@@ -52,7 +52,11 @@ export class PrismaDespesaRepository implements IDespesaRepository {
   }
 
   async getAnalize(): Promise<AnaliseDespesa> {
-    const list = await this.prisma.despesa.findMany();
+    const list = await this.prisma.despesa.findMany({
+      orderBy: {
+        valor: "asc"
+      }
+    });
   
     const analysis: AnaliseDespesa = {
       total: {
