@@ -52,11 +52,7 @@ export class PrismaDespesaRepository implements IDespesaRepository {
   }
 
   async getAnalize(): Promise<AnaliseDespesa> {
-    const list = await this.prisma.despesa.findMany({
-      orderBy: {
-        valor: "asc"
-      }
-    });
+    const list = await this.prisma.despesa.findMany();
   
     const analysis: AnaliseDespesa = {
       total: {
@@ -104,10 +100,12 @@ export class PrismaDespesaRepository implements IDespesaRepository {
       }
     });
   
-    analysis.recorrentes = Object.values(recorrentesMap);
-    analysis.esporadicos = Object.values(esporadicosMap);
+    // Ordenar recorrentes por ordem decrescente anual
+    analysis.recorrentes = Object.values(recorrentesMap).sort((a, b) => b.anual - a.anual);
+    
+    // Ordenar esporádicos por ordem decrescente total
+    analysis.esporadicos = Object.values(esporadicosMap).sort((a, b) => b.total - a.total);
   
     return analysis;
   }
-  
 }
