@@ -1,10 +1,10 @@
 import { IDespesaParams, IDespesaRepository } from "../../../repository/IDespesaRepository";
 
 class CreateDespesaCase {
-  constructor(private DespesaRepository: IDespesaRepository) {}
+  constructor(private despesaRepository: IDespesaRepository) {}
 
   async execute(data: IDespesaParams) {
-    const newDespesa = await this.DespesaRepository.create(data);
+    const newDespesa = await this.despesaRepository.create(data);
 
     return newDespesa;
   }

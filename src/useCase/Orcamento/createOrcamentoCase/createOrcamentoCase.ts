@@ -1,3 +1,4 @@
+import { IDespesaRepository } from "../../../repository/IDespesaRepository";
 import { IOrcamentoParams, IOrcamentoRepository } from "../../../repository/IOrcamentoRepository";
 
 class CreateOrcamentoCase {
