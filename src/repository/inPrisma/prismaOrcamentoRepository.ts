@@ -3,6 +3,7 @@ import {
   IOrcamentoRepository,
   ListOrcamentoParams,
   MonthCountParams,
+  TrafegoCount,
   UpdateOrcamentoParams,
 } from "../IOrcamentoRepository";
 
@@ -168,7 +169,18 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           .trafegoCanal || 0,
     };
 
-    return trafegoData;
+    const trafegoList = Object.keys(trafegoData)?.map((key) => ({
+      name: key,
+      value: trafegoData[key as keyof TrafegoCount],
+    }));
+
+    // Ordenando baseado no valor de 'todos'
+    const sortedSources = trafegoList.sort(
+      (a, b) =>
+        b.value / trafegoData?.todos - a.value / trafegoData?.todos
+    );
+
+    return sortedSources;
   }
 
   async monthCount({ year }: MonthCountParams): Promise<any> {

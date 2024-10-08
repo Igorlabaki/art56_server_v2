@@ -50,6 +50,16 @@ export interface UpdateOrcamentoParams {
   };
 }
 
+export interface TrafegoCount {
+  todos: number;
+  google: number;
+  amigos: number;
+  tikTok: number;
+  outros: number;
+  facebook: number;
+  instagram: number;
+}
+
 export interface ListOrcamentoParams {
   query?: string ,
   month?: number,
