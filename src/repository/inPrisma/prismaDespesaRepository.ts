@@ -58,7 +58,7 @@ export class PrismaDespesaRepository implements IDespesaRepository {
       total: {
         mensal: 0,
         anual: 0,
-        esporadico: 0
+        esporadico: 0,
       },
       recorrentes: [],
       esporadicos: []
@@ -73,7 +73,7 @@ export class PrismaDespesaRepository implements IDespesaRepository {
   
       if (item.recorrente) {
         if (!recorrentesMap[item.descricao]) {
-          recorrentesMap[item.descricao] = { descricao: item.descricao, mensal: 0, anual: 0 };
+          recorrentesMap[item.descricao] = { descricao: item.descricao, mensal: 0, anual: 0, total: 0 };
         }
   
         if (item.tipo === "Mensal") {
@@ -87,6 +87,10 @@ export class PrismaDespesaRepository implements IDespesaRepository {
         recorrentesMap[item.descricao].mensal += mensalValue;
         recorrentesMap[item.descricao].anual += anualValue;
   
+        // Adicionando o total de cada recorrente (mensal + anual)
+        recorrentesMap[item.descricao].total = recorrentesMap[item.descricao].mensal + recorrentesMap[item.descricao].anual;
+  
+        // Atualizando o total geral de despesas
         analysis.total.mensal += mensalValue;
         analysis.total.anual += anualValue;
   
@@ -100,10 +104,13 @@ export class PrismaDespesaRepository implements IDespesaRepository {
       }
     });
   
-    // Ordenar recorrentes por ordem decrescente anual
-    analysis.recorrentes = Object.values(recorrentesMap).sort((a, b) => b.anual - a.anual);
+    // Atualizar o total geral anual com as despesas esporádicas
+    analysis.total.anual += analysis.total.esporadico;
+  
+    // Ordenar recorrentes por ordem decrescente de total
+    analysis.recorrentes = Object.values(recorrentesMap).sort((a, b) => b.total - a.total);
     
-    // Ordenar esporádicos por ordem decrescente total
+    // Ordenar esporádicos por ordem decrescente de total
     analysis.esporadicos = Object.values(esporadicosMap).sort((a, b) => b.total - a.total);
   
     return analysis;
