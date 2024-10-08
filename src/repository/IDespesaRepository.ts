@@ -25,7 +25,6 @@ export interface DespesaRecorrente  {
   descricao: string;
   mensal: number;
   anual: number;
-  total: number;
 };
 
 export interface DespesaEsporadica  {
