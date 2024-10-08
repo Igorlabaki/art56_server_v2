@@ -180,7 +180,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         b.value / trafegoData?.todos - a.value / trafegoData?.todos
     );
 
-    return {trafegoData, sortedSources};
+    return {todos:trafegoData.todos, sortedSources};
   }
 
   async monthCount({ year }: MonthCountParams): Promise<any> {
