@@ -43,6 +43,7 @@ export class PrismaDespesaRepository implements IDespesaRepository {
     if(reference){
       return await this.prisma.despesa.findMany({
         where:{
+          recorrente: true,
           descricao:{
             contains:reference
           }
