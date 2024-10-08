@@ -50,7 +50,7 @@ export class PrismaDespesaRepository implements IDespesaRepository {
         },
       });
     }else{
-      const x = "f"
+      const x = "df"
       return await this.prisma.despesa.findMany();
     }
   }
