@@ -52,8 +52,8 @@ export class PrismaDespesaRepository implements IDespesaRepository {
     }else{
       return await this.prisma.despesa.findMany();
     }
+    const x = "f"
   }
-
   async getAnalize(): Promise<AnaliseDespesa> {
     const list = await this.prisma.despesa.findMany();
   
