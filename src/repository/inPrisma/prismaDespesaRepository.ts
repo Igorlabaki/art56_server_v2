@@ -41,16 +41,8 @@ export class PrismaDespesaRepository implements IDespesaRepository {
 
   async list(reference: string | undefined): Promise<Despesa[]> {
     if(reference){
-      return await this.prisma.despesa.findMany({
-        where:{
-          recorrente: true,
-          descricao:{
-            contains:reference
-          }
-        },
-      });
+      return await this.prisma.despesa.findMany();
     }else{
-      const x = "df"
       return await this.prisma.despesa.findMany();
     }
   }
