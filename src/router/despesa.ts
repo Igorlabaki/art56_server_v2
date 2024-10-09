@@ -25,7 +25,7 @@ despesaRoutes.get("/getById/:despesaId", getDespesaByIdFactory().handle);
 //
 
 //Get analize
-despesaRoutes.get("/getAnalize", getDespesaAnalizeFactory().handle);
+despesaRoutes.get("/getAnalize/:year?", getDespesaAnalizeFactory().handle);
 //
 
 // Update
