@@ -50,7 +50,11 @@ export class PrismaDespesaRepository implements IDespesaRepository {
         },
       });
     }else{
-      return await this.prisma.despesa.findMany();
+      return await this.prisma.despesa.findMany({
+        where:{
+          recorrente: true,
+        }
+      });
     }
   }
   async getAnalize(): Promise<AnaliseDespesa> {
