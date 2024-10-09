@@ -19,7 +19,7 @@ dateEventRoutes.post("/create", createDateEventFactory().handle);
 //
 
 // List
-dateEventRoutes.get("/list/:query?", listDateEventFactory().handle);
+dateEventRoutes.get("/list/:tipo?/:year?", listDateEventFactory().handle);
 //
 
 // Update

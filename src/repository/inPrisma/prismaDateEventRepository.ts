@@ -1,5 +1,6 @@
 import {
   GetByDateParams,
+  GetListDateEventParams,
   IDateEventParams,
   IDateEventRepository,
   UpdateDateEventParams,
@@ -137,12 +138,16 @@ export class PrismaDateEventRepository implements IDateEventRepository {
     });
   }
 
-  async list(reference:string | undefined): Promise<DateEvent[]> {
-    if(reference){
+  async list({tipo,year}:GetListDateEventParams): Promise<DateEvent[]> {
+    if(tipo){
       return await this.prisma.dateEvent.findMany({
         where: {
           tipo:{
-            contains:reference
+            contains:tipo
+          },
+          dataInicio: {
+            gte: new Date(year ? year : new Date().getFullYear()),
+            lt: new Date(year ? year : new Date().getFullYear(), 12, 31),
           },
         },
         include: {

@@ -8,7 +8,7 @@ class ListDespesasController {
   constructor() {}
 
   async handle(req: Request, resp: Response) {
-    const  query : IListByCategoriaDespesasParams = req.params;
+    const  query : IListByCategoriaDespesasParams = req.query;
 
     const prismaDespesaRepository = new PrismaDespesaRepository(prismaClient);
     const listDespesaCase = new ListDespesaCase(prismaDespesaRepository);
