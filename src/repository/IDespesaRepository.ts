@@ -43,18 +43,18 @@ export interface AnaliseDespesa  {
 };
 
 export interface IListByCategoriaDespesasParams {
-  categoria: string;
+  query?: string;
 }
 
-export interface IListByRecorrenteDespesasParams {
-  recorrente: Boolean;
+export interface IAnalizeDespesasParams {
+  year?: number | undefined;
 }
 
 export interface IDespesaRepository {
-  getAnalize: () => Promise<AnaliseDespesa | null>;
   delete: (reference: string) => Promise<Despesa | null>;
   getById: (reference: string) => Promise<Despesa | null>;
   create: (reference: IDespesaParams) => Promise<Despesa | null>;
-  list: (reference: string | undefined) => Promise<Despesa[] | null>;
   update: (reference: IUpdateDespesaParams) => Promise<Despesa | null>;
+  getAnalize: (year: IAnalizeDespesasParams) => Promise<AnaliseDespesa | null>;
+  list: (reference: IListByCategoriaDespesasParams) => Promise<Despesa[] | null>;
 }
