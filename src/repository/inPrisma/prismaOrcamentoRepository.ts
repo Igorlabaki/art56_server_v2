@@ -176,11 +176,10 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
 
     // Ordenando baseado no valor de 'todos'
     const sortedSources = trafegoList.sort(
-      (a, b) =>
-        b.value / trafegoData?.todos - a.value / trafegoData?.todos
+      (a, b) => b.value / trafegoData?.todos - a.value / trafegoData?.todos
     );
 
-    return {todos:trafegoData.todos, sortedSources};
+    return { todos: trafegoData.todos, sortedSources };
   }
 
   async monthCount({ year }: MonthCountParams): Promise<any> {
@@ -202,9 +201,22 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         dataInicio: "asc",
       },
     });
-  
-    const meses = ["jan.", "fev.", "mar.", "abr.", "mai.", "jun.", "jul.", "ago.", "set.", "out.", "nov.", "dez."];
-  
+
+    const meses = [
+      "jan.",
+      "fev.",
+      "mar.",
+      "abr.",
+      "mai.",
+      "jun.",
+      "jul.",
+      "ago.",
+      "set.",
+      "out.",
+      "nov.",
+      "dez.",
+    ];
+
     const resultAprovados = meses.reduce((acc, mes) => {
       acc[mes] = {
         month: `${mes}`,
@@ -213,6 +225,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         convidados: 0,
         aprovados: 0,
         trafego: {
+          airbnb: 0,
           google: 0,
           tiktok: 0,
           facebook: 0,
@@ -222,7 +235,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       };
       return acc;
     }, {} as Record<string, typeof totalAbsoluto>);
-  
+
     const resultTodos = meses.reduce((acc, mes) => {
       acc[mes] = {
         month: `${mes}`,
@@ -231,6 +244,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         convidados: 0,
         aprovados: 0,
         trafego: {
+          airbnb: 0,
           google: 0,
           tiktok: 0,
           facebook: 0,
@@ -240,7 +254,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       };
       return acc;
     }, {} as Record<string, typeof totalAbsoluto>);
-  
+
     const totalAbsoluto = {
       month: "Total Absoluto",
       count: 0,
@@ -248,6 +262,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       convidados: 0,
       aprovados: 0,
       trafego: {
+        airbnb: 0,
         google: 0,
         tiktok: 0,
         facebook: 0,
@@ -255,7 +270,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         outros: 0,
       },
     };
-  
+
     const totalAprovado = {
       month: "Total Aprovado",
       count: 0,
@@ -263,6 +278,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       convidados: 0,
       aprovados: 0,
       trafego: {
+        airbnb: 0,
         google: 0,
         tiktok: 0,
         facebook: 0,
@@ -270,10 +286,12 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         outros: 0,
       },
     };
-  
+
     orcamentos.forEach((orcamento) => {
-      const month = new Date(orcamento.dataInicio).toLocaleString("pt-BR", { month: "short" }).toLowerCase();
-  
+      const month = new Date(orcamento.dataInicio)
+        .toLocaleString("pt-BR", { month: "short" })
+        .toLowerCase();
+
       if (orcamento?.aprovadoAr756) {
         resultAprovados[month].count += 1;
         resultAprovados[month].convidados += orcamento.convidados;
@@ -283,18 +301,16 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         totalAprovado.total += orcamento.total;
         totalAprovado.convidados += orcamento.convidados;
       }
-  
+
       resultTodos[month].count += 1;
       resultTodos[month].convidados += orcamento.convidados;
       resultTodos[month].total += orcamento.total;
-  
+
       // Atualiza os totais absolutos corretamente (sem usar [month])
       totalAbsoluto.count += 1;
       totalAbsoluto.total += orcamento.total;
       totalAbsoluto.convidados += orcamento.convidados;
 
-     
-  
       // Trafego para todos os orçamentos
       switch (orcamento.trafegoCanal.toLowerCase()) {
         case "google":
@@ -313,18 +329,26 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
           resultTodos[month].trafego.instagram += 1;
           totalAbsoluto.trafego.instagram += 1;
           break;
+        case "airbnb":
+          resultTodos[month].trafego.airbnb += 1;
+          totalAbsoluto.trafego.airbnb += 1;
+          break;
         default:
           resultTodos[month].trafego.outros += 1;
           totalAbsoluto.trafego.outros += 1;
           break;
       }
-  
+
       // Trafego para orçamentos aprovados
       if (orcamento.aprovadoAr756) {
         switch (orcamento.trafegoCanal.toLowerCase()) {
           case "google":
             resultAprovados[month].trafego.google += 1;
             totalAprovado.trafego.google += 1;
+            break;
+          case "airbnb":
+            resultTodos[month].trafego.airbnb += 1;
+            totalAbsoluto.trafego.airbnb += 1;
             break;
           case "tiktok":
             resultAprovados[month].trafego.tiktok += 1;
@@ -345,14 +369,14 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         }
       }
     });
-  
+
     const resultArray = Object.values(resultTodos);
     const resultAprovadosArray = Object.values(resultAprovados);
-  
+
     // Adiciona os totais no final dos arrays (sem usar push() para retorno de valor)
     resultArray.push(totalAbsoluto);
     resultAprovadosArray.push(totalAprovado);
-  
+
     return { total: resultArray, aprovados: resultAprovadosArray };
   }
 }
