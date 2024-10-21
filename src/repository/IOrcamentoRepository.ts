@@ -14,6 +14,7 @@ export interface IOrcamentoParams {
   seguranca: boolean;
   trafegoCanal: string;
   conheceEspaco: boolean;
+  termosAceito?: boolean;
   recepcionista: boolean;
   valorBase: number;
   qtdHorasExtras: number;
@@ -38,6 +39,7 @@ export interface UpdateOrcamentoParams {
     telefone?: string | undefined;
     contato?: boolean | undefined;
     convidados?: number | undefined;
+    termosAceito?: boolean;
     dataInicio?: string | Date | undefined;
     seguranca?: boolean | undefined;
     trafegoCanal?: string | undefined;

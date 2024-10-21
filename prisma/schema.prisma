@@ -46,6 +46,7 @@ model Orcamento {
   qtdHorasExtras  Int
   valorHoraExtra  Float
   total           Float
+  termosAceito    Boolean     @default(false)
   aprovadoCliente Boolean     @default(false)
   aprovadoAr756   Boolean     @default(false)
   feedback        String?     @db.LongText
