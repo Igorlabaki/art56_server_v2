@@ -98,7 +98,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     return await this.prisma.orcamento.findMany({
       where: {
         ...(query && {
-          nome: {
+          email: {
             contains: query,
           },
         }),
