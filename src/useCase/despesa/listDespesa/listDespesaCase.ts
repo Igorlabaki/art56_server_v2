@@ -6,7 +6,8 @@ import {
 
 interface DespesaListState {
   recorrentes: {
-    total: number;
+    totalMensal: number;
+    totalAnual: number;
     list: Despesa[];
   };
   naoRecorrentes: {
@@ -22,7 +23,8 @@ class ListDespesaCase {
 
     const despesaListState : DespesaListState = {
       recorrentes: {
-        total: 0,
+        totalAnual: 0,
+        totalMensal: 0,
         list: [],
       },
       naoRecorrentes: {
@@ -34,7 +36,14 @@ class ListDespesaCase {
     if (despesaList) {
       for (const despesa of despesaList) {
         if (despesa.recorrente) {
-          despesaListState.recorrentes.total += despesa.valor;
+          if(despesa.tipo === "Quinzenal"){
+            despesaListState.recorrentes.totalMensal += despesa.valor * 2;
+            despesaListState.recorrentes.totalAnual += despesa.valor * 24;
+          }
+          if(despesa.tipo === "Mensal"){
+            despesaListState.recorrentes.totalMensal += despesa.valor;
+            despesaListState.recorrentes.totalAnual += despesa.valor * 12;
+          }
           despesaListState.recorrentes.list.push(despesa);
         } else {
           despesaListState.naoRecorrentes.total += despesa.valor;
