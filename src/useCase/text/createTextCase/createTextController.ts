@@ -17,7 +17,11 @@ class CreateTextController {
       const newText = await createTextsCase.execute(data);
       return resp.json(newText);
     } catch (error) {
-      return resp.status(400).json({ error: error.message });
+      if (error instanceof Error) {
+        return resp.status(400).json({ error: error.message });
+      } else {
+        return resp.status(400).json({ error: 'Unknown error occurred' });
+      }
     }
   }
 }

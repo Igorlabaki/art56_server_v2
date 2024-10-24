@@ -55,6 +55,6 @@ export interface IDespesaRepository {
   getById: (reference: string) => Promise<Despesa | null>;
   create: (reference: IDespesaParams) => Promise<Despesa | null>;
   update: (reference: IUpdateDespesaParams) => Promise<Despesa | null>;
-  getAnalize: (year: IAnalizeDespesasParams) => Promise<AnaliseDespesa | null>;
+  getAnalize: (year: IAnalizeDespesasParams) => Promise<Despesa[] | null>;
   list: (reference: IListByCategoriaDespesasParams) => Promise<Despesa[] | null>;
 }

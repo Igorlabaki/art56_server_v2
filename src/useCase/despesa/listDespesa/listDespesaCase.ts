@@ -5,6 +5,7 @@ class ListDespesaCase {
 
   async execute(query: IListByCategoriaDespesasParams) {
     const despesaList = await this.despesaRepository.list(query);
+    
 
     return despesaList;
   }
