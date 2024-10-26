@@ -24,8 +24,11 @@ export class PrismaDateEventRepository implements IDateEventRepository {
             connect: {
               id: dateParams.orcamentoId
             }
-          }
+          },
         },
+        include: {
+          orcamento: true
+        }
       });
 
       if(dateParams.tipo === "Evento"){

@@ -28,10 +28,10 @@ model RefreshToken {
 }
 
 model Orcamento {
-  id              String      @id @default(cuid())
+  id              String         @id @default(cuid())
   tipo            String
   trafegoCanal    String
-  conheceEspaco   Boolean     @default(false)
+  conheceEspaco   Boolean        @default(false)
   dataInicio      DateTime
   dataFim         DateTime
   seguranca       Boolean
@@ -40,21 +40,22 @@ model Orcamento {
   nome            String
   email           String
   telefone        String
-  texto           String      @db.LongText
+  texto           String         @db.LongText
   convidados      Int
   valorBase       Float
   qtdHorasExtras  Int
   valorHoraExtra  Float
   total           Float
-  termosAceito    Boolean     @default(false)
-  aprovadoCliente Boolean     @default(false)
-  aprovadoAr756   Boolean     @default(false)
-  feedback        String?     @db.LongText
-  created_at      DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  termosAceito    Boolean        @default(false)
+  aprovadoCliente Boolean        @default(false)
+  aprovadoAr756   Boolean        @default(false)
+  feedback        String?        @db.LongText
+  created_at      DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   contato         Boolean?
   Data            DateEvent[]
   Despesa         Despesa[]
+  Notification    Notification[]
 
   @@map("orcamento")
 }
@@ -125,4 +126,23 @@ model DateEvent {
   orcamentoId String?
 
   @@index([orcamentoId])
+}
+
+model Notification {
+  id          String           @id @default(uuid())
+  orcamentoId String
+  orcamento   Orcamento        @relation(fields: [orcamentoId], references: [id])
+  content     String
+  type        NotificationType
+  createdAt   DateTime         @default(now())
+  isRead      Boolean          @default(false)
+
+  @@index([orcamentoId])
+}
+
+enum NotificationType {
+  VISITA
+  EVENTO
+  ALERTA
+  ORCAMENTO
 }

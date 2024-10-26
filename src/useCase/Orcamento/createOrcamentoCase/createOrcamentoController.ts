@@ -3,6 +3,7 @@ import { IOrcamentoParams } from '../../../repository/IOrcamentoRepository';
 import { CreateOrcamentoCase } from './createOrcamentoCase';
 import { PrismaOrcamentoRepository } from '../../../repository/inPrisma/prismaOrcamentoRepository';
 import { prismaClient } from '../../../service/prisma';
+import { PrismaNotificationRepository } from '../../../repository/inPrisma/prismaNotificationRepository';
 
 class CreateOrcamentoController {
   constructor() {}
@@ -11,7 +12,8 @@ class CreateOrcamentoController {
     const data : IOrcamentoParams = req.body;
 
     const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
-    const createOrcamentosCase = new CreateOrcamentoCase(prismaOrcamentoRepository);
+    const prismaNotificationRepository = new PrismaNotificationRepository(prismaClient);
+    const createOrcamentosCase = new CreateOrcamentoCase(prismaOrcamentoRepository,prismaNotificationRepository);
 
     try {
       const newOrcamneto = await createOrcamentosCase.execute(data);

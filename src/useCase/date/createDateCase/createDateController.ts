@@ -3,6 +3,7 @@ import { IDateEventParams } from "../../../repository/IDateEventRepository";
 import { PrismaDateEventRepository } from "../../../repository/inPrisma/prismaDateEventRepository";
 import { prismaClient } from "../../../service/prisma";
 import { CreateDateEventCase } from "./createDateCase";
+import { PrismaNotificationRepository } from "../../../repository/inPrisma/prismaNotificationRepository";
 
 
 class CreateDateController {
@@ -14,8 +15,11 @@ class CreateDateController {
     const prismaDateEventRepository = new PrismaDateEventRepository(
       prismaClient
     );
+    const prismaNotificationRepository = new PrismaNotificationRepository(
+      prismaClient
+    );
     const createDateEventCase = new CreateDateEventCase(
-      prismaDateEventRepository
+      prismaDateEventRepository, prismaNotificationRepository
     );
       
     try {

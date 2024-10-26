@@ -1,9 +1,10 @@
 
 import { format } from "date-fns";
 import { IDateEventParams, IDateEventRepository } from "../../../repository/IDateEventRepository";
+import { INotificationRepository } from "../../../repository/INotificacaoRepository";
 
 class CreateDateEventCase {
-  constructor(private dateRepository: IDateEventRepository) {}
+  constructor(private dateRepository: IDateEventRepository,private notificationRepository: INotificationRepository) {}
   async execute(data: IDateEventParams) {
     
     const isNotAvailable = await this.dateRepository.checkAvailability({
@@ -48,6 +49,20 @@ class CreateDateEventCase {
     }
 
     const newDate = await this.dateRepository.create(data);
+
+    if(newDate && newDate.orcamentoId){
+      await this.notificationRepository.create({
+        orcamentoId: newDate?.orcamentoId,
+        content: `${newDate.tipo} foi marcado(a), para data  ${format(data?.dataInicio , "dd/MM/yyyy")}`,
+        type: newDate.tipo === "Evento" ?  "EVENTO" : "VISITA" 
+      });
+    }else if(newDate){
+      await this.notificationRepository.create({
+        orcamentoId: "cm1qq00hx0001rm1ir24eqnhw",
+        content: `${newDate.titulo} foi marcado(a), para data ${newDate.dataInicio}`,
+        type: "ALERTA" 
+      });
+    }
 
     return newDate;
   }

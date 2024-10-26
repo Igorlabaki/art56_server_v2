@@ -10,6 +10,7 @@ import { orcamentoRoutes } from "./router/orcamento";
 import { dateEventRoutes } from "./router/dateEvent";
 import { emailRoutes } from "./router/email";
 import { despesaRoutes } from "./router/despesa";
+import { notificationRoutes } from "./router/notification";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/despesa", despesaRoutes);
 app.use("/question", questionRoutes);
 app.use("/dateEvent", dateEventRoutes);
 app.use("/orcamento", orcamentoRoutes);
+app.use("/notification", notificationRoutes);
 
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
   return resp.json({
