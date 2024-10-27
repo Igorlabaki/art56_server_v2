@@ -1,11 +1,12 @@
 import { Router } from "express";
 
-import { listNotificationFactory } from "../useCase/Notification/listNotificationCase/listNotificationFactory";
+
 import { createNotificationFactory } from "../useCase/Notification/createNotificationCase/createNotificationFactory";
 import { getNotificationByIdFactory } from "../useCase/Notification/getNotificationByIdCase/getNotificationByIdFactory";
 
 import { deleteNotificationFactory } from "../useCase/Notification/deleteNotificationCase/deleteNotificationFactory";
 import { updateNotificationFactory } from "../useCase/notification/updateNotificationCase/updateNotificationFactory";
+import { listNotificationFactory } from "../useCase/Notification/listNotificationCase/listNotificationFactory";
 
 
 const notificationRoutes = Router();
