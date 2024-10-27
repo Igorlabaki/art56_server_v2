@@ -1,13 +1,9 @@
 import { Router } from "express";
-
-
-import { createNotificationFactory } from "../useCase/Notification/createNotificationCase/createNotificationFactory";
-import { getNotificationByIdFactory } from "../useCase/Notification/getNotificationByIdCase/getNotificationByIdFactory";
-
-import { deleteNotificationFactory } from "../useCase/Notification/deleteNotificationCase/deleteNotificationFactory";
-import { updateNotificationFactory } from "../useCase/notification/updateNotificationCase/updateNotificationFactory";
+import { deleteNotificationFactory } from "../useCase/notification/deleteNotificationCase/deleteNotificationFactory";
+import { getNotificationByIdFactory } from "../useCase/notification/getNotificationByIdCase/getNotificationByIdFactory";
+import { createNotificationFactory } from "../useCase/notification/createNotificationCase/createNotificationFactory";
 import { listNotificationFactory } from "../useCase/Notification/listNotificationCase/listNotificationFactory";
-
+import { updateNotificationFactory } from "../useCase/notification/updateNotificationCase/updateNotificationFactory";
 
 const notificationRoutes = Router();
 
@@ -20,15 +16,24 @@ notificationRoutes.get("/list/:query?", listNotificationFactory().handle);
 ////
 
 // Delete
-notificationRoutes.delete("/delete/:notificationId", deleteNotificationFactory().handle);
+notificationRoutes.delete(
+  "/delete/:notificationId",
+  deleteNotificationFactory().handle
+);
 // */
 
 //Get By Id
-notificationRoutes.get("/getById/:notificationId", getNotificationByIdFactory().handle);
+notificationRoutes.get(
+  "/getById/:notificationId",
+  getNotificationByIdFactory().handle
+);
 //
 
 // Update
-notificationRoutes.put("/update/:notificationId", updateNotificationFactory().handle);
-// 
+notificationRoutes.put(
+  "/update/:notificationId",
+  updateNotificationFactory().handle
+);
+//
 
 export { notificationRoutes };
