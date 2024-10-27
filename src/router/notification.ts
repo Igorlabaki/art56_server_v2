@@ -16,7 +16,7 @@ notificationRoutes.post("/create", createNotificationFactory().handle);
 
 // List
 notificationRoutes.get("/list/:query?", listNotificationFactory().handle);
-//
+////
 
 // Delete
 notificationRoutes.delete("/delete/:notificationId", deleteNotificationFactory().handle);
