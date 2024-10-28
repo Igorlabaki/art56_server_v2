@@ -35,11 +35,10 @@ app.use("/dateEvent", dateEventRoutes);
 app.use("/orcamento", orcamentoRoutes);
 app.use("/notification", notificationRoutes);
 
-
 export const pusher = new Pusher({
-  appId: "1887260",
-  key: "223899161d1bfffe7306",
-  secret: "652e9ccd81b853133bbf",
+  appId: "1887262",
+  key: "244a09e8fab17da272e0",
+  secret: "6cd34f1685b8348c5a3a",
   cluster: "sa1",
   useTLS: true
 });
