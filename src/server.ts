@@ -43,6 +43,10 @@ export const pusher = new Pusher({
   useTLS: true
 });
 
+pusher.trigger("ar756", "notificacoes", {
+  message: "Notificacao"
+});
+
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
   return resp.json({
     status: "Error",
