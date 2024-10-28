@@ -57,6 +57,7 @@ io.on("connection", (socket) => {
 
   // Quando um novo orçamento for criado, emita uma atualização para todos os clientes
   socket.on("novoOrcamento", (data) => {
+    console.log("novo orcamenot", data)
     io.emit("atualizacaoNotificacao", data); // Envia para todos os clientes conectados
   });
 
