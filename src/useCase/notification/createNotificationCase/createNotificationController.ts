@@ -1,3 +1,4 @@
+import { io } from '../../../server';
 import { Request, Response } from 'express';
 import { prismaClient } from '../../../service/prisma';
 import { CreateNotificationCase } from './createNotificationCase';
@@ -15,6 +16,7 @@ class CreateNotificationController {
 
     try {
       const newNotification = await createNotificationCase.execute(data);
+      io.emit("atualizacaoNotificacao", newNotification); 
       return resp.json(newNotification);
     } catch (error) {
       return resp.status(400).json({ error: error.message });
