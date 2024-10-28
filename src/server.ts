@@ -1,11 +1,8 @@
 import cors from "cors";
+import Pusher from "pusher";
 import "express-async-errors";
-import express, { NextFunction, Request, Response } from "express";
-import { Server as SocketIOServer } from "socket.io";
-import http from "http"; // Para criar o servidor HTTP necessário para o Socket.IO
-
-// Importação das rotas
 import { authRoutes } from "./router/auth";
+import express, { NextFunction, Request, Response } from "express";
 import { textRoutes } from "./router/text";
 import { valueRoutes } from "./router/value";
 import { questionRoutes } from "./router/question";
@@ -17,21 +14,16 @@ import { despesaRoutes } from "./router/despesa";
 import { notificationRoutes } from "./router/notification";
 
 const app = express();
-const server = http.createServer(app); // Criação do servidor HTTP
-const io = new SocketIOServer(server, {
-  cors: {
+
+app.use(
+  cors({
     origin: "*",
     methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-  },
-});
+  })
+);
 
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-}));
 app.use(express.json());
 
-// Uso das rotas
 app.use("/auth", authRoutes);
 app.use("/text", textRoutes);
 app.use("/value", valueRoutes);
@@ -43,7 +35,15 @@ app.use("/dateEvent", dateEventRoutes);
 app.use("/orcamento", orcamentoRoutes);
 app.use("/notification", notificationRoutes);
 
-// Middleware de erro
+
+export const pusher = new Pusher({
+  appId: "1887260",
+  key: "223899161d1bfffe7306",
+  secret: "652e9ccd81b853133bbf",
+  cluster: "sa1",
+  useTLS: true
+});
+
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
   return resp.json({
     status: "Error",
@@ -51,20 +51,4 @@ app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
   });
 });
 
-// Configuração do WebSocket
-io.on("connection", (socket) => {
-  console.log("Novo cliente conectado:", socket.id);
-
-  // Quando um novo orçamento for criado, emita uma atualização para todos os clientes
-  socket.on("novoOrcamento", (data) => {
-    console.log("novo orcamenot", data)
-    io.emit("atualizacaoNotificacao", data); // Envia para todos os clientes conectados
-  });
-
-  socket.on("disconnect", () => {
-    console.log("Cliente desconectado:", socket.id);
-  });
-});
-
-// Exportação do servidor com WebSocket configurado
-export { server, io };
+ export default app;
