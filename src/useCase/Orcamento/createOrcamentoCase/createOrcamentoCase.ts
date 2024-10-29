@@ -19,7 +19,7 @@ class CreateOrcamentoCase {
   async execute(data: IOrcamentoRequest) {
     const valueList = await this.valuesRepository.list(undefined);
 
-    if (data.total === undefined && valueList) {
+    if (data.total === 0 && valueList) {
       const { dataFim, diaria, inicial, qtdHorasExtras, valorHoraExtra } =
         calcTotal({
           data: {
