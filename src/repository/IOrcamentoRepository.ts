@@ -24,7 +24,7 @@ export interface IOrcamentoParams {
   aprovadoCliente?: boolean;
 }
 export interface IOrcamentoRequest {
-  total: number;
+  total?: number;
   nome: string;
   tipo: string;
   email: string;

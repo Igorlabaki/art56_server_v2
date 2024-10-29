@@ -88,7 +88,7 @@ class CreateOrcamentoCase {
           limpeza: orcamentoRequest.limpeza,
           recepcionista: orcamentoRequest.recepcionista,
           seguranca: orcamentoRequest.seguranca,
-          total: orcamentoRequest.total,
+          total: Number(orcamentoRequest.total) || 0,
         },
         separador: "/",
       });
