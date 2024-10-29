@@ -20,7 +20,7 @@ class CreateOrcamentoCase {
     const valueList = await this.valuesRepository.list(undefined);
 
     if (orcamentoRequest.total === 0 && valueList) {
-      const { dataFim, diaria, inicial, qtdHorasExtras, valorHoraExtra } =
+      const { dataFim, diaria, inicial, qtdHorasExtras, valorHoraExtra, novoTotal } =
         calcTotal({
           data: {
             valueList: valueList,
@@ -35,12 +35,13 @@ class CreateOrcamentoCase {
           separador: "/",
         });
       
-      const {data,horarioFim,horarioInicio, ...rest } = orcamentoRequest  
-      
+      const {data,horarioFim,horarioInicio,total, ...rest } = orcamentoRequest  
+
       const createOrcParam: IOrcamentoParams = {
         dataFim: dataFim,
         dataInicio: inicial,
         valorBase: diaria,
+        total:novoTotal,
         qtdHorasExtras,
         valorHoraExtra,
         ...rest,

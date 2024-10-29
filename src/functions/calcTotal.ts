@@ -73,10 +73,10 @@ export function calcTotal({
 
   const qtdHorasExtras = calcQtdHoraExtra(duracaoFesta);
   const valorHoraExtra = calcHorasExtras(diaria);
-  const total = diaria + extras + valorHoraExtra * qtdHorasExtras;
+  const novoTotal = diaria + extras + valorHoraExtra * qtdHorasExtras;
 
   return {
-    total,
+    novoTotal,
     dataFim,
     diaria,
     inicial,
