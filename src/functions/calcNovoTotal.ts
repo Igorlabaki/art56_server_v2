@@ -49,9 +49,9 @@ export function calcNovoTotal({data: {valueList,limpeza,dataInicio,horarioInicio
         250
       );
     
-      const valor = Number(total) - extras
+      const valor = total - extras
       const qtdHorasExtras = calcQtdHoraExtra(duracaoFesta);
-      const diaria = (Number(valor) / duracaoFesta) * (duracaoFesta - qtdHorasExtras)
+      const diaria = (valor / duracaoFesta) * (duracaoFesta - qtdHorasExtras)
       const valorHoraExtra = calcHorasExtras(diaria);
 
       const novoTotal = diaria + extras + ( valorHoraExtra * qtdHorasExtras);

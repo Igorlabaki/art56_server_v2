@@ -88,13 +88,15 @@ class CreateOrcamentoCase {
           limpeza: orcamentoRequest.limpeza,
           recepcionista: orcamentoRequest.recepcionista,
           seguranca: orcamentoRequest.seguranca,
-          total: Number(orcamentoRequest.total) || 0,
+          total: orcamentoRequest.total || 0,
         },
         separador: "/",
       });
 
+      const {data,horarioFim,horarioInicio,total, ...rest } = orcamentoRequest  
+
       const createOrcParam: IOrcamentoParams = {
-        ...orcamentoRequest,
+        ...rest,
         dataFim: final,
         qtdHorasExtras,
         valorHoraExtra,
