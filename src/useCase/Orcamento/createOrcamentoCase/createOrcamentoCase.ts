@@ -16,32 +16,33 @@ class CreateOrcamentoCase {
     private notificationRepository: INotificationRepository
   ) {}
 
-  async execute(data: IOrcamentoRequest) {
+  async execute(orcamentoRequest: IOrcamentoRequest) {
     const valueList = await this.valuesRepository.list(undefined);
 
-    if (data.total === 0 && valueList) {
+    if (orcamentoRequest.total === 0 && valueList) {
       const { dataFim, diaria, inicial, qtdHorasExtras, valorHoraExtra } =
         calcTotal({
           data: {
             valueList: valueList,
-            convidados: data.convidados,
-            dataInicio: data.data,
-            horarioFim: data.horarioFim,
-            horarioInicio: data.horarioInicio,
-            limpeza: data.limpeza,
-            recepcionista: data.recepcionista,
-            seguranca: data.seguranca,
+            convidados: orcamentoRequest.convidados,
+            dataInicio: orcamentoRequest.data,
+            horarioFim: orcamentoRequest.horarioFim,
+            horarioInicio: orcamentoRequest.horarioInicio,
+            limpeza: orcamentoRequest.limpeza,
+            recepcionista: orcamentoRequest.recepcionista,
+            seguranca: orcamentoRequest.seguranca,
           },
           separador: "/",
         });
-
+      
+      const {data, ...rest } = orcamentoRequest  
       const createOrcParam: IOrcamentoParams = {
         dataFim: dataFim,
         dataInicio: inicial,
         valorBase: diaria,
         qtdHorasExtras,
         valorHoraExtra,
-        ...data,
+        ...rest,
       };
 
       const newOrcamento = await this.orcamentoRepository.create(
@@ -78,20 +79,20 @@ class CreateOrcamentoCase {
       } = calcNovoTotal({
         data: {
           valueList: valueList,
-          convidados: data.convidados,
-          dataInicio: data.data,
-          horarioFim: data.horarioFim,
-          horarioInicio: data.horarioInicio,
-          limpeza: data.limpeza,
-          recepcionista: data.recepcionista,
-          seguranca: data.seguranca,
-          total: data.total,
+          convidados: orcamentoRequest.convidados,
+          dataInicio: orcamentoRequest.data,
+          horarioFim: orcamentoRequest.horarioFim,
+          horarioInicio: orcamentoRequest.horarioInicio,
+          limpeza: orcamentoRequest.limpeza,
+          recepcionista: orcamentoRequest.recepcionista,
+          seguranca: orcamentoRequest.seguranca,
+          total: orcamentoRequest.total,
         },
         separador: "/",
       });
 
       const createOrcParam: IOrcamentoParams = {
-        ...data,
+        ...orcamentoRequest,
         dataFim: final,
         qtdHorasExtras,
         valorHoraExtra,
@@ -115,7 +116,7 @@ class CreateOrcamentoCase {
             minimumFractionDigits: 0,
             maximumFractionDigits: 0,
           }).format(newOrcamento.total)}, para data  ${format(
-            data?.data,
+            newOrcamento?.dataInicio,
             "dd/MM/yyyy"
           )}`,
           type: "ORCAMENTO",

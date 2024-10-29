@@ -27,8 +27,8 @@ export interface IOrcamentoRequest {
   total: number;
   nome: string;
   tipo: string;
-  data: string;
   email: string;
+  data: string;
   texto: string;
   telefone: string;
   limpeza: boolean;
