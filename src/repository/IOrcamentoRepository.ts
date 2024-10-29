@@ -23,6 +23,23 @@ export interface IOrcamentoParams {
   total: number;
   aprovadoCliente?: boolean;
 }
+export interface IOrcamentoRequest {
+  total: number;
+  nome: string;
+  tipo: string;
+  data: string;
+  email: string;
+  texto: string;
+  telefone: string;
+  limpeza: boolean;
+  convidados: number;
+  seguranca: boolean;
+  horarioFim: string;
+  trafegoCanal: string;
+  horarioInicio: string;
+  conheceEspaco: boolean;
+  recepcionista: boolean;
+}
 
 export interface UpdateOrcamentoParams {
   orcamentoId: string | undefined;
