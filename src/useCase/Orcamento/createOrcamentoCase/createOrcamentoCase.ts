@@ -35,7 +35,8 @@ class CreateOrcamentoCase {
           separador: "/",
         });
       
-      const {data, ...rest } = orcamentoRequest  
+      const {data,horarioFim,horarioInicio, ...rest } = orcamentoRequest  
+      
       const createOrcParam: IOrcamentoParams = {
         dataFim: dataFim,
         dataInicio: inicial,
