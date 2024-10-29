@@ -16,12 +16,6 @@ class CreateNotificationController {
 
     try {
       const newNotification = await createNotificationCase.execute(data);
-
-      pusher.trigger("notificacoes", "atualizacaoNotificacao", {
-        message: "Nova notificacao",
-        data: newNotification,
-      });
-  
       return resp.json(newNotification);
     } catch (error) {
       return resp.status(400).json({ error: error.message });
