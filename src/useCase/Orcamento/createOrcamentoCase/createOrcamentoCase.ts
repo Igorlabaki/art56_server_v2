@@ -59,7 +59,7 @@ class CreateOrcamentoCase {
             minimumFractionDigits: 0,
             maximumFractionDigits: 0,
           }).format(newOrcamento.total)}, para data  ${format(
-            data?.data,
+            newOrcamento?.dataInicio,
             "dd/MM/yyyy"
           )}`,
           type: "ORCAMENTO",
