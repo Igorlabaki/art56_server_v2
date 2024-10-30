@@ -131,7 +131,7 @@ model DateEvent {
 model Notification {
   id          String           @id @default(uuid())
   orcamentoId String
-  orcamento   Orcamento        @relation(fields: [orcamentoId], references: [id])
+  orcamento   Orcamento        @relation(fields: [orcamentoId], references: [id], onDelete: Cascade)
   content     String
   type        NotificationType
   createdAt   DateTime         @default(now())
