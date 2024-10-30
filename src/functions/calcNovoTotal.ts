@@ -12,7 +12,7 @@ interface CalcNovoTotalProps{
     limpeza: boolean;
     seguranca: boolean;
     convidados: number;
-    dataInicio: string;
+    data: string;
     horarioInicio: string;
     horarioFim: string;
     valueList: Values[];
@@ -21,10 +21,10 @@ interface CalcNovoTotalProps{
   separador?: string;
 }
 
-export function calcNovoTotal({data: {valueList,limpeza,dataInicio,horarioInicio,horarioFim,seguranca,recepcionista,convidados, total},separador}: CalcNovoTotalProps){
+export function calcNovoTotal({data: {valueList,limpeza,data,horarioInicio,horarioFim,seguranca,recepcionista,convidados, total},separador}: CalcNovoTotalProps){
     const { dataFinal, dataInicial } = transformDate({
         separador,
-        dataInicio: dataInicio,
+        dataInicio: data,
         horarioFim: horarioFim,
         horarioInicio: horarioInicio,
       });

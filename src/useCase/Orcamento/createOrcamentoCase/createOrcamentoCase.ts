@@ -82,7 +82,7 @@ class CreateOrcamentoCase {
         data: {
           valueList: valueList,
           convidados: orcamentoRequest.convidados,
-          dataInicio: orcamentoRequest.data,
+          data: orcamentoRequest.data,
           horarioFim: orcamentoRequest.horarioFim,
           horarioInicio: orcamentoRequest.horarioInicio,
           limpeza: orcamentoRequest.limpeza,

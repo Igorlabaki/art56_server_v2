@@ -3,6 +3,7 @@ import { UpdateOrcamentoParams } from "../../../repository/IOrcamentoRepository"
 import { PrismaOrcamentoRepository } from "../../../repository/inPrisma/prismaOrcamentoRepository";
 import { prismaClient } from "../../../service/prisma";
 import { UpdateOrcamentoCase } from "./updateOrcamentoCase";
+import { PrismaValueRepository } from "../../../repository/inPrisma/prismaValueRepository";
 
 class UpdateOrcamentoController {
   constructor() {}
@@ -12,7 +13,8 @@ class UpdateOrcamentoController {
     const data  = req.body;
 
     const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
-    const updateOrcamentoCase = new UpdateOrcamentoCase(prismaOrcamentoRepository);
+    const prismaValueRepository = new PrismaValueRepository(prismaClient);
+    const updateOrcamentoCase = new UpdateOrcamentoCase(prismaOrcamentoRepository,prismaValueRepository);
 
     try {
       const newOrcamneto = await updateOrcamentoCase.execute({orcamentoId, data});

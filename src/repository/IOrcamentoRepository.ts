@@ -41,8 +41,29 @@ export interface IOrcamentoRequest {
   recepcionista: boolean;
 }
 
+export interface IOrcamentoUpdateRequest {
+  orcamentoId: string;
+  data: {
+    total: number;
+    nome: string;
+    tipo: string;
+    email: string;
+    data: string;
+    texto: string;
+    telefone: string;
+    limpeza: boolean;
+    convidados: number;
+    seguranca: boolean;
+    horarioFim: string;
+    trafegoCanal: string;
+    horarioInicio: string;
+    conheceEspaco: boolean;
+    recepcionista: boolean;
+  };
+}
+
 export interface UpdateOrcamentoParams {
-  orcamentoId: string | undefined;
+  orcamentoId: string;
   data: {
     aprovadoAr756?: boolean;
     tipo: string | undefined;
@@ -57,15 +78,15 @@ export interface UpdateOrcamentoParams {
     contato?: boolean | undefined;
     convidados?: number | undefined;
     termosAceito?: boolean;
-    dataInicio?: string | Date | undefined;
+    data?: string | Date | undefined;
     seguranca?: boolean | undefined;
     trafegoCanal?: string | undefined;
     conheceEspaco?: boolean | undefined;
     recepcionista?: boolean | undefined;
+    total?: number | undefined;
     valorBase?: number | undefined;
     qtdHorasExtras?: number | undefined;
     valorHoraExtra?: number | undefined;
-    total?: number | undefined;
   };
 }
 
@@ -80,22 +101,22 @@ export interface TrafegoCount {
 }
 
 export interface ListOrcamentoParams {
-  query?: string ,
-  month?: number,
-  year?: number,
-  take?: number
+  query?: string;
+  month?: number;
+  year?: number;
+  take?: number;
 }
 export interface MonthCountParams {
-  year?: number,
+  year?: number;
 }
 
 export interface IOrcamentoRepository {
   delete: (reference: string) => Promise<Orcamento | null>;
   getById: (reference: string) => Promise<Orcamento | null>;
-  monthCount: (reference : MonthCountParams) => Promise<any | null>;
+  monthCount: (reference: MonthCountParams) => Promise<any | null>;
   create: (reference: IOrcamentoParams) => Promise<Orcamento | null>;
-  trafegoCount: (reference : MonthCountParams) => Promise<any | null>;
-  list: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
+  trafegoCount: (reference: MonthCountParams) => Promise<any | null>;
+  list: (reference: ListOrcamentoParams) => Promise<Orcamento[] | null>;
   update: (reference: UpdateOrcamentoParams) => Promise<Orcamento | null>;
-  listAprovado: (reference:ListOrcamentoParams) => Promise<Orcamento[] | null>;
+  listAprovado: (reference: ListOrcamentoParams) => Promise<Orcamento[] | null>;
 }
