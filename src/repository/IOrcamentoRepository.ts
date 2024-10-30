@@ -78,7 +78,7 @@ export interface UpdateOrcamentoParams {
     contato?: boolean | undefined;
     convidados?: number | undefined;
     termosAceito?: boolean;
-    data?: string | Date | undefined;
+    dataInicio?: string | Date | undefined;
     seguranca?: boolean | undefined;
     trafegoCanal?: string | undefined;
     conheceEspaco?: boolean | undefined;
