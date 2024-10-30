@@ -1,5 +1,5 @@
 import cors from "cors";
-import Pusher from "pusher";
+/* import Pusher from "pusher"; */
 import "express-async-errors";
 import { authRoutes } from "./router/auth";
 import express, { NextFunction, Request, Response } from "express";
@@ -35,17 +35,17 @@ app.use("/dateEvent", dateEventRoutes);
 app.use("/orcamento", orcamentoRoutes);
 app.use("/notification", notificationRoutes);
 
-export const pusher = new Pusher({
+/* export const pusher = new Pusher({
   appId: "1887262",
   key: "244a09e8fab17da272e0",
   secret: "6cd34f1685b8348c5a3a",
   cluster: "sa1",
   useTLS: true
-});
+}); */
 
-pusher.trigger("ar756", "notificacoes", {
+/* pusher.trigger("ar756", "notificacoes", {
   message: "Notificacao"
-});
+}); */
 
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
   return resp.json({

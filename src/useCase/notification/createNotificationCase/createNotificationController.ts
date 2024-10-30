@@ -3,7 +3,7 @@ import { prismaClient } from '../../../service/prisma';
 import { CreateNotificationCase } from './createNotificationCase';
 import { INotificationParams } from '../../../repository/INotificacaoRepository';
 import { PrismaNotificationRepository } from '../../../repository/inPrisma/prismaNotificationRepository';
-import { pusher } from '../../../server';
+/* import { pusher } from '../../../server'; */
 
 class CreateNotificationController {
   constructor() {}
