@@ -53,7 +53,7 @@ class CreateDateEventCase {
     if(newDate && newDate.orcamentoId){
       await this.notificationRepository.create({
         orcamentoId: newDate?.orcamentoId,
-        content: `${newDate.tipo} foi marcado(a), para data  ${format(data?.dataInicio , "dd/MM/yyyy")}`,
+        content: `Um(a) ${newDate.tipo} foi marcado(a), para data  ${format(data?.dataInicio , "dd/MM/yyyy")}`,
         type: newDate.tipo === "Evento" ?  "EVENTO" : "VISITA" 
       });
     }else if(newDate){
