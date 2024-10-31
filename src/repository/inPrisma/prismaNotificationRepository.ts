@@ -60,9 +60,6 @@ export class PrismaNotificationRepository implements INotificationRepository {
       orderBy: {
         createdAt: "desc",
       },
-      include:{
-        orcamento:  true
-      }
     });
   }
 }
