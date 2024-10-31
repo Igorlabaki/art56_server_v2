@@ -9,6 +9,7 @@ import {
 } from '../IDateEventRepository';
 
 import { PrismaClient, DateEvent } from '@prisma/client';
+import { MonthCountParams } from '../IOrcamentoRepository';
 
 export class PrismaDateEventRepository implements IDateEventRepository {
   constructor(private readonly prisma: PrismaClient) {}
@@ -128,6 +129,28 @@ export class PrismaDateEventRepository implements IDateEventRepository {
         tipo: 'Visita',
       },
     });
+  }
+
+  async visitCount({ year }: MonthCountParams): Promise<any> {
+    const visitCount = await this.prisma.dateEvent.findMany({
+      where: {
+        tipo: "Visita",
+        dataInicio: {
+          gte: new Date(year ? year : new Date().getFullYear()),
+          lt: new Date(year ? year : new Date().getFullYear(), 12, 31),
+        },
+      },
+      include: {
+        orcamento: {
+          select:{
+            aprovadoAr756: true,
+            aprovadoCliente: true
+          }
+        }
+      }
+    });
+
+    return visitCount
   }
 
   async update({ data, dateEventId }: UpdateDateEventParams): Promise<DateEvent | null> {

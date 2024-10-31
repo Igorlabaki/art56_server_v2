@@ -1,4 +1,5 @@
 import { DateEvent } from '@prisma/client';
+import { MonthCountParams } from './IOrcamentoRepository';
 export interface IDateEventParams {
   tipo: string;
   titulo: string;
@@ -42,9 +43,10 @@ export interface GetListDateEventParams{
 export interface IDateEventRepository {
   delete: (reference: string) => Promise<DateEvent | null>;
   getById: (reference: string) => Promise<DateEvent | null>;
+  visitCount: (reference: MonthCountParams) => Promise<any | null>;
   create: (reference: IDateEventParams) => Promise<DateEvent | null>;
-  list: (reference: GetListDateEventParams) =>Promise<DateEvent[] | null>;
   getByDate: (reference: GetByDateParams) => Promise<DateEvent | null>;
+  list: (reference: GetListDateEventParams) =>Promise<DateEvent[] | null>;
   update: (reference: UpdateDateEventParams) => Promise<DateEvent | null>;
   checkAvailability: (reference: ValidateDateParam) => Promise<DateEvent | null>;
   checkIfHasEventDate: (reference: ValidateIfHasDateDateParam) => Promise<DateEvent | null>;

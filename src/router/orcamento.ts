@@ -38,6 +38,7 @@ orcamentoRoutes.put("/update/:orcamentoId", updateOrcamentoFactory().handle);
 orcamentoRoutes.get("/getTrafegoCount/:year?", getTrafegoCountFactory().handle);
 
 orcamentoRoutes.get("/getMonthCount/:year?", getMonthCountFactory().handle);
+
 // 
 
 export { orcamentoRoutes };

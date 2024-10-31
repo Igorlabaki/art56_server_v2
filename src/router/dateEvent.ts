@@ -11,6 +11,7 @@ import { listDateEventFactory } from "../useCase/date/listDateCase/listDateFacto
 import { updateDateEventFactory } from "../useCase/date/updateDateCase/updateDateFactory";
 import { getDateEventByIdFactory } from "../useCase/date/getDataByIdCase/getDataByIdFactory";
 import { getDateEventByDateFactory } from "../useCase/date/getDataByDateCase/getDataByIdFactory";
+import { getVisitCountFactory } from "../useCase/date/getVisitCount/getVisitCountFactory";
 
 const dateEventRoutes = Router();
 
@@ -37,5 +38,8 @@ dateEventRoutes.get("/getByDate/:date", getDateEventByDateFactory().handle);
 // Delete
 dateEventRoutes.delete("/delete/:dateEventId", deleteDateEventFactory().handle);
 //
+
+
+dateEventRoutes.get("/getVisitCount/:year?", getVisitCountFactory().handle);
 
 export { dateEventRoutes };
