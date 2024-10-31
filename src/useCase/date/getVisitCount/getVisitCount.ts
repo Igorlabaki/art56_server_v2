@@ -31,6 +31,7 @@ class GetVisitCountCase {
           porcentagem: (visitasQueNaoViraramEvento / totalVisitas) * 100,
           qtd: visitasQueNaoViraramEvento,
       },
+      total: visitasQueViraramEvento + visitasQueNaoViraramEvento
   };
 
     return resultado;
