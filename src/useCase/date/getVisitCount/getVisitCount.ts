@@ -24,11 +24,11 @@ class GetVisitCountCase {
 
     const resultado = {
       visitasQueViraramEvento: {
-          porcentagem: (visitasQueViraramEvento / totalVisitas) * 100,
+          porcentagem: ((visitasQueViraramEvento / totalVisitas) * 100).toFixed(1),
           qtd: visitasQueViraramEvento,
       },
       visitasQueNaoViraramEvento: {
-          porcentagem: (visitasQueNaoViraramEvento / totalVisitas) * 100,
+          porcentagem: ((visitasQueNaoViraramEvento / totalVisitas) * 100).toFixed(1),
           qtd: visitasQueNaoViraramEvento,
       },
       total: visitasQueViraramEvento + visitasQueNaoViraramEvento
