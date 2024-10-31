@@ -22,13 +22,18 @@ class GetVisitCountCase {
     ).length;
     const visitasQueNaoViraramEvento = totalVisitas - visitasQueViraramEvento;
 
-    const porcentagens = {
-      visitasQueViraramEvento: (visitasQueViraramEvento / totalVisitas) * 100,
-      visitasQueNaoViraramEvento:
-        (visitasQueNaoViraramEvento / totalVisitas) * 100,
-    };
+    const resultado = {
+      visitasQueViraramEvento: {
+          porcentagem: (visitasQueViraramEvento / totalVisitas) * 100,
+          qtd: visitasQueViraramEvento,
+      },
+      visitasQueNaoViraramEvento: {
+          porcentagem: (visitasQueNaoViraramEvento / totalVisitas) * 100,
+          qtd: visitasQueNaoViraramEvento,
+      },
+  };
 
-    return porcentagens;
+    return resultado;
   }
 }
 
