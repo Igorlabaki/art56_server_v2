@@ -59,7 +59,7 @@ class CreateDateEventCase {
     }else if(newDate){
       await this.notificationRepository.create({
         orcamentoId: "cm1qq00hx0001rm1ir24eqnhw",
-        content: `${newDate.titulo} foi marcado(a), para data ${newDate.dataInicio}`,
+        content: `${newDate.titulo} foi marcado(a), para data ${format(data?.dataInicio , "dd/MM/yyyy")}`,
         type: "ALERTA" 
       });
     }
