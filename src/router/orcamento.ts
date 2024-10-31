@@ -16,11 +16,11 @@ orcamentoRoutes.post("/create", createOrcamentoFactory().handle);
 //
 
 // List
-orcamentoRoutes.get("/list/:query?/:year?/:month?", listOrcamentoFactory().handle);
+orcamentoRoutes.get("/list/:email?/:nome?/:year?/:month?", listOrcamentoFactory().handle);
 //
 
 // List Aprovado
-orcamentoRoutes.get("/listAprovado/:query?/:year?/:month?", listOrcamentoAprovadoFactory().handle);
+orcamentoRoutes.get("/listAprovado/:email?/:nome?/:year?/:month?", listOrcamentoAprovadoFactory().handle);
 //
 
 // Delete

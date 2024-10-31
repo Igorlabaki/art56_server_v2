@@ -101,7 +101,8 @@ export interface TrafegoCount {
 }
 
 export interface ListOrcamentoParams {
-  query?: string;
+  nome?:string;
+  email?: string;
   month?: number;
   year?: number;
   take?: number;
