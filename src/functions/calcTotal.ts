@@ -62,7 +62,7 @@ export function calcTotal({
     250
   );
 
-  const [monthInicio] = dataInicio.split("-");
+  const [day ,monthInicio, year] = dataInicio.split("-");
 
   const diaria = calcDiaria(
     "Festa",
