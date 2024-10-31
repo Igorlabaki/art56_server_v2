@@ -2,7 +2,7 @@ import { Notification } from '@prisma/client';
 
 export interface INotificationParams {
   content: string;
-  orcamentoId: string;
+  orcamentoId?: string;
   type:  "VISITA" | "EVENTO" | "ALERTA" | "ORCAMENTO"
   isRead?: boolean;
 }
