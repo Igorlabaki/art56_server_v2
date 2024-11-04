@@ -61,8 +61,13 @@ export class PrismaNotificationRepository implements INotificationRepository {
         createdAt: "desc",
       },
       include:{
-        orcamento: true
-      }
+        orcamento: true,
+        dateEvent: {
+          select:{
+            orcamento: true
+          }
+        }
+      },
     });
   }
 }
