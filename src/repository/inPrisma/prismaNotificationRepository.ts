@@ -51,19 +51,17 @@ export class PrismaNotificationRepository implements INotificationRepository {
   async list(reference: string | undefined): Promise<Notification[]> {
     const today = new Date();
     return await this.prisma.notification.findMany({
-      where: {
-        take: 25
-      },
+      take: 25,
       orderBy: {
         createdAt: "desc",
       },
-      include:{
+      include: {
         orcamento: true,
         dateEvent: {
-          select:{
-            orcamento: true
-          }
-        }
+          select: {
+            orcamento: true,
+          },
+        },
       },
     });
   }
