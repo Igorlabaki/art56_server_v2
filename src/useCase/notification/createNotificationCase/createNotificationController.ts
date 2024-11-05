@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { prismaClient } from "../../../service/prisma";
 import { CreateNotificationCase } from "./createNotificationCase";
 import { INotificationParams } from "../../../repository/INotificacaoRepository";
+import { PrismaNotificationRepository } from "../../../repository/inPrisma/prismaNotificationRepository";
 
 class CreateNotificationController {
   constructor() {}
