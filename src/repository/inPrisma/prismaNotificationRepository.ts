@@ -52,10 +52,7 @@ export class PrismaNotificationRepository implements INotificationRepository {
     const today = new Date();
     return await this.prisma.notification.findMany({
       where: {
-        createdAt: {
-          gte:  new Date(today.setHours(0, 0, 0, 0)), // maior ou igual a início do dia
-          lte:  new Date(today.setHours(23, 59, 59, 999)),   // menor ou igual a fim do dia
-        },
+        take: 25
       },
       orderBy: {
         createdAt: "desc",
