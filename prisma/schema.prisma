@@ -53,6 +53,8 @@ model Orcamento {
   created_at      DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   contato         Boolean?
+  pago            Boolean?       @default(false) // Indica se o orçamento foi totalmente pago
+  valorPago       Float?         @default(0.0) // Armazena o valor pago até o momento
   Data            DateEvent[]
   Despesa         Despesa[]
   Notification    Notification[]
