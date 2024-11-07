@@ -8,7 +8,7 @@ export interface ISendOrcamentoEmailParams {
 
 class SendOrcamentoEmailCase {
   async execute({ email, nome, orcamentoId }: ISendOrcamentoEmailParams) {
-    
+
     const transporter = nodemailer.createTransport({
       host: "smtp.hostinger.com",
       port: 587,
@@ -21,7 +21,7 @@ class SendOrcamentoEmailCase {
   
     const mailOptions = {
       from: '"AR756" <contato@ar756.com>',
-      to: values.email,
+      to: email,
       subject: "Proposta AR756",
       html: `
              <div style="font-family: Arial, sans-serif; height: 990px;">
