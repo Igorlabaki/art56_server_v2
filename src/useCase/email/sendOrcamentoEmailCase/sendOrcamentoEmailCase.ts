@@ -62,6 +62,8 @@ class SendOrcamentoEmailCase {
             })  */
     };
     await transporter.sendMail(mailOptions);
+
+    return {email,nome, orcamentoId}
   }
 }
 
