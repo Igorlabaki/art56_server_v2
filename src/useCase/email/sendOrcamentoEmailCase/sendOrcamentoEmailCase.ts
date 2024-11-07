@@ -8,7 +8,7 @@ export interface ISendOrcamentoEmailParams {
 
 class SendOrcamentoEmailCase {
   async execute({ email, nome, orcamentoId }: ISendOrcamentoEmailParams) {
-
+    console.log( email, nome, orcamentoId)
     const transporter = nodemailer.createTransport({
       host: "smtp.hostinger.com",
       port: 587,
