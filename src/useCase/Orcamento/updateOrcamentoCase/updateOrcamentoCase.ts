@@ -43,6 +43,8 @@ class UpdateOrcamentoCase {
       const updatedOrcamento = await this.orcamentoRepository.update({
         orcamentoId: updateOrcamentoParams.orcamentoId,
         data: {
+          valorPago: updateOrcamentoParams.data.valorPago,
+          pago: updateOrcamentoParams.data.valorPago === updateOrcamentoParams.data.total,
           tipo: updateOrcamentoParams.data.tipo,
           nome: updateOrcamentoParams.data.nome,
           email: updateOrcamentoParams.data.email,
@@ -81,6 +83,8 @@ class UpdateOrcamentoCase {
         contato: false,
         total: novoTotal,
         valorBase: diaria,
+        valorPago: updateOrcamentoParams.data.valorPago,
+        pago: updateOrcamentoParams.data.valorPago === updateOrcamentoParams.data.total,
         nome: updateOrcamentoParams.data?.nome,
         email: updateOrcamentoParams.data?.email,
         texto: updateOrcamentoParams.data?.texto,

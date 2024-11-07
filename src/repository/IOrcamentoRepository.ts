@@ -8,6 +8,7 @@ export interface IOrcamentoParams {
   dataFim: string | Date;
   telefone: string;
   limpeza: boolean;
+  valorBase: number;
   feedback?: string;
   convidados: number;
   dataInicio: string | Date;
@@ -16,7 +17,6 @@ export interface IOrcamentoParams {
   conheceEspaco: boolean;
   termosAceito?: boolean;
   recepcionista: boolean;
-  valorBase: number;
   qtdHorasExtras: number;
   valorHoraExtra: number;
   aprovadoAr756?: boolean;
@@ -44,6 +44,8 @@ export interface IOrcamentoRequest {
 export interface IOrcamentoUpdateRequest {
   orcamentoId: string;
   data: {
+    pago?: boolean
+    valorPago?: number;
     total: number;
     nome: string;
     tipo: string;
@@ -65,6 +67,8 @@ export interface IOrcamentoUpdateRequest {
 export interface UpdateOrcamentoParams {
   orcamentoId: string;
   data: {
+    pago?: boolean
+    valorPago?: number;
     aprovadoAr756?: boolean;
     tipo: string | undefined;
     nome?: string | undefined;
