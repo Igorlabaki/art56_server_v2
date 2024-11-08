@@ -61,9 +61,36 @@ class SendOrcamentoEmailCase {
                 }
             })  */
     };
-    await transporter.sendMail(mailOptions);
-
-    return {email,nome, orcamentoId}
+    
+    try {
+      const email = await transporter.sendMail(mailOptions);
+    
+      // Verifica se o e-mail foi aceito pelo servidor de e-mail
+      if (email.accepted.length > 0) {
+        console.log("E-mail enviado com sucesso:", email.messageId);
+        // Mensagem de confirmação ou retorno de sucesso
+        return {
+          status: "success",
+          message: "E-mail enviado com sucesso",
+          messageId: email.messageId,
+        };
+      } else {
+        console.log("O e-mail foi rejeitado:", email.rejected);
+        // Retorno de falha caso tenha sido rejeitado
+        return {
+          status: "failure",
+          message: "Falha ao enviar o e-mail",
+          rejected: email.rejected,
+        };
+      }
+    } catch (error) {
+      console.error("Erro ao enviar o e-mail:", error);
+      // Retorno do erro para tratamento
+      return {
+        status: "error",
+        message: "Erro ao enviar o e-mail",
+        error: error.message,
+      };
   }
 }
 
