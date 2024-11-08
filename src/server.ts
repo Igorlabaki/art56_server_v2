@@ -12,6 +12,7 @@ import { dateEventRoutes } from "./router/dateEvent";
 import { emailRoutes } from "./router/email";
 import { despesaRoutes } from "./router/despesa";
 import { notificationRoutes } from "./router/notification";
+import { pagamentoRoutes } from "./router/pagamento";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/image", imageRoutes);
 app.use("/email", emailRoutes);
 app.use("/despesa", despesaRoutes);
 app.use("/question", questionRoutes);
+app.use("/pagamento", pagamentoRoutes);
 app.use("/dateEvent", dateEventRoutes);
 app.use("/orcamento", orcamentoRoutes);
 app.use("/notification", notificationRoutes);

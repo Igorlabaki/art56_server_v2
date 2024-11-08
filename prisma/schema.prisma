@@ -58,6 +58,7 @@ model Orcamento {
   Data            DateEvent[]
   Despesa         Despesa[]
   Notification    Notification[]
+  Pagamentos      Pagamentos[]
 
   @@map("orcamento")
 }
@@ -144,6 +145,17 @@ model Notification {
 
   @@index([orcamentoId])
   @@index([dateEventId])
+}
+
+model Pagamentos {
+  id            String    @id @default(uuid())
+  orcamentoId   String
+  orcamento     Orcamento @relation(fields: [orcamentoId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+  value         Int
+  dataPagamento DateTime  @default(now())
+
+  @@index([orcamentoId])
 }
 
 enum NotificationType {

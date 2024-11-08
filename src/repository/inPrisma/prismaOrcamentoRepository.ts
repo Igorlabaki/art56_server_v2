@@ -92,7 +92,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       ...(take && { take: Number(take) }),
       orderBy: {
         dataInicio: "asc",
-      },
+      }
     });
   }
 
@@ -137,6 +137,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       orderBy: {
         dataInicio: "asc",
       },
+      include:{
+        Pagamentos: true
+      }
     });
   }
 
