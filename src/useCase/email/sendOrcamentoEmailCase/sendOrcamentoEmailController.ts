@@ -6,11 +6,17 @@ import { IOrcamentoParams } from '../../../repository/IOrcamentoRepository';
 import { Request, Response } from 'express';
 import { CreateOrcamentoCase } from '../../Orcamento/createOrcamentoCase/createOrcamentoCase';
 
+interface ISenEmailProps{
+  email: string;
+  orcamentoId: string;
+  nome: string;
+}
+
 class SendOrcamentoEmailController {
   constructor() {}
 
   async handle(resp: Response, req: Request) {
-    const data : IOrcamentoParams = req.body;
+    const data : ISenEmailProps = req.body;
     const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
     const createOrcamentoCase = new CreateOrcamentoCase(prismaOrcamentoRepository)
     const sendOrcamentoEmailCase = new SendOrcamentoEmailCase();
