@@ -6,7 +6,7 @@ export interface ISendOrcamentoEmailParams {
   orcamentoId: string | undefined;
 }
 
-class SendOrcamentoEmailCase {
+export class SendOrcamentoEmailCase {
   async execute({ email, nome, orcamentoId }: ISendOrcamentoEmailParams) {
     console.log( email, nome, orcamentoId)
     const transporter = nodemailer.createTransport({
@@ -32,10 +32,10 @@ class SendOrcamentoEmailCase {
                             <tr>
                             <td style="text-align: center;">
                                 <img style="width: 200px; height: 120px; margin: 0 auto;" src="https://res.cloudinary.com/dzvyh5r33/image/upload/v1729510932/WhatsApp_Image_2024-09-23_at_18.11.28_ivgong.jpg" alt="logo AR756" />
-                                <h1 style="color: #333; width: 100%; text-align: center; margin-top: 10px;">Olá ${values.nome}, recebemos a sua mensagem!</h1>
+                                <h1 style="color: #333; width: 100%; text-align: center; margin-top: 10px;">Olá ${nome}, recebemos a sua mensagem!</h1>
                                 <p style="font-size: 14px; width: 60%; margin: 10px auto; text-align: center;">Agradecemos o seu interesse em conhecer a AR756. Simulamos um orçamento para seu evento, por gentileza clique no botão abaixo para ver a proposta.</p>
                                 <div style="width: 100%; text-align: center;margin-top: 40px;">
-                                <a href="https://ar756.com/orcamento/byId/${novoOrcamento.id}" style="text-decoration: none;">
+                                <a href="https://ar756.com/orcamento/byId/${orcamentoId}" style="text-decoration: none;">
                                     <button style="background-color: black; color: white; font-size: 20px; padding: 10px 20px; border-radius: 5px; display: inline-block;">Orçamento</button>
                                 </a>
                                 </div>
@@ -93,5 +93,4 @@ class SendOrcamentoEmailCase {
       };
   }
 }
-
-export { SendOrcamentoEmailCase };
+}

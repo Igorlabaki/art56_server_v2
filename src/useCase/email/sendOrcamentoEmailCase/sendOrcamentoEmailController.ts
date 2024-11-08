@@ -16,7 +16,7 @@ interface ISenEmailProps{
 class SendOrcamentoEmailController {
   constructor() {}
 
-  async handle(res: Response, req: Request) {
+  async handle(req: Request,res: Response) {
     const data : ISenEmailProps = req.body;
     const sendOrcamentoEmailCase = new SendOrcamentoEmailCase();
 
