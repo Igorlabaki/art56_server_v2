@@ -19,18 +19,17 @@ class DeletePagamentoCase {
 
     const orcamentoBYId = await this.orcamentoRepository.getById(validateIfExistPagamentoExist.id);
 
-    const deletePagamento = await this.pagamentoRepository.delete(reference);
-
-    if(deletePagamento && orcamentoBYId){
+    if(orcamentoBYId){
       await this.orcamentoRepository.update({
         data:{
           pago: false,
-          valorPago: (orcamentoBYId?.valorPago || 0) - (deletePagamento?.value || 0),
+          valorPago: (orcamentoBYId?.valorPago || 0) - (validateIfExistPagamentoExist?.value || 0),
         },
         orcamentoId: orcamentoBYId.id
       })
-
     }
+
+    const deletePagamento = await this.pagamentoRepository.delete(reference);
 
     return deletePagamento;
   }
