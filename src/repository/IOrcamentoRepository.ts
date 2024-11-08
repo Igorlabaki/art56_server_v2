@@ -70,7 +70,7 @@ export interface UpdateOrcamentoParams {
     pago?: boolean
     valorPago?: number;
     aprovadoAr756?: boolean;
-    tipo: string | undefined;
+    tipo?: string | undefined;
     nome?: string | undefined;
     aprovadoCliente?: boolean;
     email?: string | undefined;
