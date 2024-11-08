@@ -58,7 +58,7 @@ model Orcamento {
   Data            DateEvent[]
   Despesa         Despesa[]
   Notification    Notification[]
-  Pagamentos      Pagamentos[]
+  pagamentos      Pagamentos[]
 
   @@map("orcamento")
 }

@@ -94,7 +94,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         dataInicio: "asc",
       },
       include:{
-        Pagamentos: true
+        pagamentos: true
       }
     });
   }
@@ -141,7 +141,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
         dataInicio: "asc",
       },
       include:{
-        Pagamentos: true
+        pagamentos: true
       }
     });
   }

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { PrismaPagamentoRepository } from "../../../repository/inPrisma/prismaPagamentoRepository";
 import { prismaClient } from "../../../service/prisma";
 import { DeletePagamentoCase } from "./deletePagamentoCase";
+import { PrismaOrcamentoRepository } from "../../../repository/inPrisma/prismaOrcamentoRepository";
 
 class DeletePagamentoController {
   /*  constructor(private deletePagamentoCase: DeletePagamentoCase) {} */
@@ -10,7 +11,8 @@ class DeletePagamentoController {
     const { pagamentoId } = req.params;
 
     const prismaPagamentoRepository = new PrismaPagamentoRepository(prismaClient);
-    const deletePagamentoCase = new DeletePagamentoCase(prismaPagamentoRepository);
+    const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
+    const deletePagamentoCase = new DeletePagamentoCase(prismaPagamentoRepository,prismaOrcamentoRepository);
 
     try {
       const deletePagamento = await deletePagamentoCase.execute(pagamentoId);
