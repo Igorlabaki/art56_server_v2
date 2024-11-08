@@ -3,8 +3,9 @@ import { SendOrcamentoEmailCase } from './sendOrcamentoEmailCase';
 import { PrismaOrcamentoRepository } from '../../../repository/inPrisma/prismaOrcamentoRepository';
 import { prismaClient } from '../../../service/prisma';
 import { IOrcamentoParams } from '../../../repository/IOrcamentoRepository';
-import { Request, Response } from 'express';
+
 import { CreateOrcamentoCase } from '../../Orcamento/createOrcamentoCase/createOrcamentoCase';
+import { Request,Response } from 'express';
 
 interface ISenEmailProps{
   email: string;
@@ -15,18 +16,20 @@ interface ISenEmailProps{
 class SendOrcamentoEmailController {
   constructor() {}
 
-  async handle(resp: Response, req: Request) {
+  async handle(res: Response, req: Request) {
     const data : ISenEmailProps = req.body;
-    const prismaOrcamentoRepository = new PrismaOrcamentoRepository(prismaClient);
-    const createOrcamentoCase = new CreateOrcamentoCase(prismaOrcamentoRepository)
     const sendOrcamentoEmailCase = new SendOrcamentoEmailCase();
 
     try {
-      const newOrcamento = await createOrcamentoCase.execute(data);
-      await sendOrcamentoEmailCase.execute({email: data.email, nome: data.nome,orcamentoId:newOrcamento?.id});
-      return resp.json(newOrcamento)
+      await sendOrcamentoEmailCase.execute({
+        email: data.email,
+        nome: data.nome,
+        orcamentoId: data.orcamentoId
+      });
+      return res.status(200).json({ message: "E-mail enviado com sucesso" });
     } catch (error) {
-      return resp.status(400).json({error})
+      console.error("Erro ao enviar e-mail:", error); // Log para depuração
+      return res.status(400).json({ message: "Erro ao enviar e-mail", error: error.message });
     }
   }
 }
