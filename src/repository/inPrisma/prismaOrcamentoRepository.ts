@@ -33,6 +33,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       where: {
         id: reference,
       },
+      include:{
+        pagamentos: true
+      }
     });
   }
 
