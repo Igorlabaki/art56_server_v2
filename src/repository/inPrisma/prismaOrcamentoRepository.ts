@@ -2,6 +2,7 @@ import {
   IOrcamentoParams,
   IOrcamentoRepository,
   ListOrcamentoParams,
+  ListOrcamentoResponse,
   MonthCountParams,
   TrafegoCount,
   UpdateOrcamentoParams,
@@ -33,9 +34,10 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       where: {
         id: reference,
       },
-      include:{
-        pagamentos: true
-      }
+      include: {
+        pagamentos: true,
+        Data: true,
+      },
     });
   }
 
@@ -59,7 +61,7 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
     month,
     year,
     take,
-  }: ListOrcamentoParams): Promise<Orcamento[]> {
+  }: ListOrcamentoParams): Promise<ListOrcamentoResponse[]> {
     return await this.prisma.orcamento.findMany({
       where: {
         ...(nome && {
@@ -96,9 +98,13 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       orderBy: {
         dataInicio: "asc",
       },
-      include:{
-        pagamentos: true
-      }
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+        dataInicio: true,
+        total: true,
+      },
     });
   }
 
@@ -143,9 +149,9 @@ export class PrismaOrcamentoRepository implements IOrcamentoRepository {
       orderBy: {
         dataInicio: "asc",
       },
-      include:{
-        pagamentos: true
-      }
+      include: {
+        pagamentos: true,
+      },
     });
   }
 

@@ -41,6 +41,13 @@ export interface IOrcamentoRequest {
   recepcionista: boolean;
 }
 
+export interface ListOrcamentoResponse{
+  id: string;
+  nome: string;
+  email: string;
+  total: number;
+}
+
 export interface IOrcamentoUpdateRequest {
   orcamentoId: string;
   data: {
@@ -121,7 +128,7 @@ export interface IOrcamentoRepository {
   monthCount: (reference: MonthCountParams) => Promise<any | null>;
   create: (reference: IOrcamentoParams) => Promise<Orcamento | null>;
   trafegoCount: (reference: MonthCountParams) => Promise<any | null>;
-  list: (reference: ListOrcamentoParams) => Promise<Orcamento[] | null>;
+  list: (reference: ListOrcamentoParams) => Promise<ListOrcamentoResponse[] | null>;
   update: (reference: UpdateOrcamentoParams) => Promise<Orcamento | null>;
-  listAprovado: (reference: ListOrcamentoParams) => Promise<Orcamento[] | null>;
+  listAprovado: (reference: ListOrcamentoParams) => Promise<ListOrcamentoResponse[] | null>;
 }
