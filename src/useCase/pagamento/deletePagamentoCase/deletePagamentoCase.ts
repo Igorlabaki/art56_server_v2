@@ -17,7 +17,7 @@ class DeletePagamentoCase {
       throw error;
     }
 
-    const orcamentoBYId = await this.orcamentoRepository.getById(validateIfExistPagamentoExist.id);
+    const orcamentoBYId = await this.orcamentoRepository.getById(validateIfExistPagamentoExist.orcamentoId);
 
     if(orcamentoBYId){
       await this.orcamentoRepository.update({
